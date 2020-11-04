@@ -1,0 +1,4 @@
+#Mon Nov 02 17:54:47 CST 2020
+base.0=/Users/the-starry/Documents/GitHub/Sandglass/android/build/intermediates/dex/debug/mergeDexDebug/classes.dex
+path.0=classes.dex
+renamed.0=classes.dex
