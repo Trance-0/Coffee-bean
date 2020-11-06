@@ -1,4 +1,7 @@
 android {
+dexOptions {
+    javaMaxHeapSize "4g"
+}
     buildToolsVersion "29.0.2"
     compileSdkVersion 29
     sourceSets {

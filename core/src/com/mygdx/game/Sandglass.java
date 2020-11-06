@@ -1,33 +1,56 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Preferences;
 
-public class Sandglass extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+public class Sandglass extends Game {
+	private Preferences prefs;
+
+	private ThemeLoading a;
+	private ThemeMain b;
+	private ThemeSetting c;
+	private ThemeLogin d;
+
+	public void setPreference(Preferences p) {
+		prefs = p;
+	}
+
+	public Preferences getPreference() {
+		return prefs;
+	}
+
+	public void clearAll() {
+		if (a != null) {
+			a.dispose();
+		}
+		if (b != null) {
+			b.dispose();
+		}
+		if (c != null) {
+			c.dispose();
+		}
+		if (d != null) {
+			d.dispose();
+		}
+	}
+
+	public void showMain() {
+		// TODO Auto-generated method stub
+		clearAll();
+		b = new ThemeMain(this);
+		this.setScreen(b);
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void create() {
+		// TODO Auto-generated method stub
+
 	}
-	
-	@Override
-	public void dispose () {
-		batch.dispose();
-		img.dispose();
+
+	public void showLogin() {
+		clearAll();
+		d = new ThemeLogin(this);
+		this.setScreen(d);
 	}
+
 }
