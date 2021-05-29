@@ -62,9 +62,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BlockChain.cs" />
+    <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\NewTaskWindowManager.cs" />
-    <Compile Include="Assets\Scripts\Stocks.cs" />
+    <Compile Include="Assets\Scripts\NewTaskWindowWaker.cs" />
+    <Compile Include="Assets\Scripts\ObjectCopier.cs" />
+    <Compile Include="Assets\Scripts\PriorityQueue.cs" />
+    <Compile Include="Assets\Scripts\SortBy.cs" />
+    <Compile Include="Assets\Scripts\Tag.cs" />
+    <Compile Include="Assets\Scripts\TagChain.cs" />
+    <Compile Include="Assets\Scripts\TagUI.cs" />
     <Compile Include="Assets\Scripts\TimeBlock.cs" />
+    <Compile Include="Assets\Scripts\TimeBlockUI.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

@@ -1,16 +1,46 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NewTaskWindowManager : MonoBehaviour
 {
+    public DataManager dataManager;
+    public BlockChain blockChain;
     public GameObject SimpleWindow;
     public TimeBlock newTimeBlock;
     public GameObject AdvancedWindow;
-    public bool isAdvanced;
+    public InputField TaskNameS;
+    public InputField TaskNameA;
+    public Dropdown Year;
+    public Dropdown Month;
+    public Dropdown Day;
+    public Dropdown Chunk;
+    public Dropdown Tags;
+    public InputField EstimateTime;
     // Start is called before the first frame update
     void Start()
     {
+        DateTime today = DateTime.Today;
+        Year.options.Clear();
+        for (int i=0;i<10;i++) {
+            Year.options.Add(new Dropdown.OptionData( (today.Year+i).ToString()));
+        }
+        Month.options.Clear();
+        for (int i = 0; i < 12; i++)
+        {
+            Month.options.Add(new Dropdown.OptionData(((today.Month + i)%12+1).ToString()));
+        }
+        Day.options.Clear();
+        for (int i = 0; i < 31; i++)
+        {
+            Day.options.Add(new Dropdown.OptionData(((today.Day + i) % 31+1).ToString()));
+        }
+        Chunk.options.Clear();
+        Chunk.options.Add(new Dropdown.OptionData("Morning"));
+        Chunk.options.Add(new Dropdown.OptionData("Afternoon"));
+        Chunk.options.Add(new Dropdown.OptionData("Evening"));
     }
 
     // Update is called once per frame
@@ -18,23 +48,65 @@ public class NewTaskWindowManager : MonoBehaviour
     {
         
     }
-    public void buildBlock() {
-        if (isAdvanced)
-        {
-            if (AdvancedWindow.) {
-            }
+   
+    public void BuildBlock() {
+        string taskname;
+        if (dataManager.isAdvanced) {
+            taskname = TaskNameA.text;
         }
         else {
+            taskname = TaskNameS.text;
+        }
+        int chunkid=0;
+        if (Chunk.itemText.text == "Morning") {
+            chunkid = 0;
+        }
+        else if (Chunk.itemText.text == "Afternoon")
+        {
+            chunkid = 1;
+        }
+        else if (Chunk.itemText.text == "Evening")
+        {
+            chunkid = 2;
+        }
+        newTimeBlock=new TimeBlock(taskname, int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text), int.Parse(Day.options[Day.value].text), chunkid, int.Parse(EstimateTime.text),Tags.itemText.text);
+    }
+    public void Save() {
+        BuildBlock();
+        blockChain.AddBlock(newTimeBlock);
+        blockChain.ShowBlockChain();
+    }
+    public void CloseWindow() {
+        dataManager.isAddNewTaskWindowAwake = false;
+        if (dataManager.isAdvanced)
+        {
+            AdvancedWindow.SetActive(false);
+        }
+        else
+        {
+            SimpleWindow.SetActive(false);
         }
     }
     public void OpenWindow() {
-        if (isAdvanced) {
+        dataManager.isAddNewTaskWindowAwake = true;
+        if (dataManager.isAdvanced)
+        {
             AdvancedWindow.SetActive(true);
         }
-        SimpleWindow.SetActive(true);
+        else
+        {
+            SimpleWindow.SetActive(true);
+        }
     }
     public void SetAdvancedModeOff() {
-        isAdvanced = false;
+        dataManager.isAdvanced = false;
         AdvancedWindow.SetActive(false);
+        SimpleWindow.SetActive(true);
+    }
+    public void SetAdvancedModeOn()
+    {
+        dataManager.isAdvanced = true;
+        AdvancedWindow.SetActive(true);
+        SimpleWindow.SetActive(false);
     }
 }

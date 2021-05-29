@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: TimeBlock
   m_EditorClassIdentifier: 
   _name: 
-  _time: 
+  _year: 0
+  _month: 0
+  _day: 0
+  _chunk: 0
   _timeRequired: 0
   _tag: 
   _priority: 0

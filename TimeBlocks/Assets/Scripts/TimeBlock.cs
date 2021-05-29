@@ -7,16 +7,19 @@ using UnityEngine;
 public class TimeBlock : ScriptableObject
 {
     public string _name;
-    public int[] _time;
+    public int _year;
+    public int _month;
+    public int _day;
+    public int _chunk;
     public int _timeRequired;
     public string _tag;
     public int _priority;
     public bool _isOver;
     public bool _isFailed;
 
-    public TimeBlock(string name,int[] time,int timeRequired,string tag,Dictionary<string, int> tagPriorityList) {
+    public TimeBlock(string name,int year, int month,int day, int chunk,int timeRequired,string tag) {
         SetName(name);
-        SetTime(time);
+        SetTime(year,month,day,chunk);
         SetTags(tag);
         SetTimeRequired(timeRequired);
         _isOver = false;
@@ -26,19 +29,23 @@ public class TimeBlock : ScriptableObject
     public TimeBlock(string name)
     {
         SetName(name);
-        int[] nullTime = { 0, 0, 0, 0, 0, 0 };
-        SetTime(nullTime);
+        DateTime today = DateTime.Today;
+        DateTime tomorrow = today.AddDays(1);
+        SetTime(today.Year, today.Month,tomorrow.Day,3);
         SetTags("Untaged");
         SetTimeRequired(-1);
         _isOver = false;
         _isFailed = false;
         //update(,tagPriorityList);
     }
-    public TimeBlock(string name, int[] time, string tag, Dictionary<string, int> tagPriorityList)
+    public TimeBlock()
     {
-        SetName(name);
-        SetTime(time);
-        SetTags(tag);
+        SetName("This constructor is made for XML Deep Clone.");
+        DateTime today = DateTime.Today;
+        DateTime tomorrow = today.AddDays(1);
+        SetTime(today.Year, today.Month, tomorrow.Day, 3);
+        SetTags("Untaged");
+        SetTimeRequired(-1);
         _isOver = false;
         _isFailed = false;
         //update(,tagPriorityList);
@@ -59,15 +66,18 @@ public class TimeBlock : ScriptableObject
             return false;
         }
     }
-    public int[] Time()
+    public int Compare(TimeBlock a) 
     {
-        return _time;
+        return (_year - a._year) * 8640 + (_month - a._month) * 720 + (_day - a._day) * 24 + (_chunk - a._chunk);
     }
-    public bool SetTime(int[]time)
+    public bool SetTime(int year, int month, int day, int chunk)
     {
         try
         {
-            _time = time;
+            _year = year;
+            _month = month;
+            _day = day;
+            _chunk = chunk;
             return true;
         }
         catch (Exception e)
@@ -113,12 +123,13 @@ public class TimeBlock : ScriptableObject
             return false;
         }
     }
-    public bool update(int[] currentTime,Dictionary<string,int> tagPriorityList) {
-        int timeRemaining = (currentTime[0] - _time[0]) * 1030 + (currentTime[1] - _time[1]) * 30 * 24 * 60 + (currentTime[2] - _time[2]) * 24 * 60 + (currentTime[3] - _time[3]) * 60 + (currentTime[4] - _time[4]);
+    public bool update(Dictionary<string,Tag> tagPriorityList) {
+        int timeRemaining = (_year - DateTime.Now.Year) * 8640 + (_month - DateTime.Now.Month) *720 + (_day - DateTime.Now.Day) * 24 + (_chunk*6-DateTime.Now.Hour);
         if (timeRemaining<0) { 
             _isFailed = true;
         }
-        tagPriorityList.TryGetValue(_tag,out _priority);
+        Tag tempTag;
+        tagPriorityList.TryGetValue(_tag,out tempTag);
         return false;
     }
     public void checkFinished() {
