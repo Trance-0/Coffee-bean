@@ -22,6 +22,7 @@ public class NewTaskWindowManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         DateTime today = DateTime.Today;
         Year.options.Clear();
         for (int i=0;i<10;i++) {
@@ -70,6 +71,7 @@ public class NewTaskWindowManager : MonoBehaviour
             chunkid = 2;
         }
         newTimeBlock=new TimeBlock(taskname, int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text), int.Parse(Day.options[Day.value].text), chunkid, int.Parse(EstimateTime.text),Tags.itemText.text);
+        dataManager.lastInput = newTimeBlock;
     }
     public void Save() {
         BuildBlock();
@@ -92,21 +94,25 @@ public class NewTaskWindowManager : MonoBehaviour
         if (dataManager.isAdvanced)
         {
             AdvancedWindow.SetActive(true);
+            TaskNameA.text = dataManager.lastInput.Name();
         }
         else
         {
             SimpleWindow.SetActive(true);
+            TaskNameS.text = dataManager.lastInput.Name();
         }
     }
     public void SetAdvancedModeOff() {
+        BuildBlock();
+        CloseWindow();
         dataManager.isAdvanced = false;
-        AdvancedWindow.SetActive(false);
-        SimpleWindow.SetActive(true);
+        OpenWindow();
     }
     public void SetAdvancedModeOn()
     {
+        BuildBlock();
+        CloseWindow();
         dataManager.isAdvanced = true;
-        AdvancedWindow.SetActive(true);
-        SimpleWindow.SetActive(false);
+        OpenWindow();
     }
 }

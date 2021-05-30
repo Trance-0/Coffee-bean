@@ -22,15 +22,20 @@ public class SortBy : MonoBehaviour
         
     }
     public void OnClick() {
-        if (dataManager.sortingByTime)
+        if (!dataManager.isAddNewTaskWindowAwake)
         {
-            controlButton.image.sprite = sortByTimeIcon;
-            blockChain.ShowBlockChain();
-        }
-        else
-        {
-            controlButton.image.sprite = sortByPriorityIcon;
-            blockChain.ShowBlockChain();
+            if (dataManager.sortingByTime)
+            {
+                controlButton.image.sprite = sortByPriorityIcon;
+                dataManager.sortingByTime = false;
+                blockChain.ShowBlockChain();
+            }
+            else
+            {
+                controlButton.image.sprite = sortByTimeIcon;
+                dataManager.sortingByTime = true;
+                blockChain.ShowBlockChain();
+            }
         }
     }
 }
