@@ -74,7 +74,7 @@ public class NewTaskWindowManager : MonoBehaviour
         dataManager.lastInput = newTimeBlock;
     }
     public void Save() {
-        BuildBlock();
+       // BuildBlock();
         blockChain.AddBlock(newTimeBlock);
         blockChain.ShowBlockChain();
     }
@@ -103,14 +103,14 @@ public class NewTaskWindowManager : MonoBehaviour
         }
     }
     public void SetAdvancedModeOff() {
-        BuildBlock();
+        //BuildBlock();
         CloseWindow();
         dataManager.isAdvanced = false;
         OpenWindow();
     }
     public void SetAdvancedModeOn()
     {
-        BuildBlock();
+        //BuildBlock();
         CloseWindow();
         dataManager.isAdvanced = true;
         OpenWindow();

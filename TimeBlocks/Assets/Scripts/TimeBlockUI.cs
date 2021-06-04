@@ -21,14 +21,14 @@ public class TimeBlockUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (horizontalLayOut.GetComponent<RectTransform>().position.x<finishThreshold) {
-            Debug.Log("Finish");
-            blockChain.MarkAsFinished(timeBlock);
-       }
-        if (horizontalLayOut.GetComponent<RectTransform>().position.x > deleteThreshold)
-        {
-            Debug.Log("Delete"+ horizontalLayOut.GetComponent<RectTransform>().position.x);
-            blockChain.DeleteBlock(timeBlock);
-        }
+     //   if (horizontalLayOut.GetComponent<RectTransform>().position.x<finishThreshold) {
+     //       Debug.Log("Finish");
+     //       blockChain.MarkAsFinished(timeBlock);
+      // }
+     //   if (horizontalLayOut.GetComponent<RectTransform>().position.x > deleteThreshold)
+     //   {
+     //       Debug.Log("Delete"+ horizontalLayOut.GetComponent<RectTransform>().position.x);
+     //       blockChain.DeleteBlock(timeBlock);
+     //   }
     }
 }
