@@ -7,6 +7,12 @@ using System;
 public class DataManager : MonoBehaviour
 {
     public TimeBlock lastInput;
+    public bool conpletionCheck;
+    public bool enableTimer;
+    public bool analyseOptimalConcentrationTime;
+    public Color backgroundColor;
+    public bool sortingByTime;
+
     public bool isAdvanced;
     public bool isAddNewTaskWindowAwake;
     public List<TimeBlock> sortByTime;
@@ -16,7 +22,6 @@ public class DataManager : MonoBehaviour
     public Dictionary<string,Tag> tagDictionary;
    
     public int chainSize;
-    public bool sortingByTime;
     // Start is called before the first frame update
     void Start()
     {
