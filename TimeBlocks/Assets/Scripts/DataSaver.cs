@@ -21,7 +21,8 @@ public class DataSaver : MonoBehaviour
         JsonData jd = new JsonData();
         jd.SetJsonType(JsonType.Array);
         JsonData item = new JsonData();
-        item["analyseOptimalConcentrationTime"] = dm.analyseOptimalConcentrationTime;
+        item["analyseOCT"] = dm.analyseOCT;
+        
 
     }
     public void SaveBlocks(List<TimeBlock> blocks,string jsonName) {
