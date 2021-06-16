@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\NewTaskWindowWaker.cs" />
     <Compile Include="Assets\Scripts\ObjectCopier.cs" />
     <Compile Include="Assets\Scripts\PriorityQueue.cs" />
+    <Compile Include="Assets\Scripts\SQLBridge.cs" />
     <Compile Include="Assets\Scripts\SortBy.cs" />
     <Compile Include="Assets\Scripts\Tag.cs" />
     <Compile Include="Assets\Scripts\TagChain.cs" />
@@ -261,6 +262,9 @@
     </Reference>
     <Reference Include="LitJSON">
       <HintPath>C:/Users/Trance/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/LitJSON.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>C:/Users/Trance/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1c1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

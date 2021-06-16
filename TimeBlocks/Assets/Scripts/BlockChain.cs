@@ -92,13 +92,10 @@ public class BlockChain : MonoBehaviour
     {
         TimeBlockUI newBlock = Instantiate(timeBlockPF, blockChainUI.transform.position, Quaternion.identity);
         newBlock.gameObject.transform.SetParent(blockChainUI.transform);
-        //Tag temp;
-        //dataManager.tagDictionary.TryGetValue(i.Tag(),out temp);
-        //newBlock.icon = temp._image;
 
         newBlock.taskName.text = i._name;
+        newBlock.icon.sprite = dm.tagDictionary[newBlock.timeBlock._tag]._image;
         newBlock.icon.color = new Color(1, 1, 1, 1);
-        newBlock.icon = dm.tagDictionary[newBlock.timeBlock._tag]._image;
         newBlock.timeBlock = i;
         newBlock.blockChain = this;
     }

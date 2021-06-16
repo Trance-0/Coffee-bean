@@ -64,13 +64,8 @@ public class DataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        try
-        {
-            ds.LoadConfig(this, "config_0");
-        }catch (Exception e) {
-
-            }
-        chainSize = sortByTime.Count;
+        //    ds.LoadConfig(this, "config_0");
+   //     chainSize = sortByTime.Count;
     }
 
     // Update is called once per frame
@@ -80,5 +75,6 @@ public class DataManager : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        ds.SaveConfig(this,"config_0");    }
+     //   ds.SaveConfig(this,"config_0");
+    }
 }

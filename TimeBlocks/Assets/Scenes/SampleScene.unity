@@ -405,7 +405,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 48123410}
+      - m_Target: {fileID: 0}
         m_MethodName: SaveJson
         m_Mode: 1
         m_Arguments:
@@ -625,7 +625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &48123409
 RectTransform:
   m_ObjectHideFlags: 0
@@ -654,7 +654,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 48123408}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64a1493577068544086c2dc63ef819c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fc0dc6414079224985576138ad43170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &52032791
@@ -767,9 +767,9 @@ RectTransform:
   m_Father: {fileID: 1384773409}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 172.45, y: -28.25}
   m_SizeDelta: {x: 344.9, y: 56.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &62627959
@@ -3628,7 +3628,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &527013551
 GameObject:
@@ -7481,7 +7481,7 @@ RectTransform:
   - {fileID: 135965771}
   - {fileID: 1430350900}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -7768,7 +7768,7 @@ MonoBehaviour:
   deletedTask: []
   defaultTag: []
   chainSize: 0
-  ds: {fileID: 0}
+  ds: {fileID: 1319001625}
 --- !u!4 &1119387534
 Transform:
   m_ObjectHideFlags: 0
@@ -8174,7 +8174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1151412359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8250,7 +8250,7 @@ RectTransform:
   - {fileID: 255967923}
   - {fileID: 806723094}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9134,7 +9134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1219735521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9210,7 +9210,7 @@ RectTransform:
   - {fileID: 48123409}
   - {fileID: 2134029825}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -9932,6 +9932,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310033413}
   m_CullTransparentMesh: 0
+--- !u!1 &1319001624
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1319001626}
+  - component: {fileID: 1319001625}
+  m_Layer: 0
+  m_Name: DataSaver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1319001625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319001624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64a1493577068544086c2dc63ef819c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1319001626
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319001624}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 231.04904, y: 727.5387, z: -79.618286}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1320315434
 GameObject:
   m_ObjectHideFlags: 0
@@ -10947,7 +10990,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1459884075
 GameObject:
@@ -11627,7 +11670,7 @@ RectTransform:
   - {fileID: 813436046}
   - {fileID: 1386429422}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -13498,9 +13541,9 @@ RectTransform:
   m_Father: {fileID: 52032792}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 179.92499, y: -35.6261}
   m_SizeDelta: {x: 359.84998, y: 71.2522}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1830632475
@@ -15829,7 +15872,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 48123410}
+      - m_Target: {fileID: 0}
         m_MethodName: LoadJson
         m_Mode: 1
         m_Arguments:
@@ -15889,7 +15932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a99258ff3f4d3c4ab81350c21b267d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  icon: {fileID: 305039795978564021}
+  icon: {fileID: 0}
   taskName: {fileID: 305039797869200166}
   backGround: {fileID: 305039796405003967}
   horizontalLayOut: {fileID: 305039796656475626}
@@ -16225,7 +16268,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -16542,7 +16585,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -16714,7 +16757,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

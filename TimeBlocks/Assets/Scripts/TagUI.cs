@@ -14,7 +14,7 @@ public class TagUI : MonoBehaviour
     {
         tagNameInput.text = t._tagName;
         weightInput.text = t._power.ToString();
-        image = t._image;
+        image.sprite = t._image;
     }
 
     // Update is called once per frame

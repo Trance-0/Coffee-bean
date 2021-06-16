@@ -7,11 +7,11 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName ="tags", menuName ="tags/new Tag")]
 public class Tag : ScriptableObject
 {
-    public double _power;
+    public int _power;
     public string _tagName;
-    public Image _image;
+    public Sprite _image;
     public bool _isDefault;
-    public Tag(string name, int power,Image image)
+    public Tag(string name, int power,Sprite image)
     {
         _power = power;
         _tagName = name;
@@ -25,7 +25,7 @@ public class Tag : ScriptableObject
     public double Power() {
         return _power;
     }
-    public bool SetPower(double power) {
+    public bool SetPower(int power) {
         try
         {
             _power = power;
@@ -53,10 +53,10 @@ public class Tag : ScriptableObject
             return false;
         }
     }
-    public Image Image() {
+    public Sprite Image() {
         return _image;
     }
-    public bool SetImage(Image image)
+    public bool SetImage(Sprite image)
     {
         try
         {
