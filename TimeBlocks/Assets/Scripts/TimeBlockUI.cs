@@ -11,8 +11,9 @@ public class TimeBlockUI : MonoBehaviour
     public Transform horizontalLayOut;
     public TimeBlock timeBlock;
     public BlockChain blockChain;
-    public int deleteThreshold;
-    public int finishThreshold;
+    public Collider Delete;
+    public Collider Finished;
+    public Collider TaskBody;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,14 +22,16 @@ public class TimeBlockUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-     //   if (horizontalLayOut.GetComponent<RectTransform>().position.x<finishThreshold) {
-     //       Debug.Log("Finish");
-     //       blockChain.MarkAsFinished(timeBlock);
-      // }
-     //   if (horizontalLayOut.GetComponent<RectTransform>().position.x > deleteThreshold)
-     //   {
-     //       Debug.Log("Delete"+ horizontalLayOut.GetComponent<RectTransform>().position.x);
-     //       blockChain.DeleteBlock(timeBlock);
-     //   }
+
     }
-}
+    public void TaskFinished()
+    {
+        blockChain.MarkAsFinished(timeBlock);
+        Debug.Log("Finished");
+    }
+    public void TaskDeleted()
+    {
+        Debug.Log("Delete");
+        blockChain.DeleteBlock(timeBlock);
+    }
+    }

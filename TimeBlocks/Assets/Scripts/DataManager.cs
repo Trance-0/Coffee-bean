@@ -55,14 +55,21 @@ public class DataManager : MonoBehaviour
     public List<TimeBlock> finishedTask;
     public List<TimeBlock> deletedTask;
 
+    public List<Tag> defaultTag;
     public Dictionary<string,Tag> tagDictionary;
    
     public int chainSize;
+
+    public DataSaver ds;
     // Start is called before the first frame update
     void Start()
     {
-        sortByTime = new List<TimeBlock>();
-        sortByPriority = new List<TimeBlock>();
+        try
+        {
+            ds.LoadConfig(this, "config_0");
+        }catch (Exception e) {
+
+            }
         chainSize = sortByTime.Count;
     }
 
@@ -71,5 +78,7 @@ public class DataManager : MonoBehaviour
     {
         
     }
-   
+    private void OnApplicationQuit()
+    {
+        ds.SaveConfig(this,"config_0");    }
 }

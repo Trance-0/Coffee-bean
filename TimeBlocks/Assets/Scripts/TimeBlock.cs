@@ -38,7 +38,19 @@ public class TimeBlock : ScriptableObject
         _isFailed = false;
         //update(,tagPriorityList);
     }
-    
+    public TimeBlock()
+    {
+        SetName("Unknown");
+        DateTime today = DateTime.Today;
+        DateTime tomorrow = today.AddDays(1);
+        SetTime(today.Year, today.Month, tomorrow.Day, 3);
+        SetTags("Untaged");
+        SetTimeRequired(-1);
+        _isOver = false;
+        _isFailed = false;
+        //update(,tagPriorityList);
+    }
+
     public string Name(){
         return _name;
     }

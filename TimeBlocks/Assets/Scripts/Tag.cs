@@ -10,6 +10,14 @@ public class Tag : ScriptableObject
     public double _power;
     public string _tagName;
     public Image _image;
+    public bool _isDefault;
+    public Tag(string name, int power,Image image)
+    {
+        _power = power;
+        _tagName = name;
+        _image = image;
+        _isDefault = true;
+    }
     public Tag() {
         _power = 0;
         _tagName = "Untaged";

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BlockChain : MonoBehaviour
 {
-    public DataManager dataManager;
+    public DataManager dm;
     public TimeBlockUI timeBlockPF;
     public GameObject blockChainUI;
     public class timeSort : Comparer<TimeBlock>
@@ -40,51 +40,51 @@ public class BlockChain : MonoBehaviour
     {
         for (int i = blockChainUI.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(blockChainUI.transform.GetChild(i).gameObject);
+          //  Destroy(blockChainUI.transform.GetChild(i).gameObject);
         }
-        if (dataManager.chainSize != 0)
+        if (dm.chainSize != 0)
         {
             
-            if (dataManager.sortingByTime)
+            if (dm.sortingByTime)
             {
-                dataManager.sortByTime.Sort(new timeSort());
-                for (int i = 0; i < dataManager.chainSize; i++)
+                dm.sortByTime.Sort(new timeSort());
+                for (int i = 0; i < dm.chainSize; i++)
                 {
-                    CreateANewBlock(dataManager.sortByTime[i]);
+                    CreateANewBlock(dm.sortByTime[i]);
                 }
             }
             else
             {
-                dataManager.sortByPriority.Sort(new prioritySort());
-                for (int i = 0; i < dataManager.chainSize; i++)
+                dm.sortByPriority.Sort(new prioritySort());
+                for (int i = 0; i < dm.chainSize; i++)
                 {
-                    CreateANewBlock(dataManager.sortByPriority[i]);
+                    CreateANewBlock(dm.sortByPriority[i]);
                 }
             }
         }
     }
     public bool AddBlock(TimeBlock a)
     {
-        dataManager.sortByTime.Add(a);
-        dataManager.sortByPriority.Add(a);
-        dataManager.chainSize++;
-        Debug.Log("Chainsize" + dataManager.chainSize);
-        Debug.Log("Realsize" + dataManager.sortByPriority.Count);
+        dm.sortByTime.Add(a);
+        dm.sortByPriority.Add(a);
+        dm.chainSize++;
+        Debug.Log("Chainsize" + dm.chainSize);
+        Debug.Log("Realsize" + dm.sortByPriority.Count);
         return true;
     }
     public void MarkAsFinished(TimeBlock i) {
-        dataManager.sortByPriority.Remove(i);
-        dataManager.sortByPriority.Remove(i);
-        dataManager.chainSize--;
-        dataManager.finishedTask.Add(i);
+        dm.sortByPriority.Remove(i);
+        dm.sortByPriority.Remove(i);
+        dm.chainSize--;
+        dm.finishedTask.Add(i);
         ShowBlockChain();
     }
     public void DeleteBlock(TimeBlock i)
     {
-        dataManager.sortByPriority.Remove(i);
-        dataManager.sortByPriority.Remove(i);
-        dataManager.chainSize--;
-        dataManager.deletedTask.Add(i);
+        dm.sortByPriority.Remove(i);
+        dm.sortByPriority.Remove(i);
+        dm.chainSize--;
+        dm.deletedTask.Add(i);
         ShowBlockChain();
     }
 
@@ -95,8 +95,10 @@ public class BlockChain : MonoBehaviour
         //Tag temp;
         //dataManager.tagDictionary.TryGetValue(i.Tag(),out temp);
         //newBlock.icon = temp._image;
+
         newBlock.taskName.text = i._name;
-        newBlock.icon.color = new Color(1,1,1,1);
+        newBlock.icon.color = new Color(1, 1, 1, 1);
+        newBlock.icon = dm.tagDictionary[newBlock.timeBlock._tag]._image;
         newBlock.timeBlock = i;
         newBlock.blockChain = this;
     }
