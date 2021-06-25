@@ -9,11 +9,11 @@ public class SQLSample : MonoBehaviour
     //数据库名称
     public static string database = "mysql";
     //数据库IP
-    private static string host = "localhost";
+    private static string host = "45.77.71.189";
     //用户名
-    private static string username = "root";
+    private static string username = "TimeBlock";
     //用户密码
-    private static string password = "starry-orz";
+    private static string password = "iwnP4thRr57kLCSW";
 
     public static string sql = string.Format("database={0};server={1};user={2};password={3};port={4}",
     database, host, username, password, "3306");
@@ -23,7 +23,7 @@ public class SQLSample : MonoBehaviour
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
         Debug.Log("数据库已连接");
-        MySqlCommand cmd = new MySqlCommand("select * from tb_user_info", mySqlConnection);
+        MySqlCommand cmd = new MySqlCommand("select * from user_info", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
