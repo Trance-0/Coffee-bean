@@ -1,9 +1,8 @@
-﻿using MySql.Data.MySqlClient;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SQLBridge : MonoBehaviour
+public class SQLSaver : MonoBehaviour
 {
     public static MySqlConnection mySqlConnection;
     //数据库名称
@@ -20,6 +19,14 @@ public class SQLBridge : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
+    void Save() {
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
         Debug.Log("数据库已连接");
@@ -35,11 +42,5 @@ public class SQLBridge : MonoBehaviour
         Debug.Log(reader);
         mySqlConnection.Close();
         Debug.Log("数据库关闭");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
