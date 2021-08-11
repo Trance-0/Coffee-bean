@@ -62,24 +62,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\BlockChain.cs" />
+    <Compile Include="Assets\Scripts\CanvasManager.cs" />
     <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\EmailSender.cs" />
     <Compile Include="Assets\Scripts\JsonSaver.cs" />
-    <Compile Include="Assets\Scripts\LoginWindowsManager.cs" />
+    <Compile Include="Assets\Scripts\LoginCanvas\Login.cs" />
+    <Compile Include="Assets\Scripts\LoginCanvas\LoginWindowsManager.cs" />
+    <Compile Include="Assets\Scripts\LoginCanvas\Register.cs" />
+    <Compile Include="Assets\Scripts\MainCanvas\BlockChain.cs" />
+    <Compile Include="Assets\Scripts\MainCanvas\TimeBlock.cs" />
+    <Compile Include="Assets\Scripts\MainCanvas\TimeBlockUI.cs" />
     <Compile Include="Assets\Scripts\NewTaskWindowManager.cs" />
     <Compile Include="Assets\Scripts\NewTaskWindowWaker.cs" />
-    <Compile Include="Assets\Scripts\ObjectCopier.cs" />
-    <Compile Include="Assets\Scripts\PriorityQueue.cs" />
-    <Compile Include="Assets\Scripts\Register.cs" />
     <Compile Include="Assets\Scripts\SQLSample.cs" />
     <Compile Include="Assets\Scripts\SQLSaver.cs" />
+    <Compile Include="Assets\Scripts\SettingCanvas\Tag.cs" />
+    <Compile Include="Assets\Scripts\SettingCanvas\TagChain.cs" />
+    <Compile Include="Assets\Scripts\SettingCanvas\TagUI.cs" />
     <Compile Include="Assets\Scripts\SortBy.cs" />
-    <Compile Include="Assets\Scripts\Tag.cs" />
-    <Compile Include="Assets\Scripts\TagChain.cs" />
-    <Compile Include="Assets\Scripts\TagUI.cs" />
-    <Compile Include="Assets\Scripts\TimeBlock.cs" />
-    <Compile Include="Assets\Scripts\TimeBlockUI.cs" />
     <Compile Include="Assets\Scripts\testdata.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
