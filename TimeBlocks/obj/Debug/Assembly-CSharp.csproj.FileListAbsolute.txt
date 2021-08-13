@@ -1,2 +1,4 @@
 C:\Users\Trance\Documents\Github\TimeBlocks\TimeBlocks\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 C:\Users\Trance\Documents\Github\TimeBlocks\TimeBlocks\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+D:\Documents\Github\TimeBlocks\TimeBlocks\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+D:\Documents\Github\TimeBlocks\TimeBlocks\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

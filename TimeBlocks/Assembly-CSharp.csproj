@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\SettingCanvas\TagChain.cs" />
     <Compile Include="Assets\Scripts\SettingCanvas\TagUI.cs" />
     <Compile Include="Assets\Scripts\SortBy.cs" />
+    <Compile Include="Assets\Scripts\TaskCanvas\TaskOperatingContoler.cs" />
     <Compile Include="Assets\Scripts\testdata.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
