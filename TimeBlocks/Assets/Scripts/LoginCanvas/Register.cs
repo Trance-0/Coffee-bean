@@ -11,13 +11,13 @@ public class Register : MonoBehaviour
 {
     public static MySqlConnection mySqlConnection;
     //数据库名称
-    public static string database = "mysql";
+    public static string database = "timeblocks";
     //数据库IP
     private static string host = "45.77.71.189";
     //用户名
-    private static string username = "TimeBlock";
+    private static string username = "TimeBlocks";
     //用户密码
-    private static string password = "iwnP4thRr57kLCSW";
+    private static string password = "ih54J2K28PwrGfEx";
 
     public static string sql = string.Format("database={0};server={1};user={2};password={3};port={4}",
     database, host, username, password, "3306");
@@ -63,7 +63,7 @@ public class Register : MonoBehaviour
             Debug.Log(_userName.text + "" + _email.text + "" + _verify.text + "" + _password1.text + "" + SHA256Hash(_password1.text));
             if (_userName.text != null && _email.text != null && _finalmail == _email.text && _verify.text == _code && _password1.text == _password2.text) {
                 if (checkUserNameRepeated(_userName.text)) {
-                    SQLSignup(_userName.text, SHA256Hash(_password1.text),_email);
+                    SQLSignup(_userName.text, SHA256Hash(_password1.text),_email.text);
                 }
                 else {
                     Debug.Log("User name was being used");
@@ -79,13 +79,14 @@ public class Register : MonoBehaviour
         }
     }
 
-    private void SQLSignup(string text, string v, InputField email)
+    private void SQLSignup(string text, string v, string email)
     {
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
         Debug.Log("数据库已连接");
-        MySqlCommand cmd = new MySqlCommand("INSERT INTO tb_user (name,email,password)", mySqlConnection);
-         cmd = new MySqlCommand("VALUES ('"+text+"', '"+v+ "', '" +email+ ")", mySqlConnection);
+        MySqlCommand cmd = new MySqlCommand("INSERT INTO tb_user (name,email,password) VALUES ('" + text + "', '" + email+"', '" + v+ "')", mySqlConnection);
+        cmd.ExecuteNonQuery();
+        Debug.Log("Success");
     }
 
     public static string SHA256Hash(string input)
