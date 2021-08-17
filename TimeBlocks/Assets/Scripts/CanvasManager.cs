@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class CanvasManager : MonoBehaviour
 {
-    public GameObject _canvasToOpen;
-    public GameObject _canvasToClose;
+    public List<GameObject> canvasList;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +15,11 @@ public class CanvasManager : MonoBehaviour
     {
         
     }
-    void OnClick() {
-        _canvasToClose.SetActive(false);
-        _canvasToOpen.SetActive(true);
+    public void ChangeCanvas(int index) {
+        foreach (GameObject i in canvasList) {
+            i.SetActive(false);
+        }
+        canvasList[index].SetActive(true);
     }
     
 }

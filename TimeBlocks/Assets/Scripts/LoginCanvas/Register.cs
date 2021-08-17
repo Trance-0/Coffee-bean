@@ -9,49 +9,40 @@ using UnityEngine.UI;
 
 public class Register : MonoBehaviour
 {
-    public static MySqlConnection mySqlConnection;
-    //数据库名称
-    public static string database = "timeblocks";
-    //数据库IP
-    private static string host = "45.77.71.189";
-    //用户名
-    private static string username = "TimeBlocks";
-    //用户密码
-    private static string password = "ih54J2K28PwrGfEx";
-
-    public static string sql = string.Format("database={0};server={1};user={2};password={3};port={4}",
-    database, host, username, password, "3306");
-    public InputField _userName;
-    public InputField _email;
-    public InputField _verify;
-    public InputField _password1;
-    public InputField _password2;
-    public GameObject _send;
-    public GameObject _sendText;
-    public GameObject _emailSender;
-    private string _finalmail;
-    private string _code;
-    private bool _activated;
+    public InputField userName;
+    public InputField email;
+    public InputField verify;
+    public InputField password1;
+    public InputField password2;
+    public GameObject send;
+    public GameObject sendText;
+    private string finalmail;
+    private string code;
+    private bool activated;
     public float cd;
     public static string[] variable = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "R", "C" };
+
+    public SQLSaver sqlSaver;
+    public EmailSender emailSender;
+    public ErrorWindow errorWindow;
     // Start is called before the first frame update
     void Start()
     {
-        _activated = true;
+        activated = true;
     }
     public void SendCode() {
         try {
-            _code = "";
+            code = "";
             cd = 10f;
-            _activated = false;
-            _send.GetComponent<Button>().interactable = false;
+            activated = false;
+            send.GetComponent<Button>().interactable = false;
             System.Random r = new System.Random();
             for (int i = 0; i < 6; i++) {
-                _code += variable[r.Next(variable.Length)];
+                code += variable[r.Next(variable.Length)];
             }
-            _finalmail = _email.text;
-            Debug.Log("Your verification code for TimeBlocks is " + _code + " ." + "TimeBlocks Verification code");
-            _emailSender.GetComponent<EmailSender>().SendMail(_finalmail, "Your verification code for TimeBlocks is " + _code + " .", "TimeBlocks Verification code");
+            finalmail = email.text;
+            Debug.Log("Your verification code for TimeBlocks is " + code + " ." + "TimeBlocks Verification code");
+            emailSender.SendMail(finalmail, "Your verification code for TimeBlocks is " + code + " .", "TimeBlocks Verification code");
         }
         catch (System.Exception e) {
             Debug.Log(e);
@@ -60,17 +51,17 @@ public class Register : MonoBehaviour
     public void Signup() {
         try
         {
-            Debug.Log(_userName.text + "" + _email.text + "" + _verify.text + "" + _password1.text + "" + SHA256Hash(_password1.text));
-            if (_userName.text != null && _email.text != null && _finalmail == _email.text && _verify.text == _code && _password1.text == _password2.text) {
-                if (checkUserNameRepeated(_userName.text)) {
-                    SQLSignup(_userName.text, SHA256Hash(_password1.text),_email.text);
+            Debug.Log(userName.text + "" + email.text + "" + verify.text + "" + password1.text + "" + SHA256Hash(password1.text));
+            if (userName.text != null && email.text != null && finalmail == email.text && verify.text == code && password1.text == password2.text) {
+                if (sqlSaver.CheckUserNameRepeated(userName.text)) {
+                    sqlSaver.SignUp(userName.text, SHA256Hash(password1.text),email.text);
                 }
                 else {
-                    Debug.Log("User name was being used");
+                   errorWindow.Warning("User name was being used");
                 }
             }
             else {
-                Debug.Log("InputField is not satisfied.");
+                errorWindow.Warning("InputField is not satisfied.");
             }
         }
         catch (System.Exception e)
@@ -78,17 +69,6 @@ public class Register : MonoBehaviour
             Debug.Log(e);
         }
     }
-
-    private void SQLSignup(string text, string v, string email)
-    {
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("数据库已连接");
-        MySqlCommand cmd = new MySqlCommand("INSERT INTO tb_user (name,email,password) VALUES ('" + text + "', '" + email+"', '" + v+ "')", mySqlConnection);
-        cmd.ExecuteNonQuery();
-        Debug.Log("Success");
-    }
-
     public static string SHA256Hash(string input)
     {
         byte[] InputBytes = Encoding.Default.GetBytes(input);
@@ -101,28 +81,13 @@ public class Register : MonoBehaviour
     {
         if (cd > 0) {
             cd -= Time.deltaTime;
-            _sendText.GetComponent<Text>().text = cd.ToString("f0");
+            sendText.GetComponent<Text>().text = cd.ToString("f0");
         }
-        if (!_activated & cd <= 0) {
-            _send.GetComponent<Button>().interactable = true;
-            _sendText.GetComponent<Text>().text = "Send";
-            _activated = true;
+        if (!activated & cd <= 0) {
+            send.GetComponent<Button>().interactable = true;
+            sendText.GetComponent<Text>().text = "Send";
+            activated = true;
         }
     }
-    private bool checkUserNameRepeated(string userName){
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("数据库已连接");
-        MySqlCommand cmd = new MySqlCommand("select name from tb_user", mySqlConnection);
-        MySqlDataReader reader = cmd.ExecuteReader();
-        while (reader.Read())
-        {
-            for (int i = 0; i < reader.FieldCount; i++)
-            {
-                if (reader[i].ToString().CompareTo(userName) == 0)
-                    return false;
-            }
-        }
-        return true;
-}
+  
 }

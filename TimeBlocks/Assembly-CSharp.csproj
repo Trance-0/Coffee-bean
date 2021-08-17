@@ -109,6 +109,7 @@
     <Compile Include="Assets\Scripts\CanvasManager.cs" />
     <Compile Include="Assets\Scripts\DataManager.cs" />
     <Compile Include="Assets\Scripts\EmailSender.cs" />
+    <Compile Include="Assets\Scripts\ErrorWindow.cs" />
     <Compile Include="Assets\Scripts\JsonSaver.cs" />
     <Compile Include="Assets\Scripts\LoginCanvas\Login.cs" />
     <Compile Include="Assets\Scripts\LoginCanvas\LoginWindowsManager.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="Assets\Scripts\NewTaskWindowWaker.cs" />
     <Compile Include="Assets\Scripts\SQLSample.cs" />
     <Compile Include="Assets\Scripts\SQLSaver.cs" />
+    <Compile Include="Assets\Scripts\SettingCanvas\SettingManager.cs" />
     <Compile Include="Assets\Scripts\SettingCanvas\Tag.cs" />
     <Compile Include="Assets\Scripts\SettingCanvas\TagChain.cs" />
     <Compile Include="Assets\Scripts\SettingCanvas\TagUI.cs" />
@@ -325,23 +327,23 @@
     <Reference Include="UnityEditor">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1c1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween50.dll</HintPath>
+    </Reference>
     <Reference Include="LitJSON">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/LitJSON.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween50">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween50.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween46">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween46.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween43">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween43.dll</HintPath>
     </Reference>
     <Reference Include="UniWebViewWP">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/UniWebViewWP.dll</HintPath>

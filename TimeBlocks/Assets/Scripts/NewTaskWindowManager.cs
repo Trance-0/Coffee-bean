@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class NewTaskWindowManager : MonoBehaviour
 {
-    public DataManager dataManager;
     public BlockChain blockChain;
     public GameObject SimpleWindow;
     public TimeBlock newTimeBlock;
@@ -19,6 +18,8 @@ public class NewTaskWindowManager : MonoBehaviour
     public Dropdown Chunk;
     public Dropdown Tags;
     public InputField EstimateTime;
+
+    public DataManager dataManager;
     // Start is called before the first frame update
     void Start()
     {

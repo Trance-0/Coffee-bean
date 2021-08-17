@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BlockChain : MonoBehaviour
 {
-    public DataManager dm;
+    public DataManager dataManager;
     public TimeBlockUI timeBlockPF;
     public GameObject blockChainUI;
     public class timeSort : Comparer<TimeBlock>
@@ -42,49 +42,49 @@ public class BlockChain : MonoBehaviour
         {
           //  Destroy(blockChainUI.transform.GetChild(i).gameObject);
         }
-        if (dm.chainSize != 0)
+        if (dataManager.chainSize != 0)
         {
             
-            if (dm.sortingByTime)
+            if (dataManager.sortingByTime)
             {
-                dm.sortByTime.Sort(new timeSort());
-                for (int i = 0; i < dm.chainSize; i++)
+                dataManager.sortByTime.Sort(new timeSort());
+                for (int i = 0; i < dataManager.chainSize; i++)
                 {
-                    CreateANewBlock(dm.sortByTime[i]);
+                    CreateANewBlock(dataManager.sortByTime[i]);
                 }
             }
             else
             {
-                dm.sortByPriority.Sort(new prioritySort());
-                for (int i = 0; i < dm.chainSize; i++)
+                dataManager.sortByPriority.Sort(new prioritySort());
+                for (int i = 0; i < dataManager.chainSize; i++)
                 {
-                    CreateANewBlock(dm.sortByPriority[i]);
+                    CreateANewBlock(dataManager.sortByPriority[i]);
                 }
             }
         }
     }
     public bool AddBlock(TimeBlock a)
     {
-        dm.sortByTime.Add(a);
-        dm.sortByPriority.Add(a);
-        dm.chainSize++;
-        Debug.Log("Chainsize" + dm.chainSize);
-        Debug.Log("Realsize" + dm.sortByPriority.Count);
+        dataManager.sortByTime.Add(a);
+        dataManager.sortByPriority.Add(a);
+        dataManager.chainSize++;
+        Debug.Log("Chainsize" + dataManager.chainSize);
+        Debug.Log("Realsize" + dataManager.sortByPriority.Count);
         return true;
     }
     public void MarkAsFinished(TimeBlock i) {
-        dm.sortByPriority.Remove(i);
-        dm.sortByPriority.Remove(i);
-        dm.chainSize--;
-        dm.finishedTask.Add(i);
+        dataManager.sortByPriority.Remove(i);
+        dataManager.sortByPriority.Remove(i);
+        dataManager.chainSize--;
+        dataManager.finishedTask.Add(i);
         ShowBlockChain();
     }
     public void DeleteBlock(TimeBlock i)
     {
-        dm.sortByPriority.Remove(i);
-        dm.sortByPriority.Remove(i);
-        dm.chainSize--;
-        dm.deletedTask.Add(i);
+        dataManager.sortByPriority.Remove(i);
+        dataManager.sortByPriority.Remove(i);
+        dataManager.chainSize--;
+        dataManager.deletedTask.Add(i);
         ShowBlockChain();
     }
 
@@ -94,7 +94,7 @@ public class BlockChain : MonoBehaviour
         newBlock.gameObject.transform.SetParent(blockChainUI.transform);
 
         newBlock.taskName.text = i._name;
-        newBlock.icon.sprite = dm.tagDictionary[newBlock.timeBlock._tag]._image;
+        newBlock.icon.sprite = dataManager.tagDictionary[newBlock.timeBlock._tag]._image;
         newBlock.icon.color = new Color(1, 1, 1, 1);
         newBlock.timeBlock = i;
         newBlock.blockChain = this;

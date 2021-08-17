@@ -282,26 +282,26 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="DOTween">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween43">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween43.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween46">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween46.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTween50">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween50.dll</HintPath>
+    </Reference>
+    <Reference Include="DOTweenEditor">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/Editor/DOTweenEditor.dll</HintPath>
+    </Reference>
     <Reference Include="LitJSON">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/LitJSON.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween50">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween50.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween46">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween46.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween43">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween43.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTweenEditor">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/Editor/DOTweenEditor.dll</HintPath>
     </Reference>
     <Reference Include="UniWebViewWP">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/UniWebViewWP.dll</HintPath>

@@ -11,7 +11,7 @@ public class SQLSaver : MonoBehaviour
     //数据库IP
     private static string host = "45.77.71.189";
     //用户名
-    private static string username = "Timeblocks";
+    private static string username = "TimeBlocks";
     //用户密码
     private static string password = "ih54J2K28PwrGfEx";
 
@@ -43,5 +43,48 @@ public class SQLSaver : MonoBehaviour
         Debug.Log(reader);
         mySqlConnection.Close();
         Debug.Log("数据库关闭");
+    }
+    public void SignUp(string text, string v, string email)
+    {
+        mySqlConnection = new MySqlConnection(sql);
+        mySqlConnection.Open();
+        Debug.Log("数据库已连接");
+        MySqlCommand cmd = new MySqlCommand("INSERT INTO tbuser (name,email,password) VALUES ('" + text + "', '" + email + "', '" + v + "')", mySqlConnection);
+        cmd.ExecuteNonQuery();
+        Debug.Log("Success");
+    }
+    public bool PasswordCheck(string userName, string v)
+    {
+        mySqlConnection = new MySqlConnection(sql);
+        mySqlConnection.Open();
+        Debug.Log("数据库已连接");
+        MySqlCommand cmd = new MySqlCommand("select password from tb_user where name = '" + userName + "'", mySqlConnection);
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            //for (int i = 0; i < reader.FieldCount; i++)
+            //{
+            if (reader[0].ToString().CompareTo(v) == 0)
+                return true;
+            //}
+        }
+        return false;
+    }
+    public bool CheckUserNameRepeated(string userName)
+    {
+        mySqlConnection = new MySqlConnection(sql);
+        mySqlConnection.Open();
+        Debug.Log("数据库已连接");
+        MySqlCommand cmd = new MySqlCommand("select name from tbuser", mySqlConnection);
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            for (int i = 0; i < reader.FieldCount; i++)
+            {
+                if (reader[i].ToString().CompareTo(userName) == 0)
+                    return false;
+            }
+        }
+        return true;
     }
 }
