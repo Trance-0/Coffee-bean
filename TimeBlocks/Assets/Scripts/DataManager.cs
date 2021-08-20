@@ -10,8 +10,6 @@ public class DataManager : MonoBehaviour
 
     public int userID;
     public bool completionCheck;
-  
-
     public bool enableTimer;
   
     public bool analyseOCT;
@@ -28,8 +26,7 @@ public class DataManager : MonoBehaviour
     public bool isAdvanced;
     public bool isAddNewTaskWindowAwake;
 
-    public List<TimeBlock> sortByTime;
-    public List<TimeBlock> sortByPriority;
+    public List<TimeBlock> blocks;
     
     public Dictionary<string,Tag> tagDictionary;
    

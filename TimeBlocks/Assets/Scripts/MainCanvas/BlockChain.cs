@@ -47,47 +47,29 @@ public class BlockChain : MonoBehaviour
             
             if (dataManager.sortingByTime)
             {
-                dataManager.sortByTime.Sort(new timeSort());
+                dataManager.blocks.Sort(new timeSort());
                 for (int i = 0; i < dataManager.chainSize; i++)
                 {
-                    CreateANewBlock(dataManager.sortByTime[i]);
+                    CreateANewBlock(dataManager.blocks[i]);
                 }
             }
             else
             {
-                dataManager.sortByPriority.Sort(new prioritySort());
+                dataManager.blocks.Sort(new prioritySort());
                 for (int i = 0; i < dataManager.chainSize; i++)
                 {
-                    CreateANewBlock(dataManager.sortByPriority[i]);
+                    CreateANewBlock(dataManager.blocks[i]);
                 }
             }
         }
     }
     public bool AddBlock(TimeBlock a)
     {
-        dataManager.sortByTime.Add(a);
-        dataManager.sortByPriority.Add(a);
+        dataManager.blocks.Add(a);
         dataManager.chainSize++;
-        Debug.Log("Chainsize" + dataManager.chainSize);
-        Debug.Log("Realsize" + dataManager.sortByPriority.Count);
         return true;
     }
-    public void MarkAsFinished(TimeBlock i) {
-        dataManager.sortByPriority.Remove(i);
-        dataManager.sortByPriority.Remove(i);
-        dataManager.chainSize--;
-        dataManager.finishedTask.Add(i);
-        ShowBlockChain();
-    }
-    public void DeleteBlock(TimeBlock i)
-    {
-        dataManager.sortByPriority.Remove(i);
-        dataManager.sortByPriority.Remove(i);
-        dataManager.chainSize--;
-        dataManager.deletedTask.Add(i);
-        ShowBlockChain();
-    }
-
+   
     public void CreateANewBlock(TimeBlock i)
     {
         TimeBlockUI newBlock = Instantiate(timeBlockPF, blockChainUI.transform.position, Quaternion.identity);

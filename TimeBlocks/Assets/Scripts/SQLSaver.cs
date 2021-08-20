@@ -62,11 +62,8 @@ public class SQLSaver : MonoBehaviour
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
-            //for (int i = 0; i < reader.FieldCount; i++)
-            //{
             if (reader[0].ToString().CompareTo(v) == 0)
                 return true;
-            //}
         }
         return false;
     }

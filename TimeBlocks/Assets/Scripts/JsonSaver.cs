@@ -30,10 +30,7 @@ public class JsonSaver : MonoBehaviour
         item["G"] = dm.backgroundColor.g;
         item["B"] = dm.backgroundColor.b;
         jd.Add(item);
-        SaveBlocks(dm.sortByTime,"sortByTime");
-        SaveBlocks(dm.sortByPriority, "sortByPriority");
-        SaveBlocks(dm.deletedTask, "deletedTask");
-        SaveBlocks(dm.finishedTask,"finishedTask");
+        SaveBlocks(dm.blocks,"blocks");
         SaveTags(dm.tagDictionary, "tagDictionary");
         using (StreamWriter sw = new StreamWriter("C:/Users/Trance/Documents/Github/TimeBlocks/TimeBlocks/Assets/Resources/config.json"))
         {
@@ -94,12 +91,10 @@ public class JsonSaver : MonoBehaviour
         dm.backgroundColor.r = int.Parse(item["completionCheck"].ToString());
        dm.backgroundColor.g = int.Parse(item["completionCheck"].ToString());
         dm.backgroundColor.b = int.Parse(item["completionCheck"].ToString());
-        dm.sortByTime=LoadBlocks( "sortByTime");
-        dm.sortByPriority=LoadBlocks( "sortByPriority");
-        dm.deletedTask= LoadBlocks( "deletedTask");
-        dm.finishedTask= LoadBlocks("finishedTask");
     }
-    public List<TimeBlock> LoadBlocks( string jsonName)
+    public void LoadTags(DataManager dm, string jsonName) {
+    }
+    public void LoadBlocks(DataManager dm, string jsonName)
     {
         List<TimeBlock> blocks = new List<TimeBlock>();
         string json = Resources.Load(jsonName).ToString();
@@ -118,8 +113,9 @@ public class JsonSaver : MonoBehaviour
            i._isFailed = bool.Parse(item["_isFailed"].ToString());
             blocks.Add(i);
         }
-        return blocks;
+        dm.blocks= blocks;
     }
+
     public void TestLoadJson() {
         List<testdata> temp = new List<testdata>();
         string json = Resources.Load("testData").ToString();

@@ -11,8 +11,6 @@ public class TimeBlockUI : MonoBehaviour
     public Transform horizontalLayOut;
     public TimeBlock timeBlock;
     public BlockChain blockChain;
-    public Collider Delete;
-    public Collider Finished;
     public Collider TaskBody;
     // Start is called before the first frame update
     void Start()
@@ -24,14 +22,4 @@ public class TimeBlockUI : MonoBehaviour
     {
 
     }
-    public void TaskFinished()
-    {
-        blockChain.MarkAsFinished(timeBlock);
-        Debug.Log("Finished");
-    }
-    public void TaskDeleted()
-    {
-        Debug.Log("Delete");
-        blockChain.DeleteBlock(timeBlock);
-    }
-    }
+}
