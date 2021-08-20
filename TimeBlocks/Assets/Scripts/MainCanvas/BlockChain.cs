@@ -8,22 +8,42 @@ public class BlockChain : MonoBehaviour
     public DataManager dataManager;
     public TimeBlockUI timeBlockPF;
     public GameObject blockChainUI;
+
     public class timeSort : Comparer<TimeBlock>
     {
         // Compares by Length, Height, and Width.
         public override int Compare(TimeBlock x, TimeBlock y)
         {
-            return x.Compare(y);
+            if (x._timeStamp - y._timeStamp > 0)
+            {
+                return 1;
+            }
+            if (x._timeStamp - y._timeStamp < 0)
+            {
+                return -1;
+            }
+            return 0;
         }
     }
     public class prioritySort : Comparer<TimeBlock>
     {
+        public DataManager dataManager;
         // Compares by Length, Height, and Width.
         public override int Compare(TimeBlock x, TimeBlock y)
         {
-            return x.Priority() - y.Priority();
+            
+            if (x.GetPriority(dataManager.tagDictionary) - y.GetPriority(dataManager.tagDictionary) > 0)
+            {
+                return 1;
+            }
+            if (x.GetPriority(dataManager.tagDictionary) - y.GetPriority(dataManager.tagDictionary) < 0)
+            {
+                return -1;
+            }
+            return 0;
         }
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,7 +75,9 @@ public class BlockChain : MonoBehaviour
             }
             else
             {
-                dataManager.blocks.Sort(new prioritySort());
+                prioritySort ps = new prioritySort();
+                ps.dataManager = dataManager;
+                dataManager.blocks.Sort(ps);
                 for (int i = 0; i < dataManager.chainSize; i++)
                 {
                     CreateANewBlock(dataManager.blocks[i]);
@@ -76,7 +98,7 @@ public class BlockChain : MonoBehaviour
         newBlock.gameObject.transform.SetParent(blockChainUI.transform);
 
         newBlock.taskName.text = i._name;
-        newBlock.icon.sprite = dataManager.tagDictionary[newBlock.timeBlock._tag]._image;
+        newBlock.icon.sprite = dataManager.tagDictionary[newBlock.timeBlock._tagId]._image;
         newBlock.icon.color = new Color(1, 1, 1, 1);
         newBlock.timeBlock = i;
         newBlock.blockChain = this;

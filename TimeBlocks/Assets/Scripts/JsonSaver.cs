@@ -37,10 +37,10 @@ public class JsonSaver : MonoBehaviour
             sw.Write(JsonMapper.ToJson(jd));
         }
     }
-    public void SaveTags(Dictionary<string,Tag> tags,string jsonName) {
+    public void SaveTags(Dictionary<int,Tag> tags,string jsonName) {
         JsonData jd = new JsonData();
         jd.SetJsonType(JsonType.Array);
-        foreach (string k in tags.Keys)
+        foreach (int k in tags.Keys)
         {
             Tag i = tags[k];
             JsonData item = new JsonData();
@@ -61,15 +61,9 @@ public class JsonSaver : MonoBehaviour
         foreach (TimeBlock i in blocks) {
             JsonData item = new JsonData();
             item["_name"] = i._name;
-            item["_year"] = i._year;
-            item["_month"] = i._month;
-            item["_day"] = i._day;
-            item["_chunk"] = i._chunk;
+            item["_timeStamp"] = i._timeStamp;
             item["_timeRequired"] = i._timeRequired;
-            item["_tag"] = i._tag;
-            item["_priority"] = i._priority;
-            item["_isOver"] = i._isOver;
-            item["_isFailed;"] = i._isFailed;
+            item["_tagId"] = i._tagId;
             jd.Add(item);
 }
         using (StreamWriter sw = new StreamWriter("C:/Users/Trance/Documents/Github/TimeBlocks/TimeBlocks/Assets/Resources/"+jsonName+".json"))
@@ -102,15 +96,9 @@ public class JsonSaver : MonoBehaviour
         foreach (JsonData item in jd) {
             TimeBlock i = new TimeBlock();
             i._name=item["_name"].ToString();
-            i._year=int.Parse( item["_year"].ToString());
-           i._month= int.Parse(item["_month"].ToString());
-           i._day= int.Parse(item["_day"].ToString());
-            i._chunk= int.Parse(item["_chunk"].ToString());
+            i._timeStamp= long.Parse(item["_chunk"].ToString());
             i._timeRequired= int.Parse(item["_timeRequired"].ToString());
-             i._tag=item["_tag"].ToString();
-            i._priority = int.Parse(item["_priority"].ToString());
-             i._isOver=bool.Parse(item["_isOver"].ToString());
-           i._isFailed = bool.Parse(item["_isFailed"].ToString());
+             i._tagId= int.Parse(item["_tagId"].ToString());
             blocks.Add(i);
         }
         dm.blocks= blocks;

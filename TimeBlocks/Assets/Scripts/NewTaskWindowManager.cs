@@ -71,7 +71,7 @@ public class NewTaskWindowManager : MonoBehaviour
         {
             chunkid = 2;
         }
-        newTimeBlock=new TimeBlock(taskname, int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text), int.Parse(Day.options[Day.value].text), chunkid, int.Parse(EstimateTime.text),Tags.itemText.text);
+        newTimeBlock=new TimeBlock(taskname, int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text), int.Parse(Day.options[Day.value].text), chunkid, int.Parse(EstimateTime.text), int.Parse(Tags.itemText.text));
         dataManager.lastInput = newTimeBlock;
     }
     public void Save() {
@@ -95,12 +95,12 @@ public class NewTaskWindowManager : MonoBehaviour
         if (dataManager.isAdvanced)
         {
             AdvancedWindow.SetActive(true);
-            TaskNameA.text = dataManager.lastInput.Name();
+            TaskNameA.text = dataManager.lastInput._name;
         }
         else
         {
             SimpleWindow.SetActive(true);
-            TaskNameS.text = dataManager.lastInput.Name();
+            TaskNameS.text = dataManager.lastInput._name;
         }
     }
     public void SetAdvancedModeOff() {

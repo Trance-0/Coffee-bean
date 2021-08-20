@@ -28,10 +28,12 @@ public class DataManager : MonoBehaviour
 
     public List<TimeBlock> blocks;
     
-    public Dictionary<string,Tag> tagDictionary;
+    public Dictionary<int,Tag> tagDictionary;
    
     public int chainSize;
 
+    
+   
     // Start is called before the first frame update
     void Start()
     {

@@ -15,7 +15,7 @@ public class TimeBlock : ScriptableObject
         _name=name;
          _timeStamp=SetTime(year,month,day,chunk);
         _tagId=tagId;
-        _timeRequired=timeRequired);
+        _timeRequired=timeRequired;
     }
     public TimeBlock(string name)
     {
@@ -36,10 +36,11 @@ public class TimeBlock : ScriptableObject
         _timeRequired=-1;
     }
     public long SetTime(int year, int month,int day,int chunk){
+       
         return 0;
     }
 
-    public bool update(Dictionary<string,Tag> tagPriorityList) {
-       reuturn false;
+    public long GetPriority(Dictionary<int,Tag> tagPriorityList) {
+       return 0;
     }
 }
