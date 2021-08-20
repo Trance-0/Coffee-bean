@@ -10,8 +10,8 @@
 - [x] Sprite color 设置
 - [ ] 如何设置系统提醒，申请权限
 - [x] 如何识别设备序列号自动登录
-- [ ] Vertical Layout 比例调整
-- [ ] 搜索任务
+- [x] Vertical Layout 比例调整
+- [x] 搜索任务
 - [ ] 时间戳数据类型使用
 
  
