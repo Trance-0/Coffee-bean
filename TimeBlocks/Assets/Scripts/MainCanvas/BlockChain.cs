@@ -8,17 +8,18 @@ public class BlockChain : MonoBehaviour
     public DataManager dataManager;
     public TimeBlockUI timeBlockPF;
     public GameObject blockChainUI;
+    public ConfigManager configManager;
 
     public class timeSort : Comparer<TimeBlock>
     {
         // Compares by Length, Height, and Width.
         public override int Compare(TimeBlock x, TimeBlock y)
         {
-            if (x._timeStamp - y._timeStamp > 0)
+            if (x._deadline - y._deadline > 0)
             {
                 return 1;
             }
-            if (x._timeStamp - y._timeStamp < 0)
+            if (x._deadline - y._deadline < 0)
             {
                 return -1;
             }
@@ -98,9 +99,7 @@ public class BlockChain : MonoBehaviour
         newBlock.gameObject.transform.SetParent(blockChainUI.transform);
 
         newBlock.taskName.text = i._name;
-        newBlock.icon.sprite = dataManager.tagDictionary[newBlock.timeBlock._tagId]._image;
-        newBlock.icon.color = new Color(1, 1, 1, 1);
+        newBlock.icon.sprite = configManager.imageReference[dataManager.tagDictionary[newBlock.timeBlock._tagId]._imageId];
         newBlock.timeBlock = i;
-        newBlock.blockChain = this;
     }
 }
