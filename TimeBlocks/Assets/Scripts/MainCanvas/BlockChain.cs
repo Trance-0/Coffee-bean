@@ -61,7 +61,7 @@ public class BlockChain : MonoBehaviour
     {
         for (int i = blockChainUI.transform.childCount - 1; i >= 0; i--)
         {
-          //  Destroy(blockChainUI.transform.GetChild(i).gameObject);
+            Destroy(blockChainUI.transform.GetChild(i).gameObject);
         }
         if (dataManager.chainSize != 0)
         {
@@ -99,7 +99,9 @@ public class BlockChain : MonoBehaviour
         newBlock.gameObject.transform.SetParent(blockChainUI.transform);
 
         newBlock.taskName.text = i._name;
-        newBlock.icon.sprite = configManager.imageReference[dataManager.tagDictionary[newBlock.timeBlock._tagId]._imageId];
+        int imageId = dataManager.tagDictionary[newBlock.timeBlock._tagId]._imageId;
+        Debug.Log(imageId);
+        newBlock.icon.sprite = configManager.imageReference[imageId];
         newBlock.timeBlock = i;
     }
 }

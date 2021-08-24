@@ -10,20 +10,13 @@ public class TagUI : MonoBehaviour
     public Button imageChange;
 
     public Image image;
-
-    public GameObject edit;
+    
     public InputField tagNameInput;
     public InputField weightInput;
-
-    public GameObject show;
-    public Text tagName;
-    public Text weight;
     
     // Start is called before the first frame update
     void Start()
     {
-        show.SetActive(true);
-        edit.SetActive(false);
     }
 
     // Update is called once per frame
@@ -31,9 +24,11 @@ public class TagUI : MonoBehaviour
     {
         
     }
-    public void Edit() {
-
+    void ChangeImage(int imageId) {
+        t._imageId = imageId;
     }
-    public void Save() {
+    void Save() {
+        t._power = int.Parse(weightInput.text);
+        t._name = tagNameInput.text;
     }
 }

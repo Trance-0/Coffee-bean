@@ -19,7 +19,13 @@ public class NewTaskWindowManager : MonoBehaviour
     public Dropdown Tags;
     public InputField EstimateTime;
 
+    public Dictionary<string, Tag> tempDictionary;
+
     public DataManager dataManager;
+    public ConfigManager configManager;
+
+    private int lastYear;
+    private int lastMonth;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,13 +35,16 @@ public class NewTaskWindowManager : MonoBehaviour
         for (int i=0;i<10;i++) {
             Year.options.Add(new Dropdown.OptionData( (today.Year+i).ToString()));
         }
+        lastYear = int.Parse(Year.options[Year.value].text);
         Month.options.Clear();
         for (int i = 0; i < 12; i++)
         {
-            Month.options.Add(new Dropdown.OptionData(((today.Month + i)%12+1).ToString()));
+            Month.options.Add(new Dropdown.OptionData(((today.Month + i-1)%12+1).ToString()));
         }
+        lastMonth = int.Parse(Month.options[Month.value].text);
         Day.options.Clear();
-        for (int i = 0; i < DateTime.DaysInMonth(int.Parse(Year.itemText.text), int.Parse(Month.itemText.text)); i++)
+       int dayInTime = DateTime.DaysInMonth(int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text));
+        for (int i = 0; i < 31; i++)
         {
             Day.options.Add(new Dropdown.OptionData(((today.Day + i) % 31+1).ToString()));
         }
@@ -43,39 +52,58 @@ public class NewTaskWindowManager : MonoBehaviour
         Chunk.options.Add(new Dropdown.OptionData("Morning"));
         Chunk.options.Add(new Dropdown.OptionData("Afternoon"));
         Chunk.options.Add(new Dropdown.OptionData("Evening"));
+        tempDictionary = new Dictionary<string, Tag>();
+        Tags.options.Clear();
+        foreach (int i in dataManager.tagDictionary.Keys) {
+            tempDictionary.Add(dataManager.tagDictionary[i]._name, dataManager.tagDictionary[i]);
+            Tags.options.Add(new Dropdown.OptionData(dataManager.tagDictionary[i]._name));
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (lastYear!=int.Parse(Year.options[Year.value].text)|| lastMonth != int.Parse(Month.options[Month.value].text)) {
+            DateTime today = DateTime.Today;
+            lastYear = int.Parse(Year.options[Year.value].text);
+            lastMonth = int.Parse(Month.options[Month.value].text);
+            Day.options.Clear();
+            int dayInTime = DateTime.DaysInMonth(lastYear,lastMonth);
+            for (int i = 0; i < 31; i++)
+            {
+                Day.options.Add(new Dropdown.OptionData(((today.Day + i) % 31 + 1).ToString()));
+            }
+        }
     }
    
     public void BuildBlock() {
-        string taskname;
+       
         if (dataManager.isAdvanced) {
-            taskname = TaskNameA.text;
+            string taskname = TaskNameA.text;
+            int chunkid = 0;
+            if (Chunk.options[Chunk.value].text == "Morning")
+            {
+                chunkid = 1;
+            }
+            else if (Chunk.options[Chunk.value].text == "Afternoon")
+            {
+                chunkid = 2;
+            }
+            else if (Chunk.options[Chunk.value].text == "Evening")
+            {
+                chunkid = 3;
+            }
+            newTimeBlock = new TimeBlock(taskname, int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text), int.Parse(Day.options[Day.value].text), chunkid, int.Parse(EstimateTime.text), tempDictionary[Tags.options[Tags.value].text]._tagId);
         }
         else {
-            taskname = TaskNameS.text;
+            string taskname = TaskNameS.text;
+            newTimeBlock = new TimeBlock(taskname);
         }
-        int chunkid=0;
-        if (Chunk.itemText.text == "Morning") {
-            chunkid = 1;
-        }
-        else if (Chunk.itemText.text == "Afternoon")
-        {
-            chunkid = 2;
-        }
-        else if (Chunk.itemText.text == "Evening")
-        {
-            chunkid = 3;
-        }
-        newTimeBlock=new TimeBlock(taskname, int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text), int.Parse(Day.options[Day.value].text), chunkid, int.Parse(EstimateTime.text), int.Parse(Tags.itemText.text));
         dataManager.lastInput = newTimeBlock;
+        Debug.Log(newTimeBlock.name);
     }
     public void Save() {
-       // BuildBlock();
+       BuildBlock();
         blockChain.AddBlock(newTimeBlock);
         blockChain.ShowBlockChain();
     }
@@ -104,14 +132,14 @@ public class NewTaskWindowManager : MonoBehaviour
         }
     }
     public void SetAdvancedModeOff() {
-        //BuildBlock();
+        BuildBlock();
         CloseWindow();
         dataManager.isAdvanced = false;
         OpenWindow();
     }
     public void SetAdvancedModeOn()
     {
-        //BuildBlock();
+        BuildBlock();
         CloseWindow();
         dataManager.isAdvanced = true;
         OpenWindow();

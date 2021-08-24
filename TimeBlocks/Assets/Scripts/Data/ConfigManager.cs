@@ -5,6 +5,7 @@ using UnityEngine;
 public class ConfigManager : MonoBehaviour
 {
     public List<Sprite> imageReference;
+    public Color imageColor;
     // Start is called before the first frame update
     void Start()
     {

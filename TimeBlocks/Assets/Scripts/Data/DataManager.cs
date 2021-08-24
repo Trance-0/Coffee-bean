@@ -37,6 +37,8 @@ public class DataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tagDictionary = new Dictionary<int, Tag>();
+        tagDictionary.Add(-1,new Tag("Untaged",0,1));
         //    ds.LoadConfig(this, "config_0");
    //     chainSize = sortByTime.Count;
     }

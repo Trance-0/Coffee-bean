@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 /* 
  * When screen is on, the timer would not on
  * When screen is closed, the timer would count down
@@ -18,6 +19,11 @@ using UnityEngine;
 
 public class TaskOperatingContoler : MonoBehaviour
 {
+    public Image icon;
+    public Text taskName;
+    public Text timer;
+
+    public TimeBlock toDo;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,5 +34,9 @@ public class TaskOperatingContoler : MonoBehaviour
     void Update()
     {
         
+    }
+    void Cancel() {
+    }
+    void Finished() {
     }
 }

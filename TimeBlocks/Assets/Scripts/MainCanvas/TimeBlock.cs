@@ -39,7 +39,7 @@ public class TimeBlock : ScriptableObject
         _estimateTime=-1;
     }
     public long SetTime(int year, int month,int day,int chunk){
-        TimeSpan st = new DateTime(year, month, day, chunk*6-1, 59, 59) - new DateTime(1970, 1, 1, 0, 0, 0);
+        TimeSpan st = new DateTime(year, month, day, chunk*6+5, 59, 59) - new DateTime(1970, 1, 1, 0, 0, 0);
         return Convert.ToInt64(st.TotalSeconds);
     }
 
