@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class SortBy : MonoBehaviour
 {
-    public DataManager dataManager;
+    public ConfigManager configManager;
+
     public BlockChain blockChain;
     public Button controlButton;
     public Sprite sortByTimeIcon;
@@ -13,7 +14,7 @@ public class SortBy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        OnClick();
     }
 
     // Update is called once per frame
@@ -22,18 +23,18 @@ public class SortBy : MonoBehaviour
         
     }
     public void OnClick() {
-        if (!dataManager.isAddNewTaskWindowAwake)
+        if (!configManager.isAddNewTaskWindowAwake)
         {
-            if (dataManager.sortingByTime)
+            if (configManager.sortingByTime)
             {
                 controlButton.image.sprite = sortByPriorityIcon;
-                dataManager.sortingByTime = false;
+                configManager.sortingByTime = false;
                 blockChain.ShowBlockChain();
             }
             else
             {
                 controlButton.image.sprite = sortByTimeIcon;
-                dataManager.sortingByTime = true;
+                configManager.sortingByTime = true;
                 blockChain.ShowBlockChain();
             }
         }

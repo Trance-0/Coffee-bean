@@ -21,10 +21,9 @@ public class JsonSaver : MonoBehaviour
         JsonData jd = new JsonData();
         jd.SetJsonType(JsonType.Array);
         JsonData item = new JsonData();
-        item["completionCheck"] = dm.completionCheck;
         item["enableTimer"] = dm.enableTimer;
         item["analyseOCT"] = dm.analyseOCT;
-        item["OCT"] = dm.OCT;
+        item["manualOCT"] = dm.manualOCT;
         item[" OCTAuto"] = dm.OCTAuto;
         item["R"] = dm.backgroundColor.r;
         item["G"] = dm.backgroundColor.g;
@@ -77,10 +76,9 @@ public class JsonSaver : MonoBehaviour
         string json = Resources.Load(jsonName).ToString();
         JsonData jd = JsonMapper.ToObject(json);
         JsonData item =jd[0];
-         dm.completionCheck=bool.Parse(item["completionCheck"].ToString());
         dm.enableTimer = bool.Parse(item["enableTimer"].ToString());
          dm.analyseOCT = bool.Parse(item["analyseOCT "].ToString());
-        dm.OCT = int.Parse(item["completionCheck"].ToString());
+        dm.manualOCT = int.Parse(item["manualOCT"].ToString());
        dm.OCTAuto = bool.Parse(item["completionCheck"].ToString());
         dm.backgroundColor.r = int.Parse(item["completionCheck"].ToString());
        dm.backgroundColor.g = int.Parse(item["completionCheck"].ToString());

@@ -6,6 +6,12 @@ public class ConfigManager : MonoBehaviour
 {
     public List<Sprite> imageReference;
     public Color imageColor;
+    public TimeBlock lastInput;
+    public bool sortingByTime;
+
+    public bool isAdvanced;
+    public bool isAddNewTaskWindowAwake;
+
     // Start is called before the first frame update
     void Start()
     {

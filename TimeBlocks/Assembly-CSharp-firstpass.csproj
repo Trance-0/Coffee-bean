@@ -245,18 +245,6 @@
     <Reference Include="UnityEditor">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1c1/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="DOTween">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween43">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween43.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween46">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween46.dll</HintPath>
-    </Reference>
-    <Reference Include="DOTween50">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Graph_Maker/DOTween/DOTween50.dll</HintPath>
-    </Reference>
     <Reference Include="LitJSON">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/LitJSON.dll</HintPath>
     </Reference>
@@ -699,7 +687,20 @@
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup></ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="XCharts.Runtime.csproj">
+      <Project>{69260C65-C8B0-C0FD-EE73-A739A612933D}</Project>
+      <Name>XCharts.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="XCharts.Editor.csproj">
+      <Project>{CBBA6220-3045-75CC-C79F-085C1E446F2A}</Project>
+      <Name>XCharts.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="XCharts.Examples.Runtime.csproj">
+      <Project>{207753BE-C5BA-E5B4-3FA3-A8ABD906D852}</Project>
+      <Name>XCharts.Examples.Runtime</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,38 +9,39 @@ public class DataManager : MonoBehaviour
     //here is the setting part
 
     public int userID;
-    public bool completionCheck;
+
     public bool enableTimer;
-  
     public bool analyseOCT;
  
-    public int OCT;
+    public int manualOCT;
     public bool OCTAuto;
  
     public Color backgroundColor;
 
     //here is the main canvas data
-    public TimeBlock lastInput;
-    public bool sortingByTime;
-
-    public bool isAdvanced;
-    public bool isAddNewTaskWindowAwake;
+    
 
     public List<TimeBlock> blocks;
     
     public Dictionary<int,Tag> tagDictionary;
-   
-    public int chainSize;
 
-    
+    public List<int> OCT;
+
+    public int OCTSum;
+    public int taskSum;
+    public int interruptSum;
+    public int OCTMax;
+    public int AppUseSum;
+    public long joinTime;
    
     // Start is called before the first frame update
     void Start()
     {
         tagDictionary = new Dictionary<int, Tag>();
         tagDictionary.Add(-1,new Tag("Untaged",0,1));
+        tagDictionary.Add(1, new Tag("testTag", 1, 9));
         //    ds.LoadConfig(this, "config_0");
-   //     chainSize = sortByTime.Count;
+        //     chainSize = sortByTime.Count;
     }
 
     // Update is called once per frame
@@ -51,5 +52,11 @@ public class DataManager : MonoBehaviour
     private void OnApplicationQuit()
     {
      //   ds.SaveConfig(this,"config_0");
+    }
+    public void InitializeData(){
+        throw new NotImplementedException();
+    }
+    public void Save() {
+        throw new NotImplementedException();
     }
 }

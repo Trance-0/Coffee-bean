@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class NewTaskWindowWaker : MonoBehaviour
 {
-    public DataManager dataManager;
+    public ConfigManager configManager;
     public NewTaskWindowManager newTaskWindowManager;
     public Button controlButton;
     public Sprite closeWindowIcon;
@@ -22,7 +22,8 @@ public class NewTaskWindowWaker : MonoBehaviour
         
     }
     public void OnClick() {
-        if (dataManager.isAddNewTaskWindowAwake)
+        newTaskWindowManager.UpdateInfo();
+        if (configManager.isAddNewTaskWindowAwake)
         {
             newTaskWindowManager.CloseWindow();
             controlButton.image.sprite= openWindowIcon;

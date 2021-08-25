@@ -63,33 +63,31 @@ public class BlockChain : MonoBehaviour
         {
             Destroy(blockChainUI.transform.GetChild(i).gameObject);
         }
-        if (dataManager.chainSize != 0)
-        {
             
-            if (dataManager.sortingByTime)
+            if (configManager.sortingByTime)
             {
                 dataManager.blocks.Sort(new timeSort());
-                for (int i = 0; i < dataManager.chainSize; i++)
+                for (int i = 0; i < dataManager.blocks.Count; i++)
                 {
                     CreateANewBlock(dataManager.blocks[i]);
-                }
+                Debug.Log("Task name: " + dataManager.blocks[i]._name + " Deadline:" + dataManager.blocks[i]._deadline);
+            }
             }
             else
             {
                 prioritySort ps = new prioritySort();
                 ps.dataManager = dataManager;
                 dataManager.blocks.Sort(ps);
-                for (int i = 0; i < dataManager.chainSize; i++)
+                for (int i = 0; i < dataManager.blocks.Count; i++)
                 {
                     CreateANewBlock(dataManager.blocks[i]);
+                Debug.Log("Task name: "+dataManager.blocks[i]._name+" Priority:"+dataManager.blocks[i].GetPriority(dataManager.tagDictionary));
                 }
             }
-        }
     }
     public bool AddBlock(TimeBlock a)
     {
         dataManager.blocks.Add(a);
-        dataManager.chainSize++;
         return true;
     }
    
@@ -97,11 +95,10 @@ public class BlockChain : MonoBehaviour
     {
         TimeBlockUI newBlock = Instantiate(timeBlockPF, blockChainUI.transform.position, Quaternion.identity);
         newBlock.gameObject.transform.SetParent(blockChainUI.transform);
-
+        newBlock.timeBlock = i;
         newBlock.taskName.text = i._name;
         int imageId = dataManager.tagDictionary[newBlock.timeBlock._tagId]._imageId;
         Debug.Log(imageId);
         newBlock.icon.sprite = configManager.imageReference[imageId];
-        newBlock.timeBlock = i;
     }
 }

@@ -5,15 +5,16 @@ using UnityEngine.UI;
 
 public class TagUI : MonoBehaviour
 {
-    public Tag t;
+    public Tag tag;
     public ConfigManager configManager;
-    public Button imageChange;
+    public ImageChanger imageChange;
 
+    public TagUI self;
     public Image image;
-    
+
     public InputField tagNameInput;
     public InputField weightInput;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,13 +23,18 @@ public class TagUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    void ChangeImage(int imageId) {
-        t._imageId = imageId;
+    public void ChangeImage(int imageId) {
+        tag._imageId = imageId;
+        image.sprite = configManager.imageReference[imageId];
     }
-    void Save() {
-        t._power = int.Parse(weightInput.text);
-        t._name = tagNameInput.text;
+    public void WakeImageChanger() {
+        imageChange.setGoal(self);
     }
+    public void Save() {
+        tag._power = int.Parse(weightInput.text);
+        tag._name = tagNameInput.text;
+    }
+
 }
