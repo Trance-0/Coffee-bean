@@ -53,10 +53,13 @@ public class DataManager : MonoBehaviour
     {
      //   ds.SaveConfig(this,"config_0");
     }
+
+    public void OCTUpDate(int newOCT) {
+    }
     public void InitializeData(){
-        throw new NotImplementedException();
+        Debug.Log("Date initialized");
     }
     public void Save() {
-        throw new NotImplementedException();
+        Debug.Log("Data Saved");
     }
 }

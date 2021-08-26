@@ -9,6 +9,9 @@ public class BlockChain : MonoBehaviour
     public TimeBlockUI timeBlockPF;
     public GameObject blockChainUI;
     public ConfigManager configManager;
+    public TaskOperatingContoler taskOperatingContoler;
+    public CanvasManager canvasManager;
+    public BlockChain blockChain;
 
     public class timeSort : Comparer<TimeBlock>
     {
@@ -85,6 +88,19 @@ public class BlockChain : MonoBehaviour
                 }
             }
     }
+    public void Search(string keywords) {
+        for (int i = blockChainUI.transform.childCount - 1; i >= 0; i--)
+        {
+            Destroy(blockChainUI.transform.GetChild(i).gameObject);
+        }
+        
+            for (int i = 0; i < dataManager.blocks.Count; i++)
+            {
+            if (dataManager.blocks[i]._name.Contains(keywords)) {
+                CreateANewBlock(dataManager.blocks[i]);
+            }
+            }
+    }
     public bool AddBlock(TimeBlock a)
     {
         dataManager.blocks.Add(a);
@@ -100,5 +116,9 @@ public class BlockChain : MonoBehaviour
         int imageId = dataManager.tagDictionary[newBlock.timeBlock._tagId]._imageId;
         Debug.Log(imageId);
         newBlock.icon.sprite = configManager.imageReference[imageId];
+        newBlock.taskOperatingContoler = taskOperatingContoler;
+        newBlock.dataManager = dataManager;
+        newBlock.canvasManager = canvasManager;
+        newBlock.blockChain = blockChain;
     }
 }

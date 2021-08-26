@@ -22,15 +22,17 @@ public class NewTaskWindowWaker : MonoBehaviour
         
     }
     public void OnClick() {
-        newTaskWindowManager.UpdateInfo();
-        if (configManager.isAddNewTaskWindowAwake)
-        {
-            newTaskWindowManager.CloseWindow();
-            controlButton.image.sprite= openWindowIcon;
-        }
-        else{
-            newTaskWindowManager.OpenWindow();
-            controlButton.image.sprite = closeWindowIcon;
-        }
+            newTaskWindowManager.UpdateInfo();
+            if (configManager.isAddNewTaskWindowAwake)
+            {
+                newTaskWindowManager.CloseWindow();
+                controlButton.image.sprite = openWindowIcon;
+            }
+            else
+            {
+                newTaskWindowManager.OpenWindow();
+                controlButton.image.sprite = closeWindowIcon;
+            }
+
     }
 }

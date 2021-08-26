@@ -11,6 +11,7 @@ public class ConfigManager : MonoBehaviour
 
     public bool isAdvanced;
     public bool isAddNewTaskWindowAwake;
+    public bool isSearchBoxAwake;
 
     // Start is called before the first frame update
     void Start()
