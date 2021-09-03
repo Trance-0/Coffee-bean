@@ -9,11 +9,12 @@ public class CanvasManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log(Screen.width+"Height: "+Screen.height);
     }
     // Update is called once per frame
     void Update()
     {
-        
+     
     }
     public void ChangeCanvas(int index) {
         foreach (GameObject i in canvasList) {

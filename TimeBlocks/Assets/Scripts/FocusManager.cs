@@ -18,4 +18,5 @@ public class FocusManager: MonoBehaviour
         isPaused = pauseStatus;
         Debug.Log("Not Focused");
     }
+
 }
