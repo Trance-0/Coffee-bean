@@ -30,7 +30,7 @@ public class StatsManager : MonoBehaviour
         LoadOCT(dataManager.OCT);
 }
 
-    private void LoadOCT(List<int> OCT)
+    private void LoadOCT(List<double> OCT)
     {
         OCTChart.ClearData();
         OCTChart.AddXAxisData("Total");

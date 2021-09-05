@@ -29,17 +29,13 @@ public class SettingManager : MonoBehaviour
     {
         dataManager.manualOCT = int.Parse(OCTValue.text);
     }
-    public InputField R;
-    public InputField G;
-    public InputField B;
+    public InputField H;
     public void ColorUpdate() {
-       float r = float.Parse(R.text);
-        float g = float.Parse(G.text);
-        float b = float.Parse(B.text);
+       float h =float.Parse(H.text);
         //Debug.Log(r+""+ R.text + ""+g+""+G.text + ""+b+""+ B.text);
-        if (r < 255&&r>0 && g < 255 &&g>0&& b < 255&&b>0)
+        if (h<255&&h>=0)
         {
-            dataManager.backgroundColor = new Color(r / 255, g / 255, b / 255);
+            dataManager.backgroundColor = Color.HSVToRGB(h/255,0.5f,1f);
         }
         else
         {
@@ -55,10 +51,9 @@ public class SettingManager : MonoBehaviour
 
         OCTValue.interactable = !dataManager.OCTAuto;
         OCTValue.text = dataManager.manualOCT.ToString() ;
-
-        R.text = (dataManager.backgroundColor.r*255).ToString();
-        G.text = (dataManager.backgroundColor.g * 255).ToString();
-        B.text = (dataManager.backgroundColor.b * 255).ToString();
+        float nh, ns, nv;
+        Color.RGBToHSV(dataManager.backgroundColor, out nh, out ns, out nv);
+        H.text = (nh*255).ToString();
 
     }
 
@@ -75,6 +70,6 @@ public class SettingManager : MonoBehaviour
         dataManager.InitializeData();
     }
     public void UpdateData() {
-        dataManager.Save();
+        dataManager.SaveSettings();
     }
 }

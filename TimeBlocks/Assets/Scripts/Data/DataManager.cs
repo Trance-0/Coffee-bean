@@ -6,9 +6,12 @@ using System;
 
 public class DataManager : MonoBehaviour
 {
-    //here is the setting part
+    //here is the inital config
+    public ConfigManager configManager;
+    public JsonSaver jsonSaver;
+    public SQLSaver sQLSaver;
 
-    public int userID;
+    //here is the setting part
 
     public bool enableTimer;
     public bool analyseOCT;
@@ -25,12 +28,14 @@ public class DataManager : MonoBehaviour
     
     public Dictionary<int,Tag> tagDictionary;
 
-    public List<int> OCT;
+    public List<double> OCT;
 
-    public int OCTSum;
+    //here is stats
+
+    public double OCTSum;
     public int taskSum;
     public int interruptSum;
-    public int OCTMax;
+    public double OCTMax;
     public int AppUseSum;
     public long joinTime;
    
@@ -42,6 +47,7 @@ public class DataManager : MonoBehaviour
         tagDictionary.Add(1, new Tag("testTag", 1, 9));
         //    ds.LoadConfig(this, "config_0");
         //     chainSize = sortByTime.Count;
+        blocks = sQLSaver.LoadBlocks();
     }
 
     // Update is called once per frame
@@ -54,12 +60,92 @@ public class DataManager : MonoBehaviour
      //   ds.SaveConfig(this,"config_0");
     }
 
-    public void OCTUpDate(int newOCT) {
+    public void OCTUpDate(double newOCT) {
+        if (newOCT>OCTMax) {
+            OCTMax = newOCT;
+        }
+        OCTSum += newOCT;
+        OCT[0] = newOCT;
+        OCT[1] = (OCT[1]*2+newOCT)/3;
+        OCT[2] = (OCT[2]*6 + newOCT) / 7;
+        OCT[3] = (OCT[3]*30 + newOCT) / 31;
+        OCT[4] = (OCT[3] * 90 + newOCT) / 91;
+        OCT[5] = (OCT[3] * 365 + newOCT) / 366;
+        OCT[6] = (OCT[3] *  GetTime()-1+ newOCT) / GetTime();
     }
     public void InitializeData(){
-        Debug.Log("Date initialized");
+        Debug.Log("Data initialized");
     }
-    public void Save() {
+    public void SaveAll() {
+        SaveBlocks();
+        SaveTags();
+        SaveOCT();
+        SaveSettings();
+        SaveStats();
         Debug.Log("Data Saved");
+    }
+    public void SaveBlocks() {
+        if (configManager.isOnline)
+        {
+            sQLSaver.SaveBlocks(blocks);
+            blocks=sQLSaver.LoadBlocks();
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
+    public void SaveTags()
+    {
+        if (configManager.isOnline)
+        {
+            sQLSaver.SaveTags(tagDictionary);
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
+    public void SaveOCT()
+    {
+        if (configManager.isOnline)
+        {
+            sQLSaver.SaveOCT(OCT);
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
+    public void SaveSettings()
+    {
+        if (configManager.isOnline)
+        {
+            sQLSaver.SaveSettings(enableTimer,analyseOCT,manualOCT,OCTAuto);
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
+    public void SaveStats()
+    {
+        if (configManager.isOnline)
+        {
+            sQLSaver.SaveStats(OCTSum,taskSum,interruptSum,OCTMax,AppUseSum,joinTime);
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
+    
+    private double GetTime()
+    {
+        DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+        DateTime dt = startTime.AddSeconds(joinTime);
+        DateTime tt = DateTime.Today;
+        TimeSpan deltat = tt - dt;
+        return deltat.Days;
     }
 }

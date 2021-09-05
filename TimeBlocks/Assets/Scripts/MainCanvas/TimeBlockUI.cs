@@ -40,14 +40,14 @@ public class TimeBlockUI : MonoBehaviour
     {
         Debug.Log("press");
         taskOperatingContoler.SendTask(timeBlock);
-        canvasManager.ChangeCanvas(0);
+        canvasManager.ChangeCanvas(2);
     }
 
     void DoubleClick()
     {
         Debug.Log("double click");
         dataManager.blocks.Remove(timeBlock);
-        dataManager.Save();
+        dataManager.SaveBlocks();
         blockChain.ShowBlockChain(); 
     }
 }

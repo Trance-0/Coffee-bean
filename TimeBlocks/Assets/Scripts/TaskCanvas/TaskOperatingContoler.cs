@@ -63,7 +63,7 @@ public class TaskOperatingContoler : MonoBehaviour
     public void SendTask(TimeBlock input) {
         toDo = input;
         dataManager.blocks.Remove(input);
-        dataManager.Save();
+        dataManager.SaveBlocks();
         icon.sprite = configManager.imageReference[dataManager.tagDictionary[toDo._tagId]._imageId];
         taskName.text = toDo._name;
         if (dataManager.enableTimer)
@@ -99,8 +99,9 @@ public class TaskOperatingContoler : MonoBehaviour
    }
    public void Finished() {
         concentrationTime += Convert.ToInt32((DateTime.Now - startTime).TotalMinutes);
+        dataManager.taskSum += 1;
         dataManager.OCTUpDate(concentrationTime);
-        dataManager.Save();
+        dataManager.SaveOCT();
     }
    public void ReturnTaskToList() {
         if (newEstimateTime.text=="")

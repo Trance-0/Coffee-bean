@@ -13,6 +13,7 @@ public class Login : MonoBehaviour
     public InputField password;
     public ErrorWindow errorWindow;
     public CanvasManager canvasManager;
+    public DataManager dataManager;
 
     public SQLSaver sqlSaver;
 
@@ -37,7 +38,7 @@ public class Login : MonoBehaviour
     public void checkPassword() {
         try{
             //access data base to verify
-            if (sqlSaver.PasswordCheck(userName.text, SHA256Hash(password.text)))
+            if (sqlSaver.LogIn(userName.text, SHA256Hash(password.text)))
             {
                 canvasManager.ChangeCanvas(0);
             }
