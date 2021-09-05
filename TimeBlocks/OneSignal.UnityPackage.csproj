@@ -284,6 +284,21 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Google.IOSResolver_v1.2.165">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.165.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.JarResolver_v1.2.165">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.165.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.PackageManagerResolver_v1.2.165">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.165.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandler">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.165">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.165.dll</HintPath>
+    </Reference>
     <Reference Include="LitJSON">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/LitJSON.dll</HintPath>
     </Reference>
@@ -292,21 +307,6 @@
     </Reference>
     <Reference Include="UniWebViewWP">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/UniWebViewWP.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.165">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.165.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.VersionHandler">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.JarResolver_v1.2.165">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.165.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.PackageManagerResolver_v1.2.165">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.165.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.VersionHandlerImpl_v1.2.165">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.165.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

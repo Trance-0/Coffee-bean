@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Background.cs" />
     <Compile Include="Assets\Scripts\CanvasManager.cs" />
     <Compile Include="Assets\Scripts\Cheat.cs" />
     <Compile Include="Assets\Scripts\Data\ConfigManager.cs" />
@@ -651,6 +652,9 @@
     <Reference Include="Unity.VSCode.Editor">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="OneSignal.Core">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/OneSignal.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.2D.SpriteShape.Editor">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/Unity.2D.SpriteShape.Editor.dll</HintPath>
     </Reference>
@@ -720,9 +724,6 @@
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
-    <Reference Include="OneSignal.Core">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/OneSignal.Core.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
@@ -737,13 +738,13 @@
       <Project>{CBBA6220-3045-75CC-C79F-085C1E446F2A}</Project>
       <Name>XCharts.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="XCharts.Examples.Runtime.csproj">
-      <Project>{207753BE-C5BA-E5B4-3FA3-A8ABD906D852}</Project>
-      <Name>XCharts.Examples.Runtime</Name>
-    </ProjectReference>
     <ProjectReference Include="OneSignal.UnityPackage.csproj">
       <Project>{3A95BD0F-7180-F1A2-9F00-33CC51B41A67}</Project>
       <Name>OneSignal.UnityPackage</Name>
+    </ProjectReference>
+    <ProjectReference Include="XCharts.Examples.Runtime.csproj">
+      <Project>{207753BE-C5BA-E5B4-3FA3-A8ABD906D852}</Project>
+      <Name>XCharts.Examples.Runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

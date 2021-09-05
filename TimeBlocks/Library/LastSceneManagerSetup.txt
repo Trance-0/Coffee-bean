@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/OneSignal/Example/Scenes/OneSignalExampleScene.unity
+- path: Assets/Scenes/TimeBlocks.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
