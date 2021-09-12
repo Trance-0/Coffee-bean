@@ -7,6 +7,7 @@ using System;
 public class DataManager : MonoBehaviour
 {
     //here is the inital config
+    
     public ConfigManager configManager;
     public JsonSaver jsonSaver;
     public SQLSaver sQLSaver;
@@ -48,6 +49,8 @@ public class DataManager : MonoBehaviour
         //    ds.LoadConfig(this, "config_0");
         //     chainSize = sortByTime.Count;
         blocks = sQLSaver.LoadBlocks();
+        DateTime a=DateTime.Now+new TimeSpan(0,0,20);
+        NotificationManager.SendNotification("TimeBlocks","Data Initialized",0,a.Hour,a.Minute,a.Second);
     }
 
     // Update is called once per frame

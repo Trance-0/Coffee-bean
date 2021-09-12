@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\MainCanvas\SortBy.cs" />
     <Compile Include="Assets\Scripts\MainCanvas\TimeBlock.cs" />
     <Compile Include="Assets\Scripts\MainCanvas\TimeBlockUI.cs" />
+    <Compile Include="Assets\Scripts\NotificationManager.cs" />
     <Compile Include="Assets\Scripts\SettingCanvas\Icon.cs" />
     <Compile Include="Assets\Scripts\SettingCanvas\ImageChanger.cs" />
     <Compile Include="Assets\Scripts\SettingCanvas\SettingManager.cs" />
@@ -724,6 +725,15 @@
     <Reference Include="UnityEditor.UI">
       <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Notifications">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/Unity.Notifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Notifications.iOS">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/Unity.Notifications.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Notifications.Android">
+      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/Unity.Notifications.Android.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
@@ -737,10 +747,6 @@
     <ProjectReference Include="XCharts.Editor.csproj">
       <Project>{CBBA6220-3045-75CC-C79F-085C1E446F2A}</Project>
       <Name>XCharts.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="OneSignal.UnityPackage.csproj">
-      <Project>{3A95BD0F-7180-F1A2-9F00-33CC51B41A67}</Project>
-      <Name>OneSignal.UnityPackage</Name>
     </ProjectReference>
     <ProjectReference Include="XCharts.Examples.Runtime.csproj">
       <Project>{207753BE-C5BA-E5B4-3FA3-A8ABD906D852}</Project>
