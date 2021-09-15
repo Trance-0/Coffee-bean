@@ -43,12 +43,11 @@ public class DataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tagDictionary = new Dictionary<int, Tag>();
-        tagDictionary.Add(-1,new Tag("Untaged",0,1));
-        tagDictionary.Add(1, new Tag("testTag", 1, 9));
+       tagDictionary = new Dictionary<int, Tag>();
+        //  tagDictionary.Add(-1,new Tag("Untaged",0,1));
+        //tagDictionary.Add(1, new Tag("testTag", 1, 9));
         //    ds.LoadConfig(this, "config_0");
         //     chainSize = sortByTime.Count;
-        blocks = sQLSaver.LoadBlocks();
         DateTime a=DateTime.Now+new TimeSpan(0,0,20);
         NotificationManager.SendNotification("TimeBlocks","Data Initialized",0,a.Hour,a.Minute,a.Second);
     }
@@ -60,7 +59,7 @@ public class DataManager : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-     //   ds.SaveConfig(this,"config_0");
+     SaveAll();
     }
 
     public void OCTUpDate(double newOCT) {
@@ -77,6 +76,11 @@ public class DataManager : MonoBehaviour
         OCT[6] = (OCT[3] *  GetTime()-1+ newOCT) / GetTime();
     }
     public void InitializeData(){
+        LoadBlocks();
+       LoadTags();
+        LoadOCT();
+        LoadSettings();
+       LoadStats();
         Debug.Log("Data initialized");
     }
     public void SaveAll() {
@@ -91,7 +95,16 @@ public class DataManager : MonoBehaviour
         if (configManager.isOnline)
         {
             sQLSaver.SaveBlocks(blocks);
-            blocks=sQLSaver.LoadBlocks();
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
+    public void LoadBlocks() {
+        if (configManager.isOnline)
+        {
+            blocks = sQLSaver.LoadBlocks();
         }
         else
         {
@@ -109,11 +122,36 @@ public class DataManager : MonoBehaviour
             Debug.Log("Json saver not implemented");
         }
     }
+    public void LoadTags()
+    {
+        if (configManager.isOnline)
+        {
+           tagDictionary=sQLSaver.LoadTags();
+            if (tagDictionary==null) {
+                tagDictionary = sQLSaver.LoadTags();
+            }
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
     public void SaveOCT()
     {
         if (configManager.isOnline)
         {
             sQLSaver.SaveOCT(OCT);
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
+    public void LoadOCT()
+    {
+        if (configManager.isOnline)
+        {
+            OCT=sQLSaver.LoadOCT();
         }
         else
         {
@@ -131,6 +169,17 @@ public class DataManager : MonoBehaviour
             Debug.Log("Json saver not implemented");
         }
     }
+    public void LoadSettings()
+    {
+        if (configManager.isOnline)
+        {
+            sQLSaver.LoadSettings(out enableTimer, out analyseOCT, out manualOCT,out OCTAuto);
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
     public void SaveStats()
     {
         if (configManager.isOnline)
@@ -142,7 +191,18 @@ public class DataManager : MonoBehaviour
             Debug.Log("Json saver not implemented");
         }
     }
-    
+    public void LoadStats()
+    {
+        if (configManager.isOnline)
+        {
+            sQLSaver.LoadStats(out OCTSum, out taskSum, out interruptSum, out OCTMax, out AppUseSum, out joinTime);
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
+    }
+
     private double GetTime()
     {
         DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));

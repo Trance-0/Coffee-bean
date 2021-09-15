@@ -40,6 +40,7 @@ public class Login : MonoBehaviour
             //access data base to verify
             if (sqlSaver.LogIn(userName.text, SHA256Hash(password.text)))
             {
+                dataManager.InitializeData();
                 canvasManager.ChangeCanvas(0);
             }
             else {

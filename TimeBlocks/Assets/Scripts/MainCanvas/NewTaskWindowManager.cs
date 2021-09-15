@@ -56,10 +56,10 @@ public class NewTaskWindowManager : MonoBehaviour
         Chunk.options.Add(new Dropdown.OptionData("Evening"));
         tempDictionary = new Dictionary<string, Tag>();
         Tags.options.Clear();
-        foreach (int i in dataManager.tagDictionary.Keys)
+        foreach (KeyValuePair<int,Tag> i in dataManager.tagDictionary)
         {
-            tempDictionary.Add(dataManager.tagDictionary[i]._name, dataManager.tagDictionary[i]);
-            Tags.options.Add(new Dropdown.OptionData(dataManager.tagDictionary[i]._name));
+            tempDictionary.Add(i.Value._name, i.Value);
+            Tags.options.Add(new Dropdown.OptionData(i.Value._name));
         }
     }
 

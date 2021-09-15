@@ -196,7 +196,7 @@ public class SQLSaver : MonoBehaviour
     MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
-            for (int i = 0; i < reader.FieldCount; i++)
+            for (int i = 0; i < 7; i++)
                 OCT[i] = Double.Parse(reader[i].ToString());
             {
             }
@@ -206,7 +206,12 @@ public class SQLSaver : MonoBehaviour
 
     internal void SaveStats(double oCTSum, int taskSum, int interruptSum, double oCTMax, int appUseSum, long joinTime)
     {
-        throw new NotImplementedException();
+        mySqlConnection = new MySqlConnection(sql);
+        mySqlConnection.Open();
+        Debug.Log("Conecting to SQL Server");
+        MySqlCommand cmd = new MySqlCommand("UPDATE tb_user SET OCT_sum = " + oCTSum + ", task_sum = " + taskSum + ",interrupt_sum = " + interruptSum + ", OCT_max = " + oCTMax + ", app_use_sum = " + appUseSum + ", join_time =   FROM_UNIXTIME(" +joinTime + ")" + ", last_login_time =   FROM_UNIXTIME(" + GetTimestamp() + ") WHERE ID = " + userID.ToString() + ";", mySqlConnection);
+        cmd.ExecuteNonQuery();
+        Debug.Log("Success");
     }
     internal void LoadStats(out double oCTSum,out int taskSum, out int interruptSum, out double oCTMax, out int appUseSum, out long joinTime)
     {
@@ -216,15 +221,81 @@ public class SQLSaver : MonoBehaviour
         oCTMax = 0;
         appUseSum = 0;
         joinTime = 0;
-
+        mySqlConnection = new MySqlConnection(sql);
+        mySqlConnection.Open();
+        Debug.Log("Conecting to SQL Server");
+        MySqlCommand cmd = new MySqlCommand("select oCTSum ,taskSum ,interruptSum ,oCTMax ,appUseSum ,joinTime from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            oCTSum = double.Parse(reader[0].ToString());
+            taskSum = int.Parse(reader[1].ToString());
+            interruptSum = int.Parse(reader[2].ToString());
+            oCTMax = double.Parse(reader[3].ToString());
+            appUseSum = int.Parse(reader[4].ToString());
+            TimeSpan st = Convert.ToDateTime(reader[5].ToString()) - new DateTime(1970, 1, 1, 0, 0, 0);
+            joinTime = Convert.ToInt64(st.TotalSeconds);
+        }
     }
 
     internal void SaveTags(Dictionary<int, Tag> tagDictionary)
     {
-        throw new NotImplementedException();
+        String command = "";
+        foreach (KeyValuePair<int, Tag> i in tagDictionary)
+        {
+            Tag a = i.Value;
+            if (a._tagId < 0)
+            {
+                command += "INSERT INTO tb_tag (name,user_id,image_id,power) VALUES ('" + a._name + "'," + userID + "," + a._imageId + "," + a._power + ");";
+            }
+            else
+            {
+                command += "UPDATE tb_tag SET name = " + a._name + ", power = " + a._power + ",image_id = " + a._imageId + " WHERE ID = " + a._tagId + ";";
+            }
+        }
+        mySqlConnection = new MySqlConnection(sql);
+        mySqlConnection.Open();
+        Debug.Log("Conecting to SQL Server");
+        MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
+        cmd.ExecuteNonQuery();
+        Debug.Log("Success");
     }
     internal Dictionary<int, Tag> LoadTags()
     {
-        throw new NotImplementedException();
+        Dictionary<int, Tag> tags = new Dictionary<int, Tag>();
+        mySqlConnection = new MySqlConnection(sql);
+        mySqlConnection.Open();
+        Debug.Log("Conecting to SQL Server");
+        MySqlCommand cmd = new MySqlCommand("select name,image_id,power,ID from tb_tag where user_id= '" + userID + "'", mySqlConnection);
+        MySqlDataReader reader = cmd.ExecuteReader();
+        while (reader.Read())
+        {
+            String name = reader[0].ToString();
+            int imageId = int.Parse(reader[1].ToString());
+            int power = int.Parse(reader[2].ToString());
+            int tagId = int.Parse(reader[3].ToString());
+            Tag a=new Tag(name, imageId, power);
+            a._tagId = tagId;
+            tags.Add(tagId,a);
+            Debug.Log("Pulling Tag from Server" + a._name);
+        }
+        if (tags.Count<7) {
+            int count = 1;
+            while (tags.Count<7) {
+                Tag a = new Tag("New tag", 0, 1);
+                a._tagId = -count;
+                tags.Add(-count,a);
+                count++;
+            }
+            SaveTags(tags);
+            return null;
+        }
+        return tags;
+    }
+    public long GetTimestamp()
+    {
+        //Debug.Log(year+" "+month + " " +day + " " +chunk*6+5);
+        TimeSpan st = DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0);
+        return Convert.ToInt64(st.TotalSeconds);
     }
 }
