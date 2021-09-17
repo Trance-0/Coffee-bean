@@ -170,10 +170,11 @@ public class SQLSaver : MonoBehaviour
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
-                enableTimer = bool.Parse(reader[0].ToString());
-                analyseOCT = bool.Parse(reader[1].ToString());
+            Debug.Log("reader[0]" + reader[0].ToString());
+            enableTimer = Convert.ToBoolean(int.Parse(reader[0].ToString()));
+            analyseOCT = Convert.ToBoolean(int.Parse(reader[1].ToString())); ;
                 manualOCT = int.Parse(reader[2].ToString());
-                oCTAuto = bool.Parse(reader[3].ToString());
+                oCTAuto = Convert.ToBoolean(int.Parse(reader[3].ToString())); ;
         }
     }
 
@@ -197,7 +198,7 @@ public class SQLSaver : MonoBehaviour
         while (reader.Read())
         {
             for (int i = 0; i < 7; i++)
-                OCT[i] = Double.Parse(reader[i].ToString());
+                OCT.Add(Double.Parse(reader[i].ToString()));
             {
             }
         }
@@ -224,7 +225,7 @@ public class SQLSaver : MonoBehaviour
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
         Debug.Log("Conecting to SQL Server");
-        MySqlCommand cmd = new MySqlCommand("select oCTSum ,taskSum ,interruptSum ,oCTMax ,appUseSum ,joinTime from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
+        MySqlCommand cmd = new MySqlCommand("select OCT_sum ,task_sum ,interrupt_sum ,OCT_max ,app_use_sum ,join_time from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
@@ -282,7 +283,7 @@ public class SQLSaver : MonoBehaviour
         if (tags.Count<7) {
             int count = 1;
             while (tags.Count<7) {
-                Tag a = new Tag("New tag", 0, 1);
+                Tag a = new Tag("New tag "+count.ToString(), 0, 1);
                 a._tagId = -count;
                 tags.Add(-count,a);
                 count++;

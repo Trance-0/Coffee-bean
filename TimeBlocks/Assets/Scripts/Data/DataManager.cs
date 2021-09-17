@@ -147,6 +147,7 @@ public class DataManager : MonoBehaviour
             Debug.Log("Json saver not implemented");
         }
     }
+
     public void LoadOCT()
     {
         if (configManager.isOnline)
@@ -158,6 +159,7 @@ public class DataManager : MonoBehaviour
             Debug.Log("Json saver not implemented");
         }
     }
+
     public void SaveSettings()
     {
         if (configManager.isOnline)
@@ -169,6 +171,7 @@ public class DataManager : MonoBehaviour
             Debug.Log("Json saver not implemented");
         }
     }
+
     public void LoadSettings()
     {
         if (configManager.isOnline)
@@ -180,6 +183,7 @@ public class DataManager : MonoBehaviour
             Debug.Log("Json saver not implemented");
         }
     }
+
     public void SaveStats()
     {
         if (configManager.isOnline)
@@ -191,6 +195,7 @@ public class DataManager : MonoBehaviour
             Debug.Log("Json saver not implemented");
         }
     }
+
     public void LoadStats()
     {
         if (configManager.isOnline)
