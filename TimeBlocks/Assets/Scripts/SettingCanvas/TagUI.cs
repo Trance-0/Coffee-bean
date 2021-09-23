@@ -7,6 +7,7 @@ public class TagUI : MonoBehaviour
 {
     public Tag tag;
     public ConfigManager configManager;
+    public DataManager dataManager;
     public ImageChanger imageChange;
 
     public TagUI self;
@@ -35,6 +36,7 @@ public class TagUI : MonoBehaviour
     public void Save() {
         tag._power = int.Parse(weightInput.text);
         tag._name = tagNameInput.text;
+        dataManager.SaveTags();
     }
 
 }

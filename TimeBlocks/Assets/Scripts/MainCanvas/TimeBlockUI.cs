@@ -46,7 +46,7 @@ public class TimeBlockUI : MonoBehaviour
     void DoubleClick()
     {
         Debug.Log("double click");
-        dataManager.blocks.Remove(timeBlock);
+        dataManager.RemoveBlock(timeBlock);
         dataManager.SaveBlocks();
         blockChain.ShowBlockChain(); 
     }

@@ -19,6 +19,7 @@ public class DataManager : MonoBehaviour
  
     public int manualOCT;
     public bool OCTAuto;
+    public int defaultTagId;
  
     public Color backgroundColor;
 
@@ -26,8 +27,8 @@ public class DataManager : MonoBehaviour
     
 
     public List<TimeBlock> blocks;
-    
-    public Dictionary<int,Tag> tagDictionary;
+
+    public Dictionary<int, Tag> tagDictionary;
 
     public List<double> OCT;
 
@@ -44,12 +45,10 @@ public class DataManager : MonoBehaviour
     void Start()
     {
        tagDictionary = new Dictionary<int, Tag>();
-        //  tagDictionary.Add(-1,new Tag("Untaged",0,1));
-        //tagDictionary.Add(1, new Tag("testTag", 1, 9));
         //    ds.LoadConfig(this, "config_0");
         //     chainSize = sortByTime.Count;
-        DateTime a=DateTime.Now+new TimeSpan(0,0,20);
-        NotificationManager.SendNotification("TimeBlocks","Data Initialized",0,a.Hour,a.Minute,a.Second);
+        //DateTime a=DateTime.Now+new TimeSpan(0,0,20);
+        //NotificationManager.SendNotification("TimeBlocks","Data Initialized",0,a.Hour,a.Minute,a.Second);
     }
 
     // Update is called once per frame
@@ -74,6 +73,7 @@ public class DataManager : MonoBehaviour
         OCT[4] = (OCT[3] * 90 + newOCT) / 91;
         OCT[5] = (OCT[3] * 365 + newOCT) / 366;
         OCT[6] = (OCT[3] *  GetTime()-1+ newOCT) / GetTime();
+        SaveOCT();
     }
     public void InitializeData(){
         LoadBlocks();
@@ -81,6 +81,9 @@ public class DataManager : MonoBehaviour
         LoadOCT();
         LoadSettings();
        LoadStats();
+        if (!tagDictionary.ContainsKey(defaultTagId)) {
+            defaultTagId = tagDictionary.GetEnumerator().Current.Key;
+        }
         Debug.Log("Data initialized");
     }
     public void SaveAll() {
@@ -90,6 +93,28 @@ public class DataManager : MonoBehaviour
         SaveSettings();
         SaveStats();
         Debug.Log("Data Saved");
+    }
+    public void RemoveBlock(TimeBlock a) {
+        blocks.Remove(a);
+        if (configManager.isOnline)
+        {
+            sQLSaver.RemoveBlock(a);
+        }
+        else {
+            Debug.Log("Json saver not implemented");
+        }
+    }
+    public void SaveBlock(TimeBlock a)
+    {
+        blocks.Remove(a);
+        if (configManager.isOnline)
+        {
+            sQLSaver.SaveBlock(a);
+        }
+        else
+        {
+            Debug.Log("Json saver not implemented");
+        }
     }
     public void SaveBlocks() {
         if (configManager.isOnline)
@@ -164,7 +189,7 @@ public class DataManager : MonoBehaviour
     {
         if (configManager.isOnline)
         {
-            sQLSaver.SaveSettings(enableTimer,analyseOCT,manualOCT,OCTAuto);
+            sQLSaver.SaveSettings(enableTimer,analyseOCT,manualOCT,OCTAuto,defaultTagId);
         }
         else
         {
@@ -176,7 +201,7 @@ public class DataManager : MonoBehaviour
     {
         if (configManager.isOnline)
         {
-            sQLSaver.LoadSettings(out enableTimer, out analyseOCT, out manualOCT,out OCTAuto);
+            sQLSaver.LoadSettings(out enableTimer, out analyseOCT, out manualOCT,out OCTAuto,out defaultTagId);
         }
         else
         {

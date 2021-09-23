@@ -46,6 +46,7 @@ public class TagChain : MonoBehaviour
         newTag.tag = tag;
         newTag.self = newTag;
         newTag.imageChange = imageChanger;
+        newTag.dataManager = dataManager;
         newTag.configManager = configManager;
         newTag.tagNameInput.text= tag._name;
         newTag.weightInput.text = tag._power.ToString();

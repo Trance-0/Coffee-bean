@@ -104,6 +104,7 @@ public class BlockChain : MonoBehaviour
     public bool AddBlock(TimeBlock a)
     {
         dataManager.blocks.Add(a);
+        dataManager.SaveBlock(a);
         return true;
     }
    
@@ -113,6 +114,9 @@ public class BlockChain : MonoBehaviour
         newBlock.gameObject.transform.SetParent(blockChainUI.transform);
         newBlock.timeBlock = i;
         newBlock.taskName.text = i._name;
+        if (newBlock.timeBlock._tagId==-1) {
+            newBlock.timeBlock._tagId = dataManager.defaultTagId;
+        }
         int imageId = dataManager.tagDictionary[newBlock.timeBlock._tagId]._imageId;
         Debug.Log(imageId);
         newBlock.icon.sprite = configManager.imageReference[imageId];

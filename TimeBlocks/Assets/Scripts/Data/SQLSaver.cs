@@ -107,8 +107,19 @@ public class SQLSaver : MonoBehaviour
         MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
         cmd.ExecuteNonQuery();
         Debug.Log("Success");
+        LoadBlocks();
     }
 
+    internal void SaveBlock(TimeBlock block)
+    {
+                Debug.Log("Adding Task to Server" + block._name);
+        mySqlConnection = new MySqlConnection(sql);
+        mySqlConnection.Open();
+        Debug.Log("Conecting to SQL Server");
+        MySqlCommand cmd = new MySqlCommand("INSERT INTO tb_task (name,deadline,user_id,tag_id,estimate_time) VALUES ('" + block._name + "', FROM_UNIXTIME(" + block._deadline + "), '" + userID + "', '" + block._tagId + "', '" + block._estimateTime + "'); ", mySqlConnection);
+        cmd.ExecuteNonQuery();
+        Debug.Log("Success");
+    }
     internal void RemoveBlock(TimeBlock block)
     {
         if (block._taskId != -1)
@@ -147,34 +158,36 @@ public class SQLSaver : MonoBehaviour
         return blocks;
     }
 
-    internal void SaveSettings(bool enableTimer, bool analyseOCT, int manualOCT, bool oCTAuto)
+    internal void SaveSettings(bool enableTimer, bool analyseOCT, int manualOCT, bool oCTAuto,int defaultTagId)
     {
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
         Debug.Log("Conecting to SQL Server");
-        MySqlCommand cmd = new MySqlCommand("UPDATE tb_user SET enable_timer = " + enableTimer + ", enable_analyze = " + analyseOCT + ", manual_OCT = " + manualOCT + ", OCT_Auto = " + oCTAuto + " WHERE ID = " + userID.ToString() + ";", mySqlConnection);
+        MySqlCommand cmd = new MySqlCommand("UPDATE tb_user SET enable_timer = " + enableTimer + ", enable_analyze = " + analyseOCT + ", manual_OCT = " + manualOCT + ", OCT_Auto = " + oCTAuto + ", default_tag_ID = " + defaultTagId + " WHERE ID = " + userID.ToString() + ";", mySqlConnection);
         cmd.ExecuteNonQuery();
         Debug.Log("Success");
 
     }
 
-    internal void LoadSettings(out bool enableTimer, out bool analyseOCT, out int manualOCT, out bool oCTAuto) {
+    internal void LoadSettings(out bool enableTimer, out bool analyseOCT, out int manualOCT, out bool oCTAuto,out int defaultTagId) {
         enableTimer = false;
         analyseOCT = false;
         manualOCT = -1;
         oCTAuto = false;
+        defaultTagId = 0;
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
         Debug.Log("Conecting to SQL Server");
-        MySqlCommand cmd = new MySqlCommand("select enable_timer, enable_analyze, manual_OCT, OCT_Auto from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
+        MySqlCommand cmd = new MySqlCommand("select enable_timer, enable_analyze, manual_OCT, OCT_Auto,default_tag_ID from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
             Debug.Log("reader[0]" + reader[0].ToString());
             enableTimer = Convert.ToBoolean(int.Parse(reader[0].ToString()));
-            analyseOCT = Convert.ToBoolean(int.Parse(reader[1].ToString())); ;
+            analyseOCT = Convert.ToBoolean(int.Parse(reader[1].ToString())); 
                 manualOCT = int.Parse(reader[2].ToString());
-                oCTAuto = Convert.ToBoolean(int.Parse(reader[3].ToString())); ;
+                oCTAuto = Convert.ToBoolean(int.Parse(reader[3].ToString()));
+            defaultTagId= int.Parse(reader[4].ToString());
         }
     }
 
