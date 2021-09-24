@@ -10,12 +10,11 @@ public class Background : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        backgroud.color = dataManager.backgroundColor;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        backgroud.color = dataManager.backgroundColor;
     }
 }
