@@ -62,6 +62,7 @@ public class BlockChain : MonoBehaviour
     }
     public void ShowBlockChain()
     {
+        dataManager.LoadBlocks();
         for (int i = blockChainUI.transform.childCount - 1; i >= 0; i--)
         {
             Destroy(blockChainUI.transform.GetChild(i).gameObject);

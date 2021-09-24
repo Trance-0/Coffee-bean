@@ -101,13 +101,16 @@ public class SQLSaver : MonoBehaviour
                 command += "INSERT INTO tb_task (name,deadline,user_id,tag_id,estimate_time) VALUES ('" + a._name + "', FROM_UNIXTIME(" + a._deadline + "), '" + userID + "', '" + a._tagId + "', '" + a._estimateTime + "'); ";
             }
         }
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
-        MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
-        cmd.ExecuteNonQuery();
-        Debug.Log("Success");
-        LoadBlocks();
+        if (command.Length > 0)
+        {
+            mySqlConnection = new MySqlConnection(sql);
+            mySqlConnection.Open();
+            Debug.Log("Conecting to SQL Server");
+            MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
+            cmd.ExecuteNonQuery();
+            Debug.Log("Success");
+            LoadBlocks();
+        }
     }
 
     internal void SaveBlock(TimeBlock block)
@@ -264,7 +267,7 @@ public class SQLSaver : MonoBehaviour
             }
             else
             {
-                command += "UPDATE tb_tag SET name = " + a._name + ", power = " + a._power + ",image_id = " + a._imageId + " WHERE ID = " + a._tagId + ";";
+                command += "UPDATE tb_tag SET name = '" + a._name + "', power = " + a._power + ",image_id = " + a._imageId + " WHERE ID = " + a._tagId + ";";
             }
         }
         mySqlConnection = new MySqlConnection(sql);

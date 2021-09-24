@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TimeBlockUI : MonoBehaviour
 {
     public Image icon;
+    public Animator animator;
     public Text taskName;
     public Image backGround;
     public TimeBlock timeBlock;
@@ -46,8 +47,15 @@ public class TimeBlockUI : MonoBehaviour
     void DoubleClick()
     {
         Debug.Log("double click");
+        animator.SetTrigger("delete");
+        //DoDelete();
+        Invoke("DoDelete", 1);    
+    }
+
+    void DoDelete()
+    {
         dataManager.RemoveBlock(timeBlock);
         dataManager.SaveBlocks();
-        blockChain.ShowBlockChain(); 
+        blockChain.ShowBlockChain();
     }
 }
