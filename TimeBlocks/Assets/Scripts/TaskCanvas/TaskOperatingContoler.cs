@@ -23,7 +23,7 @@ public class TaskOperatingContoler : MonoBehaviour
     public Image icon;
     public Text taskName;
     public Text timer;
-    public GameObject pauseWindow;
+    public PauseWindow pauseWindow;
 
     public InputField newEstimateTime;
 
@@ -31,15 +31,17 @@ public class TaskOperatingContoler : MonoBehaviour
 
     public ConfigManager configManager;
     public DataManager dataManager;
+    public FocusManager focusManager;
 
     public DateTime timeToFinish;
     public DateTime startTime;
-    public DateTime pauseTime;
     public bool countForward;
     public int concentrationTime;
+    public int checkTimeStamp;
     // Start is called before the first frame update
     void Start()
     {
+        checkTimeStamp = dataManager.AppUseSum;
     }
 
     // Update is called once per frame
@@ -63,7 +65,7 @@ public class TaskOperatingContoler : MonoBehaviour
     public void SendTask(TimeBlock input) {
         toDo = input;
         dataManager.blocks.Remove(input);
-        dataManager.SaveBlocks();
+        dataManager.RemoveBlock(input);
         icon.sprite = configManager.imageReference[dataManager.tagDictionary[toDo._tagId]._imageId];
         taskName.text = toDo._name;
         if (dataManager.enableTimer)
@@ -93,13 +95,15 @@ public class TaskOperatingContoler : MonoBehaviour
     }
 
    public void Pause() {
-        pauseWindow.SetActive(true);
-        pauseTime = DateTime.Now;
+        pauseWindow.Wake() ;
         concentrationTime += Convert.ToInt32((DateTime.Now - startTime).TotalMinutes);
    }
    public void Finished() {
         concentrationTime += Convert.ToInt32((DateTime.Now - startTime).TotalMinutes);
         dataManager.taskSum += 1;
+        dataManager.OCTSum += concentrationTime;
+        dataManager.interruptSum += dataManager.AppUseSum-checkTimeStamp;
+        dataManager.SaveStats();
         dataManager.OCTUpDate(concentrationTime);
         dataManager.SaveOCT();
     }
@@ -119,6 +123,7 @@ public class TaskOperatingContoler : MonoBehaviour
             toDo._estimateTime = int.Parse(newEstimateTime.text);
         }
         dataManager.blocks.Add(toDo);
+        dataManager.SaveBlock(toDo);
         Finished();
         pauseWindow.SetActive(false);
     }

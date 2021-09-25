@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\EmailSender.cs" />
     <Compile Include="Assets\Scripts\ErrorWindow.cs" />
     <Compile Include="Assets\Scripts\FocusManager.cs" />
+    <Compile Include="Assets\Scripts\GuideWindow.cs" />
     <Compile Include="Assets\Scripts\LoginCanvas\Login.cs" />
     <Compile Include="Assets\Scripts\LoginCanvas\LoginWindowsManager.cs" />
     <Compile Include="Assets\Scripts\LoginCanvas\Register.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Assets\Scripts\SettingCanvas\TagChain.cs" />
     <Compile Include="Assets\Scripts\SettingCanvas\TagUI.cs" />
     <Compile Include="Assets\Scripts\StatsCanvas\StatsManager.cs" />
+    <Compile Include="Assets\Scripts\TaskCanvas\PauseWindow.cs" />
     <Compile Include="Assets\Scripts\TaskCanvas\TaskOperatingContoler.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
