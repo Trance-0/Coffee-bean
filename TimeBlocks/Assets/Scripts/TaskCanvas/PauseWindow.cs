@@ -27,5 +27,6 @@ public class PauseWindow : MonoBehaviour
     }
     public void Wake() {
         pause.SetActive(true);
+        shade.SetActive(true);
     }
 }

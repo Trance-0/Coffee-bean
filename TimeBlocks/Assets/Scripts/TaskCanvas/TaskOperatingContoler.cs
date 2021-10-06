@@ -23,7 +23,6 @@ public class TaskOperatingContoler : MonoBehaviour
     public Image icon;
     public Text taskName;
     public Text timer;
-    public PauseWindow pauseWindow;
 
     public InputField newEstimateTime;
 
@@ -32,119 +31,103 @@ public class TaskOperatingContoler : MonoBehaviour
     public ConfigManager configManager;
     public DataManager dataManager;
     public FocusManager focusManager;
+    public ErrorWindow errorWindow;
+    public PauseWindow pauseWindow;
 
-    public DateTime timeToFinish;
-    public DateTime startTime;
+    public float concentrationTime;
+    public int interruptionTime;
+    public bool isCounting;
+    public DateTime origin;
     public bool countForward;
-    public int concentrationTime;
-    public int checkTimeStamp;
+    public bool taskOperating;
+
     // Start is called before the first frame update
     void Start()
     {
-        checkTimeStamp = dataManager.AppUseSum;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (dataManager.enableTimer) {
-            DateTime now = DateTime.Now;
-            if (countForward) {
-                TimeSpan span = now - timeToFinish;
-                timer.text = span.Minutes+":"+span.Seconds;
+        if (focusManager.onFocus)
+        {
+            if (concentrationTime>dataManager.OCTMax*2) {
+                errorWindow.Warning("Your concentration time have exceed the time limit, record abolished.");
+                isCounting = false ;
             }
-            else {
-                TimeSpan span =timeToFinish-now;
-                timer.text = span.Minutes + ":" + span.Seconds;
-                if (span.TotalSeconds==0) {
-                    countForward = true;
-                }
+            if (DateTime.Now.Subtract(toDo.ConvertDeadlineToDateTime()).TotalSeconds<0) {
+                errorWindow.Warning("You have missed your deadline.");
+                isCounting = false;
             }
+            if (concentrationTime>dataManager.manualOCT) {
+                errorWindow.Warning("Your concentration time have passed your goal, time to have some breaks to maintain high productivity. Of course, you can continue your task if you wish.");
+            }
+            TimeShow();
+        }
+        else {
+            NotificationManager.SendNotification(configManager.appName,"Interruption detected, return to app to continue your task.");
+            interruptionTime++;
+            isCounting = false;
         }
     }
-    public void SendTask(TimeBlock input) {
-        toDo = input;
-        dataManager.blocks.Remove(input);
-        dataManager.RemoveBlock(input);
-        icon.sprite = configManager.imageReference[dataManager.tagDictionary[toDo._tagId]._imageId];
-        taskName.text = toDo._name;
+    public void SendTask(TimeBlock task) {
+        toDo = task;
+        taskOperating = true;
+        if (toDo._estimateTime < 0)
+        {
+            countForward = true;
+            origin = DateTime.Now;
+        }
+        else {
+            countForward = false;
+            origin = DateTime.Now.AddMinutes(toDo._estimateTime);
+        }
+    }
+
+    private void TimeShow() {
         if (dataManager.enableTimer)
         {
-            SetTimer(toDo._estimateTime);
+            if (isCounting)
+            {
+                concentrationTime += Time.deltaTime;
+                TimeSpan toDisplay = DateTime.Now.Subtract(origin);
+                if (!countForward&&toDisplay.Ticks<0)
+                {
+                    countForward = true;
+                }
+                timer.text = toDisplay.Duration().TotalMinutes.ToString() +":"+toDisplay.Duration().Seconds.ToString();
+            }
         }
         else {
             timer.text = "";
         }
     }
-
-   public void SetTimer(int estimateTime)
+    public void PauseTask() {
+        pauseWindow.Wake();
+        isCounting = false;
+    }
+    public void ResetTask(int newEstimateTime) {
+        toDo._estimateTime = newEstimateTime;
+        dataManager.blocks.Add(toDo);
+        dataManager.OCTUpDate(OCTCal());
+    }
+    public void ContinueTask(int newEstimateTime) {
+    }
+    private double OCTCal() {
+        return Convert.ToDouble(concentrationTime) / 60.0;
+    }
+    public void FinishTask() {
+        dataManager.taskSum++;
+        dataManager.OCTUpDate(OCTCal());
+    }
+    private void OnApplicationQuit()
     {
-        if (estimateTime == -1)
-        {
-            countForward = true;
-
-        }
-        else
-        {
-            countForward = false;
-           
-        }
-        DateTime now = DateTime.Now;
-        timeToFinish = now.AddMinutes(estimateTime);
-        startTime = now;
-    }
-
-   public void Pause() {
-        pauseWindow.Wake() ;
-        concentrationTime += Convert.ToInt32((DateTime.Now - startTime).TotalMinutes);
-   }
-   public void Finished() {
-        concentrationTime += Convert.ToInt32((DateTime.Now - startTime).TotalMinutes);
-        dataManager.taskSum += 1;
-        dataManager.OCTSum += concentrationTime;
-        dataManager.interruptSum += dataManager.AppUseSum-checkTimeStamp;
-        dataManager.SaveStats();
-        dataManager.OCTUpDate(concentrationTime);
-        dataManager.SaveOCT();
-    }
-   public void ReturnTaskToList() {
-        if (newEstimateTime.text=="")
-        {
-            if (countForward)
-            {
-                toDo._estimateTime = -1;
-            }
-            else
-            {
-                toDo._estimateTime = Convert.ToInt32((timeToFinish-pauseTime).TotalMinutes) ;
-            }
+        if (countForward) {
+            ResetTask(-1);
         }
         else {
-            toDo._estimateTime = int.Parse(newEstimateTime.text);
+            ResetTask(toDo._estimateTime-Mathf.FloorToInt(concentrationTime));
         }
-        dataManager.blocks.Add(toDo);
-        dataManager.SaveBlock(toDo);
-        Finished();
-        pauseWindow.SetActive(false);
-    }
-    public void RenewTask() {
-        if (newEstimateTime.text == "")
-        {
-            if (countForward)
-            {
-                toDo._estimateTime = -1;
-            }
-            else
-            {
-                toDo._estimateTime = Convert.ToInt32((timeToFinish - pauseTime).TotalMinutes);
-            }
-        }
-        else
-        {
-            toDo._estimateTime = int.Parse(newEstimateTime.text);
-        }
-        pauseWindow.SetActive(false);
-        startTime = DateTime.Now;
-        SetTimer(toDo._estimateTime);
     }
 }

@@ -8935,6 +8935,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2ccbed9f8935524ba880e2447a9f708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onFocus: 0
+  dataManager: {fileID: 0}
 --- !u!4 &660822394
 Transform:
   m_ObjectHideFlags: 0
@@ -15617,13 +15619,18 @@ MonoBehaviour:
   icon: {fileID: 651205258}
   taskName: {fileID: 1331362332}
   timer: {fileID: 1259758053}
-  pauseWindow: {fileID: 1430350899}
   newEstimateTime: {fileID: 1531541727}
   toDo: {fileID: 11400000, guid: fd0623c1267ef484f936f4e1273194e5, type: 2}
   configManager: {fileID: 1421986758}
   dataManager: {fileID: 1119387533}
-  countForward: 0
+  focusManager: {fileID: 0}
+  errorWindow: {fileID: 0}
+  pauseWindow: {fileID: 0}
   concentrationTime: 0
+  interruptionTime: 0
+  isCounting: 0
+  countForward: 0
+  taskOperating: 0
 --- !u!1 &1069497370
 GameObject:
   m_ObjectHideFlags: 0
@@ -28359,6 +28366,7 @@ MonoBehaviour:
   isAddNewTaskWindowAwake: 0
   isSearchBoxAwake: 0
   isOnline: 1
+  appName: 
 --- !u!4 &1421986759
 Transform:
   m_ObjectHideFlags: 0
@@ -28595,7 +28603,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1430350900
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33448,7 +33456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1758482995
 RectTransform:
   m_ObjectHideFlags: 0

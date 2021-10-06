@@ -15,6 +15,8 @@ public class ConfigManager : MonoBehaviour
 
     public bool isOnline;
 
+    public string appName;
+
     // Start is called before the first frame update
     void Start()
     {

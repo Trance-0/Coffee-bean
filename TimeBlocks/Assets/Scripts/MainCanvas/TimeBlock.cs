@@ -47,6 +47,8 @@ public class TimeBlock : ScriptableObject
     public long GetPriority(Dictionary<int,Tag> tagPriorityList) {
         TimeSpan st = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0);
         return (Convert.ToInt64(st.TotalSeconds)-_deadline)*tagPriorityList[_tagId]._power;
-     
+    }
+    public DateTime ConvertDeadlineToDateTime() {
+        return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(_deadline);
     }
 }

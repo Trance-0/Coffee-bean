@@ -73,6 +73,28 @@ public class AndroidNotificationSender : MonoBehaviour
 
 
     }
+    public static void SendNotification(string title, string text, string smallIconId = null, string largeIconId = null)
+    {
+        Init();
+        DateTime now = DateTime.Now;
+
+        var notificationInfo = new NotificationInfo()
+        {
+            title = title,
+            text = text,
+            day = 0,
+            hour = now.Hour,
+            minute = now.Minute,
+            second = now.Second,
+            smallIcon = smallIconId,
+            largeIcon = largeIconId
+        };
+
+        _notificationInfos.Add(notificationInfo);
+        SendNotification(notificationInfo);
+
+
+    }
 
     private static void SendNotification(NotificationInfo notificationInfo)//string title, string text,DateTime time,string smallIconId=null,string largeIconId=null)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FocusManager: MonoBehaviour
 {
-    bool isPaused = false;
+    public bool onFocus = false;
    public DataManager dataManager;
 
     void Start()
@@ -15,14 +15,14 @@ public class FocusManager: MonoBehaviour
 
     void OnApplicationFocus(bool hasFocus)
     {
-        isPaused = !hasFocus;
+        onFocus = !hasFocus;
         dataManager.AppUseSum +=1;
         Debug.Log("Focused");
     }
 
     void OnApplicationPause(bool pauseStatus)
     {
-        isPaused = pauseStatus;
+        onFocus = pauseStatus;
         Debug.Log("Not Focused");
     }
 
