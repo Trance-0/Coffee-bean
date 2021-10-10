@@ -50,25 +50,29 @@ public class TaskOperatingContoler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (focusManager.onFocus)
+        if (isCounting)
         {
-            if (concentrationTime>dataManager.OCTMax*2) {
+            if (concentrationTime > dataManager.OCTMax * 2)
+            {
                 errorWindow.Warning("Your concentration time have exceed the time limit, record abolished.");
-                isCounting = false ;
+                isCounting = false;
             }
-            if (DateTime.Now.Subtract(toDo.ConvertDeadlineToDateTime()).TotalSeconds<0) {
+            if (DateTime.Now.Subtract(toDo.ConvertDeadlineToDateTime()).TotalSeconds < 0)
+            {
                 errorWindow.Warning("You have missed your deadline.");
                 isCounting = false;
             }
-            if (concentrationTime>dataManager.manualOCT) {
+            if (concentrationTime > dataManager.manualOCT)
+            {
                 errorWindow.Warning("Your concentration time have passed your goal, time to have some breaks to maintain high productivity. Of course, you can continue your task if you wish.");
             }
             TimeShow();
-        }
-        else {
-            NotificationManager.SendNotification(configManager.appName,"Interruption detected, return to app to continue your task.");
-            interruptionTime++;
-            isCounting = false;
+            if (!focusManager.onFocus)
+            {
+                NotificationManager.SendNotification(configManager.appName, "Interruption detected, return to app to continue your task.");
+                interruptionTime++;
+                isCounting = false;
+            }
         }
     }
     public void SendTask(TimeBlock task) {
@@ -113,6 +117,8 @@ public class TaskOperatingContoler : MonoBehaviour
         dataManager.OCTUpDate(OCTCal());
     }
     public void ContinueTask(int newEstimateTime) {
+        toDo._estimateTime = newEstimateTime;
+        SendTask(toDo);
     }
     private double OCTCal() {
         return Convert.ToDouble(concentrationTime) / 60.0;
