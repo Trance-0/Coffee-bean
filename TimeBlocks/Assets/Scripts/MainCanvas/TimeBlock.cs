@@ -26,7 +26,7 @@ public class TimeBlock : ScriptableObject
         DateTime tomorrow = today.AddDays(1);
          _deadline=SetTime(today.Year, today.Month,tomorrow.Day,3);
         _tagId=-1;
-        _estimateTime=-1;
+        _estimateTime=0;
         _taskId = -1;
     }
     public TimeBlock()
@@ -36,7 +36,7 @@ public class TimeBlock : ScriptableObject
         DateTime tomorrow = today.AddDays(1);
         _deadline=SetTime(today.Year, today.Month,tomorrow.Day,3);
         _tagId=-1;
-        _estimateTime=-1;
+        _estimateTime=0;
     }
     public long SetTime(int year, int month,int day,int chunk){
         //Debug.Log(year+" "+month + " " +day + " " +chunk*6+5);

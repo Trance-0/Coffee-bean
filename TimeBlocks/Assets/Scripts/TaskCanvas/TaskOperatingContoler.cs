@@ -24,8 +24,6 @@ public class TaskOperatingContoler : MonoBehaviour
     public Text taskName;
     public Text timer;
 
-    public InputField newEstimateTime;
-
     public TimeBlock toDo;
 
     public ConfigManager configManager;
@@ -38,8 +36,6 @@ public class TaskOperatingContoler : MonoBehaviour
     public int interruptionTime;
     public bool isCounting;
     public DateTime origin;
-    public bool countForward;
-    public bool taskOperating;
 
     // Start is called before the first frame update
     void Start()
@@ -77,16 +73,8 @@ public class TaskOperatingContoler : MonoBehaviour
     }
     public void SendTask(TimeBlock task) {
         toDo = task;
-        taskOperating = true;
-        if (toDo._estimateTime < 0)
-        {
-            countForward = true;
-            origin = DateTime.Now;
-        }
-        else {
-            countForward = false;
+        isCounting = true;
             origin = DateTime.Now.AddMinutes(toDo._estimateTime);
-        }
     }
 
     private void TimeShow() {
@@ -96,10 +84,6 @@ public class TaskOperatingContoler : MonoBehaviour
             {
                 concentrationTime += Time.deltaTime;
                 TimeSpan toDisplay = DateTime.Now.Subtract(origin);
-                if (!countForward&&toDisplay.Ticks<0)
-                {
-                    countForward = true;
-                }
                 timer.text = toDisplay.Duration().TotalMinutes.ToString() +":"+toDisplay.Duration().Seconds.ToString();
             }
         }
@@ -108,7 +92,8 @@ public class TaskOperatingContoler : MonoBehaviour
         }
     }
     public void PauseTask() {
-        pauseWindow.Wake();
+        TimeSpan delta = DateTime.Now - origin;
+        pauseWindow.Wake(Convert.ToInt32(delta.TotalMinutes));
         isCounting = false;
     }
     public void ResetTask(int newEstimateTime) {
@@ -129,11 +114,6 @@ public class TaskOperatingContoler : MonoBehaviour
     }
     private void OnApplicationQuit()
     {
-        if (countForward) {
-            ResetTask(-1);
-        }
-        else {
             ResetTask(toDo._estimateTime-Mathf.FloorToInt(concentrationTime));
-        }
     }
 }
