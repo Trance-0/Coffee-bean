@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class Register : MonoBehaviour
 {
+    //local configurations
     public InputField userName;
     public InputField email;
     public InputField verify;
@@ -16,12 +17,13 @@ public class Register : MonoBehaviour
     public InputField password2;
     public GameObject send;
     public GameObject sendText;
+    //local variables
     private string finalmail;
     private string code;
     private bool activated;
     public float cd;
-    public static string[] variable = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "R", "C" };
-
+    public static string[] variable = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "R", "C","Q","M" };
+    //global configurations
     public SQLSaver sqlSaver;
     public EmailSender emailSender;
     public ErrorWindow errorWindow;

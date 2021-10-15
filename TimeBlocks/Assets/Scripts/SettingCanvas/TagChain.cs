@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class TagChain : MonoBehaviour
 {
+    //local configurations
     public GameObject tagChainUI;
     public TagUI tagPF;
-
+    //global configurations
     public ImageChanger imageChanger;
     public ConfigManager configManager;
     public DataManager dataManager;
     // Start is called before the first frame update
     void Start()
     {
+        //comparing to invoke, this method is in a higher level, but I like invoke still
         StartCoroutine(LateStart(1));
     }
     IEnumerator LateStart(float waitTime)

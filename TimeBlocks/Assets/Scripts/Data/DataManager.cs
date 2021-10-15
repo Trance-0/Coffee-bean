@@ -32,7 +32,7 @@ public class DataManager : MonoBehaviour
 
     public List<double> OCT;
 
-    //here is stats
+    //here is statistics
 
     public double OCTSum;
     public int taskSum;
@@ -45,6 +45,8 @@ public class DataManager : MonoBehaviour
     void Start()
     {
        tagDictionary = new Dictionary<int, Tag>();
+        tagDictionary.Add(0, new Tag());
+        Debug.Log(tagDictionary.ToString());
         //    ds.LoadConfig(this, "config_0");
         //     chainSize = sortByTime.Count;
         //DateTime a=DateTime.Now+new TimeSpan(0,0,20);
@@ -60,7 +62,6 @@ public class DataManager : MonoBehaviour
     {
      SaveAll();
     }
-
     public void OCTUpDate(double newOCT) {
         if (newOCT>OCTMax) {
             OCTMax = newOCT;
@@ -76,8 +77,8 @@ public class DataManager : MonoBehaviour
         SaveOCT();
     }
     public void InitializeData(){
+        LoadTags();
         LoadBlocks();
-       LoadTags();
         LoadOCT();
         LoadSettings();
        LoadStats();
@@ -147,12 +148,13 @@ public class DataManager : MonoBehaviour
             Debug.Log("Json saver not implemented");
         }
     }
+    //if the user is new, the method would be called twice
     public void LoadTags()
     {
         if (configManager.isOnline)
         {
            tagDictionary=sQLSaver.LoadTags();
-            if (tagDictionary==null) {
+            if (tagDictionary.Count == 1) {
                 tagDictionary = sQLSaver.LoadTags();
             }
         }

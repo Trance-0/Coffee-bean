@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NewTaskWindowManager : MonoBehaviour
-{
+public class NewTaskWindowManager : MonoBehaviour { 
+        //local configurations
     public BlockChain blockChain;
     public GameObject SimpleWindow;
-    public TimeBlock newTimeBlock;
     public GameObject AdvancedWindow;
+    public TimeBlock newTimeBlock;
     public InputField TaskNameS;
     public InputField TaskNameA;
     public Dropdown Year;
@@ -18,15 +18,16 @@ public class NewTaskWindowManager : MonoBehaviour
     public Dropdown Chunk;
     public Dropdown Tags;
     public InputField EstimateTime;
-
     public Dictionary<string, Tag> tempDictionary;
 
+    //global configurations
     public DataManager dataManager;
     public ConfigManager configManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        CloseWindow();
         UpdateInfo();
     }
 

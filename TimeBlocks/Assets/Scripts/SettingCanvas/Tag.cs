@@ -18,4 +18,11 @@ public class Tag : ScriptableObject
         _power = power;
         _tagId = -1;
     }
+    public Tag()
+    {
+        _name = "Default";
+        _imageId = 0;
+        _power =1;
+        _tagId = -1;
+    }
 }

@@ -20,18 +20,19 @@ using UnityEngine.UI;
 
 public class TaskOperatingContoler : MonoBehaviour
 {
+    //local configuations
     public Image icon;
     public Text taskName;
     public Text timer;
-
+    //core data
     public TimeBlock toDo;
-
+    //global configurations
     public ConfigManager configManager;
     public DataManager dataManager;
     public FocusManager focusManager;
     public ErrorWindow errorWindow;
     public PauseWindow pauseWindow;
-
+    //local variables
     public float concentrationTime;
     public int interruptionTime;
     public bool isCounting;
@@ -46,6 +47,20 @@ public class TaskOperatingContoler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*if 
+         * time limit exceed
+         * deadline already passed
+         * then 
+         * send warning
+         * else
+         * update timer
+         * 
+         * if
+         * being interrupt
+         * then
+         * send notification
+         * 
+         */
         if (isCounting)
         {
             if (concentrationTime > dataManager.OCTMax * 2)
@@ -71,12 +86,13 @@ public class TaskOperatingContoler : MonoBehaviour
             }
         }
     }
+    // Set all the local variables
     public void SendTask(TimeBlock task) {
         toDo = task;
         isCounting = true;
             origin = DateTime.Now.AddMinutes(toDo._estimateTime);
     }
-
+    //count down origin minus estimate time, always count forward
     private void TimeShow() {
         if (dataManager.enableTimer)
         {
@@ -91,27 +107,33 @@ public class TaskOperatingContoler : MonoBehaviour
             timer.text = "";
         }
     }
+    //Wake up pause window and stop counting time
     public void PauseTask() {
         TimeSpan delta = DateTime.Now - origin;
         pauseWindow.Wake(Convert.ToInt32(delta.TotalMinutes));
         isCounting = false;
     }
+    //Stop operating the task and register the original task with a new estimate time, update OCT records
     public void ResetTask(int newEstimateTime) {
         toDo._estimateTime = newEstimateTime;
         dataManager.blocks.Add(toDo);
         dataManager.OCTUpDate(OCTCal());
     }
+    //Continue operationg the task with new estimate time
     public void ContinueTask(int newEstimateTime) {
         toDo._estimateTime = newEstimateTime;
         SendTask(toDo);
     }
+    //convert (float)concentration time to (double)
     private double OCTCal() {
         return Convert.ToDouble(concentrationTime) / 60.0;
     }
+    //Mark task as finished, update OCT records
     public void FinishTask() {
         dataManager.taskSum++;
         dataManager.OCTUpDate(OCTCal());
     }
+    //If quit then reset the task
     private void OnApplicationQuit()
     {
             ResetTask(toDo._estimateTime-Mathf.FloorToInt(concentrationTime));

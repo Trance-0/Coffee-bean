@@ -9,7 +9,6 @@ public class DebugWIndow : MonoBehaviour
     // Adjust via the Inspector
     public int maxLines = 8;
     private Queue<string> queue = new Queue<string>();
-    private string currentText = "";
     public Text output;
 
     void OnEnable()

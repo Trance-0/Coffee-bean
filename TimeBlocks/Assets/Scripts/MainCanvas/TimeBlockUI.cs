@@ -5,17 +5,18 @@ using UnityEngine.UI;
 
 public class TimeBlockUI : MonoBehaviour
 {
+    //global configurations
+    public DataManager dataManager;
+    public TaskOperatingContoler taskOperatingContoler;
+    public CanvasManager canvasManager;
+    public BlockChain blockChain;
+    //local configurations
     public Image icon;
     public Animator animator;
     public Text taskName;
     public Image backGround;
     public TimeBlock timeBlock;
     public GameObject startTheTask;
-
-    public DataManager dataManager;
-    public TaskOperatingContoler taskOperatingContoler;
-    public CanvasManager canvasManager;
-    public BlockChain blockChain;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +49,7 @@ public class TimeBlockUI : MonoBehaviour
     {
         Debug.Log("double click");
         animator.SetTrigger("delete");
+        //Animation needs time to play
         //DoDelete();
         Invoke("DoDelete", 1);    
     }

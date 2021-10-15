@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class FocusManager: MonoBehaviour
 {
-    public bool onFocus = false;
+    //global variables
    public DataManager dataManager;
+    //local variables
+    public bool onFocus = false;
 
     void Start()
     {
