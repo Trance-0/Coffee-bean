@@ -25,4 +25,7 @@ public class Tag : ScriptableObject
         _power =1;
         _tagId = -1;
     }
+    public override string ToString() {
+        return string.Format("Tag: name={0}, image_id={1}, power={2}, tag_id={3}",_name,_imageId,_power,_tagId);
+    }
 }

@@ -36,13 +36,18 @@ public class SQLSaver : MonoBehaviour
         // set some default configurations
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: Signup, connecting to server.");
         String command = string.Format("INSERT INTO tb_user (name,email,password,last_login_time,join_time) VALUES ( '{0}' ,'{1}' ,'{2}' ,  FROM_UNIXTIME({3}) , FROM_UNIXTIME({4}) )", text,email,v, GetTimestamp(SignUpTime), GetTimestamp(SignUpTime));
         MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
         cmd.ExecuteNonQuery();
+        mySqlConnection.Close();
+        //get id for the new user
         GetID(text);
+
         //set default tag
-       cmd = new MySqlCommand("INSERT INTO tb_tag (name,user_id,image_id,power) VALUES ('" + "New tag 0"+ "'," + userID + "," + 0 + "," + 1 + ");", mySqlConnection);
+        mySqlConnection = new MySqlConnection(sql);
+        mySqlConnection.Open();
+        cmd = new MySqlCommand(string.Format("INSERT INTO tb_tag (name,user_id,image_id,power) VALUES ( {0},{1},{2},{3});","New tag 0",userID,0,1), mySqlConnection);
         cmd.ExecuteNonQuery();
         //get default tag id in the cloud server
        cmd = new MySqlCommand("select name,image_id,power,ID from tb_tag where user_id= '" + userID + "'", mySqlConnection);
@@ -56,22 +61,22 @@ public class SQLSaver : MonoBehaviour
             int tagId = int.Parse(reader[3].ToString());
             a = new Tag(name, imageId, power);
             a._tagId = tagId;
-            Debug.Log("Pulling Tag from Server" + a._name);
+            Debug.Log(string.Format("Default tag set to {0}",a.ToString()));
         }
         reader.Close();
         //set default tag id for new user
         cmd = new MySqlCommand(string.Format("UPDATE tb_user SET default_tag_ID = {0} WHERE ID = {1}",a._tagId,userID), mySqlConnection);
         cmd.ExecuteNonQuery();
+        mySqlConnection.Close();
         Debug.Log("Success");
-
     }
     //Check password
-    public bool LogIn(string userName, string v)
+    public bool Login(string userName, string v)
     {
         //get password
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: Login, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("select password from tb_user where name = '" + userName + "'", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
@@ -83,6 +88,8 @@ public class SQLSaver : MonoBehaviour
             }
         }
         reader.Close();
+        mySqlConnection.Close();
+        Debug.Log("Success");
         return false;
     }
     //get user id in server by username
@@ -90,7 +97,7 @@ public class SQLSaver : MonoBehaviour
     {
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: GetID, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("select ID from tb_user where name = '" + userName + "'", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
@@ -98,6 +105,8 @@ public class SQLSaver : MonoBehaviour
             return reader[0].ToString();
         }
         reader.Close();
+        mySqlConnection.Close();
+        Debug.Log("Success");
         return "";
     }
     //check whether the username have been used
@@ -105,7 +114,7 @@ public class SQLSaver : MonoBehaviour
     {
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: CheckUserNameRepeated, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("select name from tb_user", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
@@ -116,6 +125,9 @@ public class SQLSaver : MonoBehaviour
                     return false;
             }
         }
+        reader.Close();
+        mySqlConnection.Close();
+        Debug.Log("Success");
         return true;
     }
     //Save all the blocks
@@ -132,11 +144,13 @@ public class SQLSaver : MonoBehaviour
         {
             mySqlConnection = new MySqlConnection(sql);
             mySqlConnection.Open();
-            Debug.Log("Conecting to SQL Server");
+            Debug.Log("Function name: SaveBlocks, connecting to server.");
             MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
             cmd.ExecuteNonQuery();
             Debug.Log("Success");
             LoadBlocks();
+            mySqlConnection.Close();
+            Debug.Log("Success");
         }
     }
     //Save one block once
@@ -145,9 +159,10 @@ public class SQLSaver : MonoBehaviour
         Debug.Log("Adding Task to Server" + block._name);
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: SaveBlock, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("INSERT INTO tb_task (name,deadline,user_id,tag_id,estimate_time) VALUES ('" + block._name + "', FROM_UNIXTIME(" + block._deadline + "), '" + userID + "', '" + block._tagId + "', '" + block._estimateTime + "'); ", mySqlConnection);
         cmd.ExecuteNonQuery();
+        mySqlConnection.Close();
         Debug.Log("Success");
     }
     //Remove one block once
@@ -157,9 +172,10 @@ public class SQLSaver : MonoBehaviour
         {
             mySqlConnection = new MySqlConnection(sql);
             mySqlConnection.Open();
-            Debug.Log("Conecting to SQL Server");
+            Debug.Log("Function name: RemoveBlock, connecting to server.");
             MySqlCommand cmd = new MySqlCommand("DELETE FROM tb_task WHERE ID = " + block._taskId.ToString(), mySqlConnection);
             cmd.ExecuteNonQuery();
+            mySqlConnection.Close();
             Debug.Log("Success");
         }
     }
@@ -169,9 +185,10 @@ public class SQLSaver : MonoBehaviour
         List<TimeBlock> blocks = new List<TimeBlock>();
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: LoadBlocks, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("select name,deadline,tag_id,estimate_time,ID from tb_task where user_id= '" + userID + "'", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
+        Debug.Log("Pulling Task from Server...");
         while (reader.Read())
         {
             TimeBlock a = new TimeBlock();
@@ -184,9 +201,11 @@ public class SQLSaver : MonoBehaviour
             a._estimateTime = int.Parse(reader[3].ToString());
             a._taskId = int.Parse(reader[4].ToString());
             blocks.Add(a);
-            Debug.Log("Pulling Task from Server" + a._name);
+            Debug.Log(a.ToString());
         }
         reader.Close();
+        mySqlConnection.Close();
+        Debug.Log("Success");
         return blocks;
     }
     //Save all the settings
@@ -194,11 +213,11 @@ public class SQLSaver : MonoBehaviour
     {
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: SaveSettings, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("UPDATE tb_user SET enable_timer = " + enableTimer + ", enable_analyze = " + analyseOCT + ", manual_OCT = " + manualOCT + ", OCT_Auto = " + oCTAuto + ", default_tag_ID = " + defaultTagId + " WHERE ID = " + userID.ToString() + ";", mySqlConnection);
         cmd.ExecuteNonQuery();
+        mySqlConnection.Close();
         Debug.Log("Success");
-
     }
     //Load all the settings
     internal void LoadSettings(out bool enableTimer, out bool analyseOCT, out int manualOCT, out bool oCTAuto,out int defaultTagId) {
@@ -211,7 +230,7 @@ public class SQLSaver : MonoBehaviour
         defaultTagId = 0;
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: LoadSettings, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("select enable_timer, enable_analyze, manual_OCT, OCT_Auto,default_tag_ID from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
@@ -224,34 +243,38 @@ public class SQLSaver : MonoBehaviour
             defaultTagId= int.Parse(reader[4].ToString());
         }
         reader.Close();
+        mySqlConnection.Close();
+        Debug.Log("Success");
     }
     //Save OCT records
     internal void SaveOCT(List<double> oCT)
     {
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: SaveOCT, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("UPDATE tb_user SET OCT_1 = " + oCT[0].ToString() + ", OCT_2 = " + oCT[1].ToString() + ", OCT_3 = " + oCT[2].ToString() + ", OCT_4 = " + oCT[3].ToString() + ", OCT_5 = " + oCT[4].ToString() + ", OCT_6 = " + oCT[5].ToString() + ", OCT_7 = " + oCT[6].ToString() + " WHERE ID = " + userID.ToString() + ";", mySqlConnection);
         cmd.ExecuteNonQuery();
+        mySqlConnection.Close();
         Debug.Log("Success");
-
     }
     //Load OCT records
     internal List<double> LoadOCT(){
         List<double> OCT = new List<double>();
  mySqlConnection = new MySqlConnection(sql);
     mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: LoadOCT, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("select OCT_1, OCT_2, OCT_3, OCT_4, OCT_5, OCT_6, OCT_7 from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
     MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
             for (int i = 0; i < 7; i++)
-                OCT.Add(Double.Parse(reader[i].ToString()));
             {
+                OCT.Add(Double.Parse(reader[i].ToString()));
             }
         }
         reader.Close();
+        mySqlConnection.Close();
+        Debug.Log("Success");
         return OCT;
         }
     //Update all the statistics
@@ -259,10 +282,11 @@ public class SQLSaver : MonoBehaviour
     {
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: SaveStats, connecting to server.");
         MySqlCommand cmd = new MySqlCommand(string.Format("UPDATE tb_user SET OCT_sum = {0}, task_sum = {1},interrupt_sum = {2}, OCT_max = {3}, app_use_sum ={4}, " +
             " last_login_time =   FROM_UNIXTIME({6}) WHERE ID = {7};",oCTSum,taskSum,interruptSum,oCTMax,appUseSum,GetTimestamp(),userID), mySqlConnection);
         cmd.ExecuteNonQuery();
+        mySqlConnection.Close();
         Debug.Log("Success");
     }
     //Load all the statistics
@@ -277,7 +301,7 @@ public class SQLSaver : MonoBehaviour
         joinTime = 0;
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: LoadStats, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("select OCT_sum ,task_sum ,interrupt_sum ,OCT_max ,app_use_sum ,join_time from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
@@ -291,6 +315,8 @@ public class SQLSaver : MonoBehaviour
             joinTime = Convert.ToInt64(st.TotalSeconds);
         }
         reader.Close();
+        mySqlConnection.Close();
+        Debug.Log("Success");
     }
  //Save all the tags
     internal void SaveTags(Dictionary<int, Tag> tagDictionary)
@@ -310,9 +336,10 @@ public class SQLSaver : MonoBehaviour
         }
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: SaveTags, connecting to server.");
         MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
         cmd.ExecuteNonQuery();
+        mySqlConnection.Close();
         Debug.Log("Success");
     }
     //Load all the tags
@@ -321,9 +348,10 @@ public class SQLSaver : MonoBehaviour
         Dictionary<int, Tag> tags = new Dictionary<int, Tag>();
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        Debug.Log("Conecting to SQL Server");
+        Debug.Log("Function name: LoadTags, connecting to server.");
         MySqlCommand cmd = new MySqlCommand("select name,image_id,power,ID from tb_tag where user_id= '" + userID + "'", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
+        Debug.Log("Pulling Tag from Server...");
         while (reader.Read())
         {
             String name = reader[0].ToString();
@@ -333,7 +361,7 @@ public class SQLSaver : MonoBehaviour
             Tag a=new Tag(name, imageId, power);
             a._tagId = tagId;
             tags.Add(tagId,a);
-            Debug.Log("Pulling Tag from Server" + a._name);
+            Debug.Log(a.ToString());
         }
         reader.Close();
         if (tags.Count<7) {
@@ -347,6 +375,8 @@ public class SQLSaver : MonoBehaviour
             SaveTags(tags);
             return null;
         }
+        mySqlConnection.Close();
+        Debug.Log("Success");
         return tags;
     }
     //Get timestamp

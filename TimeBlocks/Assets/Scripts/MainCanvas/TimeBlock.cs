@@ -51,4 +51,8 @@ public class TimeBlock : ScriptableObject
     public DateTime ConvertDeadlineToDateTime() {
         return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(_deadline);
     }
+    public override string ToString()
+    {
+        return string.Format("TimeBlock: name={0}, deadline={1}, estimate_time={2}min, tag_id={3}, task_id", _name, ConvertDeadlineToDateTime(), _estimateTime, _tagId,_taskId);
+    }
 }

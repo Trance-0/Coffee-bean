@@ -53,8 +53,8 @@ public class BlockChain : MonoBehaviour
     {
         //if the dictionary is not initialized, use the second one.
 
-        ShowBlockChain();
-        //Invoke("ShowBlockChain",1);
+        //ShowBlockChain();
+        Invoke("ShowBlockChain",0.1f);
     }
 
     // Update is called once per frame
@@ -124,9 +124,9 @@ public class BlockChain : MonoBehaviour
         if (newBlock.timeBlock._tagId==-1) {
             newBlock.timeBlock._tagId = dataManager.defaultTagId;
         }
-        Debug.Log(newBlock.timeBlock._tagId);
+        Debug.Log(string.Format("Calling block image id for {0}, with id {1}",i._name,newBlock.timeBlock._tagId));
         int imageId = dataManager.tagDictionary[newBlock.timeBlock._tagId]._imageId;
-        Debug.Log("ImageId :"+imageId);
+        Debug.Log(string.Format("Image id: {0}",imageId));
         newBlock.icon.sprite = configManager.imageReference[imageId];
         newBlock.taskOperatingContoler = taskOperatingContoler;
         newBlock.dataManager = dataManager;

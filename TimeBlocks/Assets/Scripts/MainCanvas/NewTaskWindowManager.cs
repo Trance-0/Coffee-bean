@@ -93,7 +93,11 @@ public class NewTaskWindowManager : MonoBehaviour {
             catch (Exception e) {
                 timeToFinish = -1;
             }
-            newTimeBlock = new TimeBlock(taskname, int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text), int.Parse(Day.options[Day.value].text),chunkid, timeToFinish, tempDictionary[Tags.options[Tags.value].text]._tagId);
+            int year = int.Parse(Year.options[Year.value].text);
+            int month = int.Parse(Month.options[Month.value].text);
+            int day = int.Parse(Day.options[Day.value].text);
+            int tagId = tempDictionary[Tags.options[Tags.value].text]._tagId;
+            newTimeBlock = new TimeBlock(taskname, year,month,day,chunkid, timeToFinish, tagId);
         }
         else {
             string taskname = TaskNameS.text;

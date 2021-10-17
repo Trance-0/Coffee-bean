@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class Register : MonoBehaviour
 {
-    //local configurations
     public InputField userName;
     public InputField email;
     public InputField verify;
@@ -17,13 +16,13 @@ public class Register : MonoBehaviour
     public InputField password2;
     public GameObject send;
     public GameObject sendText;
-    //local variables
-    private string finalmail;
-    private string code;
-    private bool activated;
+   
+    public string finalmail;
+    public string code;
+    public bool activated;
     public float cd;
     public static string[] variable = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "R", "C","Q","M" };
-    //global configurations
+  
     public SQLSaver sqlSaver;
     public EmailSender emailSender;
     public ErrorWindow errorWindow;
@@ -33,21 +32,31 @@ public class Register : MonoBehaviour
         activated = true;
     }
     public void SendCode() {
-        try {
-            code = "";
-            cd = 10f;
-            activated = false;
-            send.GetComponent<Button>().interactable = false;
-            System.Random r = new System.Random();
-            for (int i = 0; i < 6; i++) {
-                code += variable[r.Next(variable.Length)];
-            }
-            finalmail = email.text;
-            Debug.Log("Your verification code for TimeBlocks is " + code + " ." + "TimeBlocks Verification code");
-            emailSender.SendMail(finalmail, "Your verification code for TimeBlocks is " + code + " .", "TimeBlocks Verification code");
+        if (!IsValidEmail(email.text))
+        {
+            errorWindow.Warning("Email address is invalid, pleace check your spelling.");
         }
-        catch (System.Exception e) {
-            Debug.Log(e);
+        else
+        {
+            try
+            {
+                code = "";
+                cd = 10f;
+                activated = false;
+                send.GetComponent<Button>().interactable = false;
+                System.Random r = new System.Random();
+                for (int i = 0; i < 6; i++)
+                {
+                    code += variable[r.Next(variable.Length)];
+                }
+                finalmail = email.text;
+                Debug.Log("Your verification code for TimeBlocks is " + code + " ." + "TimeBlocks Verification code");
+                emailSender.SendMail(finalmail, "Your verification code for TimeBlocks is " + code + " .", "TimeBlocks Verification code");
+            }
+            catch (System.Exception e)
+            {
+                Debug.Log(e);
+            }
         }
     }
     public void Signup() {
@@ -57,6 +66,7 @@ public class Register : MonoBehaviour
             if (userName.text != null && email.text != null && finalmail == email.text && verify.text == code && password1.text == password2.text) {
                 if (sqlSaver.CheckUserNameRepeated(userName.text)) {
                     sqlSaver.SignUp(userName.text, SHA256Hash(password1.text),email.text);
+                    errorWindow.Warning("Sign up success");
                 }
                 else {
                    errorWindow.Warning("User name was being used");
@@ -77,6 +87,22 @@ public class Register : MonoBehaviour
         SHA256Managed sha256 = new SHA256Managed();
         byte[] OutputBytes = sha256.ComputeHash(InputBytes);
         return System.Convert.ToBase64String(OutputBytes);
+    }
+    private bool IsValidEmail(string email)
+    {
+        if (email.Trim().EndsWith("."))
+        {
+            return false; // suggested by @TK-421
+        }
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == email;
+        }
+        catch
+        {
+            return false;
+        }
     }
     // Update is called once per frame
     void Update()

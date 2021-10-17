@@ -45,8 +45,10 @@ public class DataManager : MonoBehaviour
     void Start()
     {
        tagDictionary = new Dictionary<int, Tag>();
-        tagDictionary.Add(0, new Tag());
-        Debug.Log(tagDictionary.ToString());
+        Tag defaultTag = new Tag();
+        defaultTag._tagId = 0;
+        tagDictionary.Add(0,defaultTag);
+        Debug.Log(tagDicionaryToString());
         //    ds.LoadConfig(this, "config_0");
         //     chainSize = sortByTime.Count;
         //DateTime a=DateTime.Now+new TimeSpan(0,0,20);
@@ -61,6 +63,14 @@ public class DataManager : MonoBehaviour
     private void OnApplicationQuit()
     {
      SaveAll();
+    }
+    public string tagDicionaryToString() {
+        String result = "";
+        foreach (KeyValuePair<int,Tag> a in tagDictionary){
+            result += a.ToString() ;
+            result += "\n";
+        }
+        return result;
     }
     public void OCTUpDate(double newOCT) {
         if (newOCT>OCTMax) {

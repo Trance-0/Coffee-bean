@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class LoginWindowsManager : MonoBehaviour
 {
-    public GameObject _loginWindow;
-    public GameObject _registerWindow;
+    public GameObject loginWindow;
+    public GameObject registerWindow;
     // Start is called before the first frame update
     void Start()
     {
-        
+        registerWindow.SetActive(false);
+        loginWindow.SetActive(true);
     }
 
     // Update is called once per frame
@@ -18,12 +19,12 @@ public class LoginWindowsManager : MonoBehaviour
         
     }
     public void openRegister() {
-        _registerWindow.SetActive(true);
-        _loginWindow.SetActive(false);
+        registerWindow.SetActive(true);
+        loginWindow.SetActive(false);
     }
     public void openLogin()
     {
-        _registerWindow.SetActive(false);
-        _loginWindow.SetActive(true);
+        registerWindow.SetActive(false);
+        loginWindow.SetActive(true);
     }
 }

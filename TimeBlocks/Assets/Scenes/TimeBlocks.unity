@@ -4576,8 +4576,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NowVersion: 2.3.0-20210724
   m_NewVersion: 
-  m_ChartList:
-  - {fileID: 1315878434}
+  m_ChartList: []
   m_ThemeNames:
   - Default
   - Light
@@ -7818,7 +7817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &539324858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7917,8 +7916,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4c0665807c82a4d9e05dededd90aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loginWindow: {fileID: 1253972011}
-  _registerWindow: {fileID: 1011070554}
+  loginWindow: {fileID: 1253972011}
+  registerWindow: {fileID: 1011070554}
 --- !u!1001 &561525765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11059,6 +11058,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1253972015}
         m_MethodName: checkPassword
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 797640649}
+        m_MethodName: ChangeCanvas
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14741,6 +14751,9 @@ MonoBehaviour:
   password2: {fileID: 60881396}
   send: {fileID: 292199192}
   sendText: {fileID: 759559630}
+  finalmail: 
+  code: 
+  activated: 0
   cd: 0
   sqlSaver: {fileID: 1319001627}
   emailSender: {fileID: 1453942808}
@@ -28361,7 +28374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250.21, y: -708.8}
+  m_AnchoredPosition: {x: 268.61, y: -708.8}
   m_SizeDelta: {x: 345.8828, y: 137.32744}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1396394995
@@ -30162,7 +30175,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1527118658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30842,7 +30855,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 268.61, y: -708.8}
+  m_AnchoredPosition: {x: -250.21, y: -708.8}
   m_SizeDelta: {x: 345.8828, y: 137.32744}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1560151862
@@ -39256,7 +39269,7 @@ PrefabInstance:
     - target: {fileID: 5460262023484987024, guid: de3fa750da585c24d8958d6ba1e1886c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5460262023484987024, guid: de3fa750da585c24d8958d6ba1e1886c,
         type: 3}
@@ -39266,12 +39279,12 @@ PrefabInstance:
     - target: {fileID: 5460262023484987024, guid: de3fa750da585c24d8958d6ba1e1886c,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5460262023484987024, guid: de3fa750da585c24d8958d6ba1e1886c,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 1440
       objectReference: {fileID: 0}
     - target: {fileID: 5460262023484987024, guid: de3fa750da585c24d8958d6ba1e1886c,
         type: 3}
@@ -39316,12 +39329,12 @@ PrefabInstance:
     - target: {fileID: 5460262023484987024, guid: de3fa750da585c24d8958d6ba1e1886c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 720
       objectReference: {fileID: 0}
     - target: {fileID: 5460262023484987024, guid: de3fa750da585c24d8958d6ba1e1886c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -73.80264
       objectReference: {fileID: 0}
     - target: {fileID: 5460262023484987024, guid: de3fa750da585c24d8958d6ba1e1886c,
         type: 3}

@@ -38,10 +38,9 @@ public class Login : MonoBehaviour
     public void checkPassword() {
         try{
             //access data base to verify
-            if (sqlSaver.LogIn(userName.text, SHA256Hash(password.text)))
+            if (sqlSaver.Login(userName.text, SHA256Hash(password.text)))
             {
                 dataManager.InitializeData();
-                canvasManager.ChangeCanvas(0);
             }
             else {
                 errorWindow.Warning("Password or username is not correct.");
