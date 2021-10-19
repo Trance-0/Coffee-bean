@@ -42,12 +42,11 @@ public class SQLSaver : MonoBehaviour
         cmd.ExecuteNonQuery();
         mySqlConnection.Close();
         //get id for the new user
-        GetID(text);
-
+        userID=GetID(text);
         //set default tag
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
-        cmd = new MySqlCommand(string.Format("INSERT INTO tb_tag (name,user_id,image_id,power) VALUES ( {0},{1},{2},{3});","New tag 0",userID,0,1), mySqlConnection);
+        cmd = new MySqlCommand(string.Format("INSERT INTO tb_tag (name,user_id,image_id,power) VALUES ( '{0}',{1},{2},{3});","New tag 0",userID,0,1), mySqlConnection);
         cmd.ExecuteNonQuery();
         //get default tag id in the cloud server
        cmd = new MySqlCommand("select name,image_id,power,ID from tb_tag where user_id= '" + userID + "'", mySqlConnection);

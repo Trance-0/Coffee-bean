@@ -41,6 +41,8 @@ public class Login : MonoBehaviour
             if (sqlSaver.Login(userName.text, SHA256Hash(password.text)))
             {
                 dataManager.InitializeData();
+                //ensure that the user will not login without data initialized.
+                canvasManager.ChangeCanvas(0);
             }
             else {
                 errorWindow.Warning("Password or username is not correct.");

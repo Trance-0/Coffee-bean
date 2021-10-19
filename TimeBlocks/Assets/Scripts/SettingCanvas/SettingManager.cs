@@ -49,6 +49,8 @@ public class SettingManager : MonoBehaviour
         enableTimerToggle.isOn = dataManager.enableTimer;
         analyseOCTToggle.isOn = dataManager.analyseOCT;
 
+        OCTAutoUpdate();
+
         OCTValue.interactable = !dataManager.OCTAuto;
         OCTValue.text = dataManager.manualOCT.ToString() ;
         float nh, ns, nv;

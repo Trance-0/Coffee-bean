@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ConfigManager : MonoBehaviour
 {
+    //waiting to implement, if everythings goes well, store the data of config manager in an extra json file.
+    public bool rememberPassword;
+
     public List<Sprite> imageReference;
     public Color imageColor;
     public TimeBlock lastInput;

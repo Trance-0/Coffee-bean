@@ -62,7 +62,7 @@ public class Register : MonoBehaviour
     public void Signup() {
         try
         {
-            Debug.Log(userName.text + "" + email.text + "" + verify.text + "" + password1.text + "" + SHA256Hash(password1.text));
+            Debug.Log(string.Format("Sending message to server: username={0},email={1},verificaiton code={2},password hash={3} ",userName.text,email.text , verify.text,password1.text , SHA256Hash(password1.text)));
             if (userName.text != null && email.text != null && finalmail == email.text && verify.text == code && password1.text == password2.text) {
                 if (sqlSaver.CheckUserNameRepeated(userName.text)) {
                     sqlSaver.SignUp(userName.text, SHA256Hash(password1.text),email.text);
