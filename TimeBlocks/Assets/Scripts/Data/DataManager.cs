@@ -73,6 +73,7 @@ public class DataManager : MonoBehaviour
         return result;
     }
     public void OCTUpDate(double newOCT) {
+        Debug.Log(string.Format("OCT up dateted with new record {0} min",newOCT));
         if (newOCT>OCTMax) {
             OCTMax = newOCT;
         }

@@ -16,7 +16,8 @@ public class TagChain : MonoBehaviour
     void Start()
     {
         //comparing to invoke, this method is in a higher level, but I like invoke still
-        StartCoroutine(LateStart(1));
+        //StartCoroutine(LateStart(1));
+        Invoke("ShowTagChain",0.1f);
     }
     IEnumerator LateStart(float waitTime)
     {

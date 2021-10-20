@@ -71,7 +71,13 @@ public class SettingManager : MonoBehaviour
     {
         dataManager.InitializeData();
     }
+    //Remember to call this method when get out of setting canvas.
     public void UpdateData() {
         dataManager.SaveSettings();
+        dataManager.SaveTags();
+    }
+    private void OnApplicationQuit()
+    {
+        UpdateData();
     }
 }

@@ -32,6 +32,7 @@ public class ImageChanger : MonoBehaviour
         newImage.GetComponent<Icon>().iconId =i;
         newImage.GetComponent<Button>().interactable = false;
     }
+    //remember, the tag cannot change icon by themselves, so I use TagUI, don't change it if you don't know what you are doing.
     public void setGoal(TagUI k) {
         for (int i = imageChainUI.transform.childCount - 1; i >= 0; i--)
         {

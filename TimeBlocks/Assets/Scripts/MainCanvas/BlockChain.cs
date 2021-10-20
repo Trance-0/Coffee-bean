@@ -38,11 +38,11 @@ public class BlockChain : MonoBehaviour
         {
             if (x.GetPriority(dataManager.tagDictionary) - y.GetPriority(dataManager.tagDictionary) > 0)
             {
-                return 1;
+                return -1;
             }
             if (x.GetPriority(dataManager.tagDictionary) - y.GetPriority(dataManager.tagDictionary) < 0)
             {
-                return -1;
+                return 1;
             }
             return 0;
         }
@@ -102,7 +102,8 @@ public class BlockChain : MonoBehaviour
         }
             for (int i = 0; i < dataManager.blocks.Count; i++)
             {
-            if (dataManager.blocks[i]._name.Contains(keywords)) {
+            //remember to detect by lower case.
+            if (dataManager.blocks[i]._name.ToLower().Contains(keywords.ToLower())) {
                 CreateANewBlock(dataManager.blocks[i]);
             }
             }

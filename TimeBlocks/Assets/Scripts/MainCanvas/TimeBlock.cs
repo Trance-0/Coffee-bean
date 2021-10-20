@@ -46,7 +46,27 @@ public class TimeBlock : ScriptableObject
 
     public long GetPriority(Dictionary<int,Tag> tagPriorityList) {
         TimeSpan st = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0);
-        return (Convert.ToInt64(st.TotalSeconds)-_deadline)*tagPriorityList[_tagId]._power;
+        if (tagPriorityList.ContainsKey(_tagId))
+        {
+            long priority = (Convert.ToInt64(st.TotalSeconds) - _deadline) * tagPriorityList[_tagId]._power;
+            return priority;
+        }
+        else {
+            Debug.Log(string.Format("Tag id not found, the tag id is {0}, but the tag dicitonary don't have the key like this.",_tagId));
+            Debug.Log(tagDicionaryToString(tagPriorityList));
+        }
+        return -1;
+    }
+    //testing method, remove if possible.
+    public string tagDicionaryToString(Dictionary<int, Tag> tagDictionary)
+    {
+        String result = "";
+        foreach (KeyValuePair<int, Tag> a in tagDictionary)
+        {
+            result += a.ToString();
+            result += "\n";
+        }
+        return result;
     }
     public DateTime ConvertDeadlineToDateTime() {
         return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(_deadline);

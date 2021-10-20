@@ -60,7 +60,7 @@ public class NewTaskWindowManager : MonoBehaviour {
         foreach (KeyValuePair<int,Tag> i in dataManager.tagDictionary)
         {
             tempDictionary.Add(i.Value._name, i.Value);
-            Tags.options.Add(new Dropdown.OptionData());
+            Tags.options.Add(new Dropdown.OptionData(i.Value._name));
         }
     }
 

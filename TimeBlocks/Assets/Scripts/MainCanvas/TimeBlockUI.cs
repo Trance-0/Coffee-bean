@@ -36,6 +36,7 @@ public class TimeBlockUI : MonoBehaviour
     void Click()
     {
         Debug.Log("click");
+        Debug.Log(timeBlock.ToString());
     }
 
     void Press()

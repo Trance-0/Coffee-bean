@@ -65,16 +65,19 @@ public class TaskOperatingContoler : MonoBehaviour
         {
             if (concentrationTime > dataManager.OCTMax * 2)
             {
+                Debug.Log("Your concentration time have exceed the time limit, record abolished.");
                 errorWindow.Warning("Your concentration time have exceed the time limit, record abolished.");
                 isCounting = false;
             }
             if (DateTime.Now.Subtract(toDo.ConvertDeadlineToDateTime()).TotalSeconds < 0)
             {
+                Debug.Log("You have missed your deadline.");
                 errorWindow.Warning("You have missed your deadline.");
                 isCounting = false;
             }
             if (concentrationTime > dataManager.manualOCT)
             {
+                Debug.Log("Your concentration time have passed your goal, time to have some breaks to maintain high productivity. Of course, you can continue your task if you wish.");
                 errorWindow.Warning("Your concentration time have passed your goal, time to have some breaks to maintain high productivity. Of course, you can continue your task if you wish.");
             }
             TimeShow();
