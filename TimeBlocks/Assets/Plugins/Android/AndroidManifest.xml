@@ -11,6 +11,13 @@
         android:largeScreens="true"
         android:xlargeScreens="true"
         android:anyDensity="true"/>
+<!--//允许程序禁用键盘锁-->
+ <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+ <!--允许一个程序接收到 ACTION_BOOT_COMPLETED广播在系统完成启动-->
+ <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+<!--允许使用PowerManager的 WakeLocks保持进程在休眠时从屏幕消失-->
+ <uses-permission android:name="android.permission.WAKE_LOCK" />
+   <uses-permission android:name="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
 
     <application
     android:icon="@drawable/app_icon"
@@ -29,6 +36,13 @@
             <meta-data android:name="android.app.lib_name" android:value="unity" />
             <meta-data android:name="unityplayer.ForwardNativeEventsToDalvik" android:value="true" />
         </activity>
+     <receiver android:enabled="true" android:exported="true" android:name="com.YSGS.DOUTU.BootCompletedReceiver" android:permission="android.permission.RECEIVE_BOOT_COMPLETED">  
+          <intent-filter>  
+            <action android:name="android.intent.action.BOOT_COMPLETED" />  
+            <action android:name="android.intent.action.QUICKBOOT_POWERON" />  
+          <category android:name="android.intent.category.DEFAULT" />  
+        </intent-filter>  
+    </receiver> 
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

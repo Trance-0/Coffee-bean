@@ -18,6 +18,7 @@ public class SettingManager : MonoBehaviour
     {
         dataManager.analyseOCT = analyseOCTToggle.isOn;
     }
+    //don't change or add new function if you "think" that I did implement it.
     public InputField OCTValue;
     public Toggle OCTAutoToggle;
     public void OCTAutoUpdate()

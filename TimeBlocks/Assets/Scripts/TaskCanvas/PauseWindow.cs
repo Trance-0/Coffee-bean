@@ -24,9 +24,7 @@ public class PauseWindow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pause.SetActive(false);
-        shade.SetActive(false);
-        restart.SetActive(false);
+        CloseWindow();
     }
 
     // Update is called once per frame
@@ -35,8 +33,14 @@ public class PauseWindow : MonoBehaviour
         if (isOnRest) {
             restTime += Time.deltaTime;
             TimeSpan toDisplay = DateTime.Now.Subtract(origin);
-            timer.text = toDisplay.Duration().TotalMinutes.ToString() + ":" + toDisplay.Duration().Seconds.ToString();
+            timer.text = Math.Floor(toDisplay.Duration().TotalMinutes).ToString() + ":" + toDisplay.Duration().Seconds.ToString();
         }
+    }
+    public void CloseWindow()
+    {
+        pause.SetActive(false);
+        shade.SetActive(false);
+        restart.SetActive(false);
     }
     public void Wake(int d) {
         defaultEstimateTime = d;
@@ -69,6 +73,7 @@ public class PauseWindow : MonoBehaviour
         else {
             taskOperatingContoler.ContinueTask(int.Parse(timeRemain.text));
         }
+        CloseWindow();
         isOnRest = false;
     }
 }
