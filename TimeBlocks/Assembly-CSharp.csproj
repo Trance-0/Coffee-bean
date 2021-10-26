@@ -751,6 +751,14 @@
       <Project>{CBBA6220-3045-75CC-C79F-085C1E446F2A}</Project>
       <Name>XCharts.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="OneSignal.UnityPackage.Editor.csproj">
+      <Project>{984C44A6-C540-22B5-62AB-82DEEC2219CF}</Project>
+      <Name>OneSignal.UnityPackage.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="OneSignal.UnityPackage.Example.csproj">
+      <Project>{477F1F12-80AF-AECA-DA6C-11E8102A9DCE}</Project>
+      <Name>OneSignal.UnityPackage.Example</Name>
+    </ProjectReference>
     <ProjectReference Include="XCharts.Examples.Runtime.csproj">
       <Project>{207753BE-C5BA-E5B4-3FA3-A8ABD906D852}</Project>
       <Name>XCharts.Examples.Runtime</Name>

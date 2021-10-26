@@ -7,7 +7,7 @@ using System;
 public class DataManager : MonoBehaviour
 {
     //here is the inital config
-    
+    public FocusManager focusManager;
     public ConfigManager configManager;
     public JsonSaver jsonSaver;
     public SQLSaver sQLSaver;
@@ -51,8 +51,9 @@ public class DataManager : MonoBehaviour
         Debug.Log(tagDicionaryToString());
         //    ds.LoadConfig(this, "config_0");
         //     chainSize = sortByTime.Count;
-        DateTime a=DateTime.Now+new TimeSpan(0,0,20);
-        NotificationManager.SendNotification("TimeBlocks","Data Initialized",0,a.Hour,a.Minute,a.Second);
+        //DateTime a=DateTime.Now+new TimeSpan(0,0,20);
+        //NotificationManager.SendNotification("TimeBlocks","Data Initialized",0,a.Hour,a.Minute,a.Second);
+        focusManager.postNotification("test message");
     }
 
     // Update is called once per frame

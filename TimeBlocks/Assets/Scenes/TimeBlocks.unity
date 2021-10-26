@@ -9163,6 +9163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataManager: {fileID: 1119387533}
   onFocus: 0
+  oneSignaluserId: 
 --- !u!4 &660822394
 Transform:
   m_ObjectHideFlags: 0
@@ -16650,6 +16651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21cf6bef9f3cc774392429602b6c7a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  focusManager: {fileID: 660822393}
   configManager: {fileID: 1421986758}
   jsonSaver: {fileID: 1319001625}
   sQLSaver: {fileID: 1319001627}

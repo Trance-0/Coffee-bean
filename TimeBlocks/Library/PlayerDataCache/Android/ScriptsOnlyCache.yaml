@@ -1,36 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
-    Assembly-CSharp.dll:
-    - Background
-    - BlockChain
-    - ButtonExtension
-    - CanvasManager
-    - ConfigManager
-    - DataManager
-    - DebugWIndow
-    - EmailSender
-    - ErrorWindow
-    - FocusManager
-    - GuideWindow
-    - Icon
-    - ImageChanger
-    - JsonSaver
-    - Login
-    - LoginWindowsManager
-    - NewTaskWindowManager
-    - NewTaskWindowWaker
-    - PauseWindow
-    - Register
-    - SQLSaver
-    - SearchBoxMananger
-    - SettingManager
-    - SortBy
-    - StatsManager
-    - TagChain
-    - TagUI
-    - TaskOperatingContoler
-    - TimeBlock
-    - TimeBlockUI
+    OneSignal.UnityPackage.Example.dll:
+    - OneSignalExampleBehaviour
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
@@ -51,30 +22,10 @@ ScriptsOnlyBuild:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
     - UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder
-    UnityEngine.UI.dll:
-    - UnityEngine.EventSystems.EventSystem
-    - UnityEngine.EventSystems.StandaloneInputModule
-    - UnityEngine.UI.Button
-    - UnityEngine.UI.CanvasScaler
-    - UnityEngine.UI.Dropdown
-    - UnityEngine.UI.GraphicRaycaster
-    - UnityEngine.UI.HorizontalLayoutGroup
-    - UnityEngine.UI.Image
-    - UnityEngine.UI.InputField
-    - UnityEngine.UI.Mask
-    - UnityEngine.UI.RectMask2D
-    - UnityEngine.UI.ScrollRect
-    - UnityEngine.UI.Scrollbar
-    - UnityEngine.UI.Text
-    - UnityEngine.UI.Toggle
-    - UnityEngine.UI.VerticalLayoutGroup
     XCharts.Runtime.dll:
-    - XCharts.BarChart
-    - XCharts.Painter
-    - XCharts.XChartsMgr
     - XCharts.XChartsSettings
   sceneClasses:
-    Assets/Scenes/TimeBlocks.unity:
+    Assets/OneSignal/Example/Scenes/OneSignalExampleScene.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -89,133 +40,23 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 49
       Script: {instanceID: 0}
-    - Class: 61
-      Script: {instanceID: 0}
-    - Class: 74
-      Script: {instanceID: 0}
     - Class: 81
-      Script: {instanceID: 0}
-    - Class: 91
-      Script: {instanceID: 0}
-    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11374}
+      Script: {instanceID: 12322}
     - Class: 114
-      Script: {instanceID: 11376}
-    - Class: 114
-      Script: {instanceID: 11378}
-    - Class: 114
-      Script: {instanceID: 11410}
-    - Class: 114
-      Script: {instanceID: 11534}
-    - Class: 114
-      Script: {instanceID: 11716}
-    - Class: 114
-      Script: {instanceID: 11776}
-    - Class: 114
-      Script: {instanceID: 11780}
-    - Class: 114
-      Script: {instanceID: 11850}
-    - Class: 114
-      Script: {instanceID: 12040}
-    - Class: 114
-      Script: {instanceID: 12074}
-    - Class: 114
-      Script: {instanceID: 12092}
-    - Class: 114
-      Script: {instanceID: 12252}
-    - Class: 114
-      Script: {instanceID: 12396}
-    - Class: 114
-      Script: {instanceID: 12408}
-    - Class: 114
-      Script: {instanceID: 12456}
-    - Class: 114
-      Script: {instanceID: 12566}
-    - Class: 114
-      Script: {instanceID: 12574}
-    - Class: 114
-      Script: {instanceID: 12588}
-    - Class: 114
-      Script: {instanceID: 12668}
-    - Class: 114
-      Script: {instanceID: 12738}
-    - Class: 114
-      Script: {instanceID: 12760}
-    - Class: 114
-      Script: {instanceID: 12806}
-    - Class: 114
-      Script: {instanceID: 12920}
-    - Class: 114
-      Script: {instanceID: 12938}
-    - Class: 114
-      Script: {instanceID: 13122}
-    - Class: 114
-      Script: {instanceID: 13240}
-    - Class: 114
-      Script: {instanceID: 13302}
-    - Class: 114
-      Script: {instanceID: 13324}
-    - Class: 114
-      Script: {instanceID: 13332}
-    - Class: 114
-      Script: {instanceID: 13538}
-    - Class: 114
-      Script: {instanceID: 13576}
-    - Class: 114
-      Script: {instanceID: 13682}
-    - Class: 114
-      Script: {instanceID: 13732}
-    - Class: 114
-      Script: {instanceID: 13738}
-    - Class: 114
-      Script: {instanceID: 13858}
-    - Class: 114
-      Script: {instanceID: 13866}
-    - Class: 114
-      Script: {instanceID: 13904}
-    - Class: 114
-      Script: {instanceID: 13966}
-    - Class: 114
-      Script: {instanceID: 14184}
-    - Class: 114
-      Script: {instanceID: 14336}
-    - Class: 114
-      Script: {instanceID: 14390}
-    - Class: 114
-      Script: {instanceID: 14462}
-    - Class: 114
-      Script: {instanceID: 15162}
-    - Class: 114
-      Script: {instanceID: 15186}
-    - Class: 114
-      Script: {instanceID: 15224}
-    - Class: 114
-      Script: {instanceID: 15248}
-    - Class: 114
-      Script: {instanceID: 15266}
-    - Class: 114
-      Script: {instanceID: 15296}
-    - Class: 114
-      Script: {instanceID: 15358}
+      Script: {instanceID: 13810}
     - Class: 115
+      Script: {instanceID: 0}
+    - Class: 124
       Script: {instanceID: 0}
     - Class: 128
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
-      Script: {instanceID: 0}
-    - Class: 213
-      Script: {instanceID: 0}
-    - Class: 222
-      Script: {instanceID: 0}
-    - Class: 223
-      Script: {instanceID: 0}
-    - Class: 224
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -488,6 +329,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Cheat
+  - hash:
+      serializedVersion: 2
+      Hash: 66ae9edc6751ac50cc859fa628dd45ce
+    assemblyName: OneSignal.UnityPackage.Example.dll
+    namespaceName: 
+    className: OneSignalExampleBehaviour
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -820,7 +667,7 @@ ScriptsOnlyBuild:
     className: DebugWIndow
   - hash:
       serializedVersion: 2
-      Hash: 645c11cc8ec39cc343fb5985b1c8127a
+      Hash: bf47fdf9dc942e6ad47cac6f69258f6b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: FocusManager
@@ -1174,7 +1021,7 @@ ScriptsOnlyBuild:
     className: ToggleGroup
   - hash:
       serializedVersion: 2
-      Hash: 19a05e02fda7ea15e89b305a52dd99b3
+      Hash: 5b2e971ce624d4ab9a5be3ed76186b59
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DataManager
@@ -1186,5 +1033,5 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   platform: 13
   scenePathNames:
-  - Assets/Scenes/TimeBlocks.unity
-  playerPath: D:/Downloads/base_11.apk
+  - Assets/OneSignal/Example/Scenes/OneSignalExampleScene.unity
+  playerPath: D:/Downloads/base_15.apk
