@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
 using System.IO;
+using System;
 
 public class JsonSaver : MonoBehaviour
 {
@@ -84,6 +85,17 @@ public class JsonSaver : MonoBehaviour
        dm.backgroundColor.g = int.Parse(item["completionCheck"].ToString());
         dm.backgroundColor.b = int.Parse(item["completionCheck"].ToString());
     }
+
+    internal void LoadData()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal void SaveData()
+    {
+        throw new NotImplementedException();
+    }
+
     public void LoadTags(DataManager dm, string jsonName) {
     }
     public void LoadBlocks(DataManager dm, string jsonName)

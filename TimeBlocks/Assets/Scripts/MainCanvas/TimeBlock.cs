@@ -10,14 +10,12 @@ public class TimeBlock : ScriptableObject
     public long _deadline;
     public int _estimateTime;
     public int _tagId;
-    public int _taskId;
 
     public TimeBlock(string name,int year, int month,int day, int chunk,int timeRequired,int tagId) {
         _name=name;
          _deadline=SetTime(year,month,day,chunk);
         _tagId=tagId;
         _estimateTime=timeRequired;
-        _taskId = -1;
     }
     public TimeBlock(string name)
     {
@@ -27,7 +25,6 @@ public class TimeBlock : ScriptableObject
          _deadline=SetTime(today.Year, today.Month,tomorrow.Day,3);
         _tagId=-1;
         _estimateTime=0;
-        _taskId = -1;
     }
     public TimeBlock()
     {

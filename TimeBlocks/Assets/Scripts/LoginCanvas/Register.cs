@@ -9,6 +9,11 @@ using UnityEngine.UI;
 
 public class Register : MonoBehaviour
 {
+    public SQLSaver sqlSaver;
+    public DataManager dataManager;
+    public EmailSender emailSender;
+    public ErrorWindow errorWindow;
+
     public InputField userName;
     public InputField email;
     public InputField verify;
@@ -23,9 +28,7 @@ public class Register : MonoBehaviour
     public float cd;
     public static string[] variable = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "R", "C","Q","M" };
   
-    public SQLSaver sqlSaver;
-    public EmailSender emailSender;
-    public ErrorWindow errorWindow;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +68,7 @@ public class Register : MonoBehaviour
             Debug.Log(string.Format("Sending message to server: username={0},email={1},verificaiton code={2},password hash={3} ",userName.text,email.text , verify.text,password1.text , SHA256Hash(password1.text)));
             if (userName.text != null && email.text != null && finalmail == email.text && verify.text == code && password1.text == password2.text) {
                 if (sqlSaver.CheckUserNameRepeated(userName.text)) {
-                    sqlSaver.SignUp(userName.text, SHA256Hash(password1.text),email.text);
+                    sqlSaver.CreateAccount(userName.text, SHA256Hash(password1.text),email.text,dataManager);
                     errorWindow.Warning("Sign up success");
                 }
                 else {

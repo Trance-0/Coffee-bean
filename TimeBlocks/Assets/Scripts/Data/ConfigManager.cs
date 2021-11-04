@@ -6,6 +6,7 @@ public class ConfigManager : MonoBehaviour
 {
     //waiting to implement, if everythings goes well, store the data of config manager in an extra json file.
     public bool rememberPassword;
+    public bool isOffline;
 
     public List<Sprite> imageReference;
     public Color imageColor;
@@ -14,7 +15,7 @@ public class ConfigManager : MonoBehaviour
 
     public bool isAdvanced;
     public bool isAddNewTaskWindowAwake;
-    public bool isSearchBoxAwake;
+    //remember to set a quit for everywindow
 
     public bool isOnline;
 

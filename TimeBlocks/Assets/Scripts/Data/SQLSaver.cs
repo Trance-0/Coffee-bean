@@ -30,45 +30,7 @@ public class SQLSaver : MonoBehaviour
     {
     }
     //Sign up for a new user
-    public void SignUp(string text, string v, string email)
-    {
-        DateTime SignUpTime = DateTime.Now;
-        // set some default configurations
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: Signup, connecting to server.");
-        String command = string.Format("INSERT INTO tb_user (name,email,password,last_login_time,join_time) VALUES ( '{0}' ,'{1}' ,'{2}' ,  FROM_UNIXTIME({3}) , FROM_UNIXTIME({4}) )", text,email,v, GetTimestamp(SignUpTime), GetTimestamp(SignUpTime));
-        MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
-        cmd.ExecuteNonQuery();
-        mySqlConnection.Close();
-        //get id for the new user
-        userID=GetID(text);
-        //set default tag
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        cmd = new MySqlCommand(string.Format("INSERT INTO tb_tag (name,user_id,image_id,power) VALUES ( '{0}',{1},{2},{3});","New tag 0",userID,0,1), mySqlConnection);
-        cmd.ExecuteNonQuery();
-        //get default tag id in the cloud server
-       cmd = new MySqlCommand("select name,image_id,power,ID from tb_tag where user_id= '" + userID + "'", mySqlConnection);
-        MySqlDataReader reader = cmd.ExecuteReader();
-        Tag a=new Tag();
-        while (reader.Read())
-        {
-            String name = reader[0].ToString();
-            int imageId = int.Parse(reader[1].ToString());
-            int power = int.Parse(reader[2].ToString());
-            int tagId = int.Parse(reader[3].ToString());
-            a = new Tag(name, imageId, power);
-            a._tagId = tagId;
-            Debug.Log(string.Format("Default tag set to {0}",a.ToString()));
-        }
-        reader.Close();
-        //set default tag id for new user
-        cmd = new MySqlCommand(string.Format("UPDATE tb_user SET default_tag_ID = {0} WHERE ID = {1}",a._tagId,userID), mySqlConnection);
-        cmd.ExecuteNonQuery();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-    }
+    
     //Check password
     public bool Login(string userName, string v)
     {
@@ -76,7 +38,7 @@ public class SQLSaver : MonoBehaviour
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
         Debug.Log("Function name: Login, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("select password from tb_user where name = '" + userName + "'", mySqlConnection);
+        MySqlCommand cmd = new MySqlCommand("SELECT password from tb_user WHERE name = '" + userName + "'", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
@@ -97,7 +59,7 @@ public class SQLSaver : MonoBehaviour
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
         Debug.Log("Function name: GetID, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("select ID from tb_user where name = '" + userName + "'", mySqlConnection);
+        MySqlCommand cmd = new MySqlCommand("SELECT user_id FROM tb_user WHERE name = '" + userName + "'", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
         while (reader.Read())
         {
@@ -111,11 +73,9 @@ public class SQLSaver : MonoBehaviour
     //check whether the username have been used
     public bool CheckUserNameRepeated(string userName)
     {
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
         Debug.Log("Function name: CheckUserNameRepeated, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("select name from tb_user", mySqlConnection);
-        MySqlDataReader reader = cmd.ExecuteReader();
+        string command=string.Format("SELECT name FROM tb_user", mySqlConnection);
+        MySqlDataReader reader = ServerRead(command);
         while (reader.Read())
         {
             for (int i = 0; i < reader.FieldCount; i++)
@@ -124,260 +84,161 @@ public class SQLSaver : MonoBehaviour
                     return false;
             }
         }
-        reader.Close();
-        mySqlConnection.Close();
         Debug.Log("Success");
         return true;
     }
-    //Save all the blocks
-    internal void SaveBlocks(List<TimeBlock> blocks)
-    {
-        String command = "";
-        foreach (TimeBlock a in blocks) {
-            if (a._taskId == -1) {
-                Debug.Log("Adding Task to Server" + a._name);
-                command += "INSERT INTO tb_task (name,deadline,user_id,tag_id,estimate_time) VALUES ('" + a._name + "', FROM_UNIXTIME(" + a._deadline + "), '" + userID + "', '" + a._tagId + "', '" + a._estimateTime + "'); ";
-            }
-        }
-        if (command.Length > 0)
+
+    public bool CreateAccount(string text, string v, string email, DataManager dataManager) {
+        try
         {
-            mySqlConnection = new MySqlConnection(sql);
-            mySqlConnection.Open();
-            Debug.Log("Function name: SaveBlocks, connecting to server.");
-            MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
-            cmd.ExecuteNonQuery();
-            Debug.Log("Success");
-            LoadBlocks();
-            mySqlConnection.Close();
-            Debug.Log("Success");
+            //last edit [2021.11.5:7:00]
+            string command="INSERT INTO tb_user (user_name)"
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
         }
     }
-    //Save one block once
-    internal void SaveBlock(TimeBlock block)
+    public bool DeleteAccount()
     {
-        Debug.Log("Adding Task to Server" + block._name);
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: SaveBlock, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("INSERT INTO tb_task (name,deadline,user_id,tag_id,estimate_time) VALUES ('" + block._name + "', FROM_UNIXTIME(" + block._deadline + "), '" + userID + "', '" + block._tagId + "', '" + block._estimateTime + "'); ", mySqlConnection);
-        cmd.ExecuteNonQuery();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-    }
-    //Remove one block once
-    internal void RemoveBlock(TimeBlock block)
-    {
-        if (block._taskId != -1)
+        try
         {
-            mySqlConnection = new MySqlConnection(sql);
-            mySqlConnection.Open();
-            Debug.Log("Function name: RemoveBlock, connecting to server.");
-            MySqlCommand cmd = new MySqlCommand("DELETE FROM tb_task WHERE ID = " + block._taskId.ToString(), mySqlConnection);
-            cmd.ExecuteNonQuery();
-            mySqlConnection.Close();
-            Debug.Log("Success");
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
         }
     }
-    //Load all the blocks
-    internal List<TimeBlock> LoadBlocks()
+    //Save all
+    public bool Push(DataManager dataManager)
     {
-        List<TimeBlock> blocks = new List<TimeBlock>();
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: LoadBlocks, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("select name,deadline,tag_id,estimate_time,ID from tb_task where user_id= '" + userID + "'", mySqlConnection);
-        MySqlDataReader reader = cmd.ExecuteReader();
-        Debug.Log("Pulling Task from Server...");
-        while (reader.Read())
+        try
         {
-            TimeBlock a = new TimeBlock();
-            a._name = reader[0].ToString();
-            Debug.Log(reader[1].ToString());
-            TimeSpan st = Convert.ToDateTime(reader[1].ToString()) - new DateTime(1970, 1, 1, 0, 0, 0);
-            a._deadline = Convert.ToInt64(st.TotalSeconds);
-            Debug.Log(a._deadline);
-            a._tagId = int.Parse(reader[2].ToString());
-            a._estimateTime = int.Parse(reader[3].ToString());
-            a._taskId = int.Parse(reader[4].ToString());
-            blocks.Add(a);
-            Debug.Log(a.ToString());
-        }
-        reader.Close();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-        return blocks;
-    }
-    //Save all the settings
-    internal void SaveSettings(bool enableTimer, bool analyseOCT, int manualOCT, bool oCTAuto,int defaultTagId)
-    {
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: SaveSettings, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("UPDATE tb_user SET enable_timer = " + enableTimer + ", enable_analyze = " + analyseOCT + ", manual_OCT = " + manualOCT + ", OCT_Auto = " + oCTAuto + ", default_tag_ID = " + defaultTagId + " WHERE ID = " + userID.ToString() + ";", mySqlConnection);
-        cmd.ExecuteNonQuery();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-    }
-    //Load all the settings
-    internal void LoadSettings(out bool enableTimer, out bool analyseOCT, out int manualOCT, out bool oCTAuto,out int defaultTagId) {
-        //set default value for the parameters
-        enableTimer = false;
-        analyseOCT = false;
-        manualOCT = -1;
-        oCTAuto = false;
-        //don't change this if you don't know where the id was used
-        defaultTagId = 0;
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: LoadSettings, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("select enable_timer, enable_analyze, manual_OCT, OCT_Auto,default_tag_ID from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
-        MySqlDataReader reader = cmd.ExecuteReader();
-        while (reader.Read())
-        {
-            Debug.Log("reader[0]" + reader[0].ToString());
-            enableTimer = Convert.ToBoolean(int.Parse(reader[0].ToString()));
-            analyseOCT = Convert.ToBoolean(int.Parse(reader[1].ToString())); 
-                manualOCT = int.Parse(reader[2].ToString());
-                oCTAuto = Convert.ToBoolean(int.Parse(reader[3].ToString()));
-            defaultTagId= int.Parse(reader[4].ToString());
-        }
-        reader.Close();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-    }
-    //Save OCT records
-    internal void SaveOCT(List<double> oCT)
-    {
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: SaveOCT, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("UPDATE tb_user SET OCT_1 = " + oCT[0].ToString() + ", OCT_2 = " + oCT[1].ToString() + ", OCT_3 = " + oCT[2].ToString() + ", OCT_4 = " + oCT[3].ToString() + ", OCT_5 = " + oCT[4].ToString() + ", OCT_6 = " + oCT[5].ToString() + ", OCT_7 = " + oCT[6].ToString() + " WHERE ID = " + userID.ToString() + ";", mySqlConnection);
-        cmd.ExecuteNonQuery();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-    }
-    //Load OCT records
-    internal List<double> LoadOCT(){
-        List<double> OCT = new List<double>();
- mySqlConnection = new MySqlConnection(sql);
-    mySqlConnection.Open();
-        Debug.Log("Function name: LoadOCT, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("select OCT_1, OCT_2, OCT_3, OCT_4, OCT_5, OCT_6, OCT_7 from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
-    MySqlDataReader reader = cmd.ExecuteReader();
-        while (reader.Read())
-        {
+            string command = string.Format("UPDATE tb_user SET user_name = '{0}', email = '{1}', color = {2}, default_tag_index  = {3},default_deadline = {4}",
+                dataManager.userName, dataManager.email, dataManager.color, dataManager.defaultTagIndex, dataManager.defaultDeadline.TotalSeconds
+           );
             for (int i = 0; i < 7; i++)
             {
-                OCT.Add(Double.Parse(reader[i].ToString()));
+                TimeBlock tempBlock = dataManager.blocks[i];
+                command += string.Format(", task_{0}_name = '{1}', task_{0}_deadline =  FROM_UNIXTIME({2}), task_{0}_estimate_time = {3}, task_{0}_tag_id = {4}", i, tempBlock._name, tempBlock._deadline, tempBlock._estimateTime, tempBlock._tagId);
             }
-        }
-        reader.Close();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-        return OCT;
-        }
-    //Update all the statistics
-    internal void SaveStats(double oCTSum, int taskSum, int interruptSum, double oCTMax, int appUseSum, long joinTime)
-    {
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: SaveStats, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand(string.Format("UPDATE tb_user SET OCT_sum = {0}, task_sum = {1},interrupt_sum = {2}, OCT_max = {3}, app_use_sum ={4}, " +
-            " last_login_time =   FROM_UNIXTIME({6}) WHERE ID = {7};",oCTSum,taskSum,interruptSum,oCTMax,appUseSum,GetTimestamp(),userID), mySqlConnection);
-        cmd.ExecuteNonQuery();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-    }
-    //Load all the statistics
-    internal void LoadStats(out double oCTSum,out int taskSum, out int interruptSum, out double oCTMax, out int appUseSum, out long joinTime)
-    {
-        //set default values
-        oCTSum = 0;
-        taskSum = 0;
-        interruptSum = 0;
-        oCTMax = 0;
-        appUseSum = 0;
-        joinTime = 0;
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: LoadStats, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("select OCT_sum ,task_sum ,interrupt_sum ,OCT_max ,app_use_sum ,join_time from tb_user WHERE ID = " + userID.ToString() + ";", mySqlConnection);
-        MySqlDataReader reader = cmd.ExecuteReader();
-        while (reader.Read())
-        {
-            oCTSum = double.Parse(reader[0].ToString());
-            taskSum = int.Parse(reader[1].ToString());
-            interruptSum = int.Parse(reader[2].ToString());
-            oCTMax = double.Parse(reader[3].ToString());
-            appUseSum = int.Parse(reader[4].ToString());
-            TimeSpan st = Convert.ToDateTime(reader[5].ToString()) - new DateTime(1970, 1, 1, 0, 0, 0);
-            joinTime = Convert.ToInt64(st.TotalSeconds);
-        }
-        reader.Close();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-    }
- //Save all the tags
-    internal void SaveTags(Dictionary<int, Tag> tagDictionary)
-    {
-        String command = "";
-        foreach (KeyValuePair<int, Tag> i in tagDictionary)
-        {
-            Tag a = i.Value;
-            if (a._tagId < 0)
+            for (int i = 1; i < 7; i++)
             {
-                command += "INSERT INTO tb_tag (name,user_id,image_id,power) VALUES ('" + a._name + "'," + userID + "," + a._imageId + "," + a._power + ");";
+                Tag tempTag = dataManager.tags[i];
+                command += string.Format(", tag_{0}_name = '{1}', tag_{0}_image_id = {2}, tag_{0}_power = {3}", i, tempTag._name, tempTag._imageId, tempTag._power);
             }
-            else if(a._tagId>0)
+            command += string.Format(", interruptions = '{0}'", dataManager.interruptions);
+            command += string.Format(", concentratino_time_sum = {0} , task_finished_count = {1}, task_failed_count = {2} , join_time = FROM_UNIXTIME({3})",dataManager.concentrationTimeSum,dataManager.taskFinishedCount,dataManager.taskFailedCount , GetTimestamp(dataManager.joinTime));
+
+            for (int i = 0; i < 7; i++)
             {
-                command += "UPDATE tb_tag SET name = '" + a._name + "', power = " + a._power + ",image_id = " + a._imageId + " WHERE ID = " + a._tagId + ";";
+                String reasons = dataManager.taskFailedReasons[i];
+                command += string.Format(", task_failed_reason_{0} = '{1}'",i,reasons);
             }
+            for (int i = 0; i < 7; i++)
+            {
+                double concentrationTime = dataManager.concentrationTime[i];
+                command += string.Format(", concentration_time_{0} = {1}", i, concentrationTime);
+            }
+            command += string.Format(", longest_concentration_time = {0}", dataManager.longestConcentrationTime);
+            for (int i = 0; i < 12; i++)
+            {
+                double concentrationTimeDistribution = dataManager.concentrationTimeDistribution[i];
+                command += string.Format(", concentration_time_distribution_{0} = {1}", i, concentrationTimeDistribution);
+            }
+            command += string.Format(" WHERE user_id = {0}", userID);
+            ServerWrite(command);
+            return true;
         }
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: SaveTags, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
-        cmd.ExecuteNonQuery();
-        mySqlConnection.Close();
-        Debug.Log("Success");
-    }
-    //Load all the tags
-    internal Dictionary<int, Tag> LoadTags()
-    {
-        Dictionary<int, Tag> tags = new Dictionary<int, Tag>();
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
-        Debug.Log("Function name: LoadTags, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("select name,image_id,power,ID from tb_tag where user_id= '" + userID + "'", mySqlConnection);
-        MySqlDataReader reader = cmd.ExecuteReader();
-        Debug.Log("Pulling Tag from Server...");
-        while (reader.Read())
+        catch (Exception e)
         {
-            String name = reader[0].ToString();
-            int imageId = int.Parse(reader[1].ToString());
-            int power = int.Parse(reader[2].ToString());
-            int tagId = int.Parse(reader[3].ToString());
-            Tag a=new Tag(name, imageId, power);
-            a._tagId = tagId;
-            tags.Add(tagId,a);
-            Debug.Log(a.ToString());
+            Debug.Log(e);
+            return false;
         }
-        reader.Close();
-        if (tags.Count<7) {
-            int count = 1;
-            while (tags.Count<7) {
-                Tag a = new Tag("New tag "+count.ToString(), 0, 1);
-                a._tagId = -count;
-                tags.Add(-count,a);
-                count++;
-            }
-            SaveTags(tags);
-            return null;
-        }
-        mySqlConnection.Close();
-        Debug.Log("Success");
-        return tags;
     }
+    // Load all;
+    public bool Pull(DataManager dataManager)
+    {
+        try
+        {
+            string command = "SELECT user_name, email, color, default_tag_index, default_deadline,";
+            for (int i = 0; i < 7; i++)
+            {
+                command += string.Format(", task_{0}_name, task_{0}_deadline, task_{0}_estimate_time, task_{0}_tag_id", i);
+            }
+            for (int i = 1; i < 7; i++)
+            {
+                command += string.Format(", tag_{0}_name, tag_{0}_image_id, tag_{0}_power", i);
+            }
+            command += ", interruptions";
+            command += ", concentratino_time_sum, task_finished_count, task_failed_count , join_time";
+            for (int i = 0; i < 7; i++)
+            {
+                command += string.Format(", task_failed_reason_{0}", i);
+            }
+            for (int i = 0; i < 7; i++)
+            {
+                command += string.Format(", concentration_time_{0}", i);
+            }
+            command +=", longest_concentration_time";
+            for (int i = 0; i < 12; i++)
+            {
+                command += string.Format(", concentration_time_distribution_{0}", i);
+            }
+            command += string.Format(" FROM tb_user WHERE user_id = {0}",userID);
+            MySqlDataReader reader = ServerRead(command);
+            int index = 0;
+            dataManager.userName = reader[index++].ToString();
+            dataManager.email = reader[index++].ToString();
+            dataManager.color = float.Parse(reader[index++].ToString());
+            dataManager.defaultTagIndex = int.Parse(reader[index++].ToString());
+            dataManager.defaultDeadline = TimeSpan.FromMinutes(double.Parse(reader[index++].ToString()));
+            for (int i=0;i<7;i++)
+            {
+                TimeBlock tempBlock = new TimeBlock();
+               tempBlock._name= reader[index++].ToString();
+                tempBlock._deadline= long.Parse(reader[index++].ToString());
+                tempBlock._estimateTime = int.Parse(reader[index++].ToString());
+              tempBlock._tagId=int.Parse(reader[index++].ToString());
+                dataManager.blocks[i]=tempBlock;
+            }
+            for (int i = 1; i < 7; i++)
+            {
+                Tag tempTag = new Tag();
+                tempTag._name = reader[index++].ToString();
+                tempTag._imageId=int.Parse( reader[index++].ToString());
+                tempTag._power = int.Parse(reader[index++].ToString());
+                dataManager.tags[i]=tempTag;
+            }
+            dataManager.interruptions = reader[index++].ToString();
+            dataManager.concentrationTimeSum = double.Parse(reader[index++].ToString());
+            dataManager.taskFinishedCount = int.Parse(reader[index++].ToString());
+            dataManager.taskFailedCount =int.Parse(reader[index++].ToString());
+
+            for (int i = 0; i < 7; i++)
+            {
+                dataManager.taskFailedReasons[i] = reader[index++].ToString();
+            }
+            for (int i = 0; i < 7; i++)
+            {
+                dataManager.concentrationTime[i]= double.Parse(reader[index++].ToString());
+            }
+            dataManager.longestConcentrationTime = double.Parse(reader[index++].ToString());
+            for (int i = 0; i < 12; i++)
+            {
+               dataManager.concentrationTimeDistribution[i]=double.Parse(reader[index++].ToString());
+            }
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+            return false;
+        }
+    }
+
     //Get timestamp
     public long GetTimestamp()
     {
@@ -390,5 +251,44 @@ public class SQLSaver : MonoBehaviour
         //Debug.Log(year+" "+month + " " +day + " " +chunk*6+5);
         TimeSpan st = a - new DateTime(1970, 1, 1, 0, 0, 0);
         return Convert.ToInt64(st.TotalSeconds);
+    }
+  private bool ServerWrite(string command)
+    {
+        try
+        {
+            mySqlConnection = new MySqlConnection(sql);
+            mySqlConnection.Open();
+            Debug.Log("Connecting to server...");
+            MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
+            cmd.ExecuteNonQuery();
+            mySqlConnection.Close();
+            Debug.Log("Success");
+            return true;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(string.Format("Error when executing {0}, error message : {1}", command, e));
+            return false;
+        }
+    }
+    private MySqlDataReader ServerRead(string command)
+    {
+        try
+        {
+            mySqlConnection = new MySqlConnection(sql);
+            mySqlConnection.Open();
+            Debug.Log("Connecting to server...");
+            MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
+            MySqlDataReader reader = cmd.ExecuteReader();
+            cmd.ExecuteNonQuery();
+            mySqlConnection.Close();
+            Debug.Log("Success");
+            return reader;
+        }
+        catch (Exception e)
+        {
+            Debug.Log(string.Format("Error when executing {0}, error message : {1}", command, e));
+            return null;
+        }
     }
 }

@@ -332,3 +332,7 @@ D:\Documents\Github\TimeBlocks\TimeBlocks\Temp\bin\Debug\Unity.Notifications.pdb
 D:\Documents\Github\TimeBlocks\TimeBlocks\Temp\bin\Debug\OneSignal.Core.pdb
 D:\Documents\Github\TimeBlocks\TimeBlocks\Temp\bin\Debug\Unity.Notifications.iOS.pdb
 D:\Documents\Github\TimeBlocks\TimeBlocks\Temp\bin\Debug\Unity.Notifications.Android.pdb
+D:\Documents\Github\TimeBlocks\TimeBlocks\Temp\bin\Debug\OneSignal.Core.Editor.dll
+D:\Documents\Github\TimeBlocks\TimeBlocks\Temp\bin\Debug\OneSignal.UnityPackage.Editor.pdb
+D:\Documents\Github\TimeBlocks\TimeBlocks\Temp\bin\Debug\OneSignal.UnityPackage.Example.pdb
+D:\Documents\Github\TimeBlocks\TimeBlocks\Temp\bin\Debug\OneSignal.Core.Editor.pdb
