@@ -58,7 +58,6 @@ public class TimeBlockUI : MonoBehaviour
     void DoDelete()
     {
         dataManager.RemoveBlock(timeBlock);
-        dataManager.SaveBlocks();
         blockChain.ShowBlockChain();
     }
 }

@@ -65,7 +65,6 @@ public class FocusManager: MonoBehaviour
     void OnApplicationFocus(bool hasFocus)
     {
         onFocus = !hasFocus;
-        dataManager.AppUseSum +=1;
         Debug.Log("Focused");
     }
 

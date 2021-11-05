@@ -9,13 +9,18 @@ public class DataManager : MonoBehaviour
     //here is the inital config
     public FocusManager focusManager;
     public ConfigManager configManager;
-    public JsonSaver jsonSaver;
+    //public JsonSaver jsonSaver;
+    public IcalSaver icalSaver;
     public SQLSaver sQLSaver;
 
     // user data
     public string userName;
     public string email;
+    public string password;
+    public string userId;
+
     public float color;
+    public Color backgroundColor;
     public int defaultTagIndex;
     public TimeSpan defaultDeadline;
 
@@ -44,7 +49,8 @@ public class DataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        tags = new Tag[8];
+        InitializeData();
+        nullTask = new TimeBlock();
         Tag defaultTag = new Tag();
         tags[0]=defaultTag;
         Debug.Log(tagDicionaryToString());
@@ -55,15 +61,84 @@ public class DataManager : MonoBehaviour
         focusManager.postNotification("test message");
     }
 
+    internal void InitializeData()
+    {
+        color = 0.36f;
+        defaultTagIndex = 0;
+        defaultDeadline = TimeSpan.FromDays(1);
+        blocks = new TimeBlock[7];
+        for (int i = 0; i < 7; i++)
+        {
+            TimeBlock tempBlock = new TimeBlock();
+            blocks[i] = tempBlock;
+        }
+        tags = new Tag[7];
+        for (int i = 0; i < 7; i++)
+        {
+            Tag tempTag = new Tag();
+            tags[i] = tempTag;
+        }
+        interruptions = "";
+        concentrationTimeSum = 0;
+        taskFinishedCount =0;
+        taskFailedCount =0;
+        taskFailedReasons = new string[7];
+        for (int i = 0; i < 7; i++)
+        {
+            taskFailedReasons[i] = "";
+        }
+        concentrationTime = new double[7];
+        for (int i = 0; i < 7; i++)
+        {
+            concentrationTime[i] = 0;
+        }
+
+        longestConcentrationTime = 0;
+        concentrationTimeDistribution = new double[12];
+        for (int i = 0; i < 12; i++)
+        {
+            concentrationTimeDistribution[i] =0;
+        }
+    }
+
+    public bool AddBlock(TimeBlock a)
+    {
+        for (int i =0;i<7;i++) {
+            if (blocks[i].IsSame(nullTask))
+            {
+                blocks[i] = a;
+                return true;
+            }
+
+            }
+        return false;
+    }
+
+    public bool RemoveBlock(TimeBlock a)
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            if (blocks[i].IsSame(a))
+            {
+                blocks[i] = nullTask;
+                return true;
+            }
+
+        }
+        return false;
+    }
+
     // Update is called once per frame
     void Update()
     {
         
     }
+
     private void OnApplicationQuit()
     {
-     SaveAll();
+     SaveData();
     }
+
     public string tagDicionaryToString() {
         String result = "";
         foreach (Tag a in tags){
@@ -72,6 +147,7 @@ public class DataManager : MonoBehaviour
         }
         return result;
     }
+
     public void ConcentrationTimeUpDate(double record) {
         Debug.Log(string.Format("Concentration Time updateted with new record {0} min", record));
         if (record>longestConcentrationTime) {
@@ -104,13 +180,15 @@ public class DataManager : MonoBehaviour
     public void LoadData(){
         if (configManager.isOffline||sQLSaver.Pull(this))
         {
-            jsonSaver.LoadData();
+            icalSaver.LoadData(this);
         }
     }
+
     public void SaveData() {
         if (configManager.isOffline || sQLSaver.Push(this))
         {
-            jsonSaver.SaveData();
+            icalSaver.SaveData(this);
         }
     }
+    
 }

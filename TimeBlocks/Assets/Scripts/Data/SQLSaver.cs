@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class SQLSaver : MonoBehaviour
 {
-    public string userID;
 
     public static MySqlConnection mySqlConnection;
     //database name
@@ -38,18 +37,15 @@ public class SQLSaver : MonoBehaviour
         mySqlConnection = new MySqlConnection(sql);
         mySqlConnection.Open();
         Debug.Log("Function name: Login, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("SELECT password from tb_user WHERE name = '" + userName + "'", mySqlConnection);
-        MySqlDataReader reader = cmd.ExecuteReader();
+        string command=string.Format("SELECT password from tb_user WHERE name = '{0}'",userName);
+        MySqlDataReader reader = ServerRead(command);
         while (reader.Read())
         {
             if (reader[0].ToString().CompareTo(v) == 0)
             {
-                userID = GetID(userName);
                 return true;
             }
         }
-        reader.Close();
-        mySqlConnection.Close();
         Debug.Log("Success");
         return false;
     }
@@ -91,8 +87,14 @@ public class SQLSaver : MonoBehaviour
     public bool CreateAccount(string text, string v, string email, DataManager dataManager) {
         try
         {
-            //last edit [2021.11.5:7:00]
-            string command="INSERT INTO tb_user (user_name)"
+            string command = string.Format("INSERT INTO tb_user (user_name) VALUES ( '{0}','{1}','{2}' )",text,v,email);
+            ServerWrite(command);
+            dataManager.userName = text;
+            dataManager.password = v;
+            dataManager.email = email;
+           dataManager.userId= GetID(text);
+            dataManager.InitializeData();
+            Push(dataManager);
             return true;
         }
         catch (Exception e)
@@ -100,10 +102,12 @@ public class SQLSaver : MonoBehaviour
             return false;
         }
     }
-    public bool DeleteAccount()
+    public bool DeleteAccount(DataManager dataManager)
     {
         try
         {
+            string command = string.Format("DELETE FROM tb_user WHERE user_id = {0}", dataManager.userId);
+            ServerWrite(command);
             return true;
         }
         catch (Exception e)
@@ -116,8 +120,8 @@ public class SQLSaver : MonoBehaviour
     {
         try
         {
-            string command = string.Format("UPDATE tb_user SET user_name = '{0}', email = '{1}', color = {2}, default_tag_index  = {3},default_deadline = {4}",
-                dataManager.userName, dataManager.email, dataManager.color, dataManager.defaultTagIndex, dataManager.defaultDeadline.TotalSeconds
+            string command = string.Format("UPDATE tb_user SET user_name = '{0}',email = '{1}', password = '{2}', color = {3}, default_tag_index  = {4},default_deadline = {5}",
+                dataManager.userName, dataManager.email, dataManager.password,dataManager.color, dataManager.defaultTagIndex, dataManager.defaultDeadline.TotalSeconds
            );
             for (int i = 0; i < 7; i++)
             {
@@ -148,7 +152,7 @@ public class SQLSaver : MonoBehaviour
                 double concentrationTimeDistribution = dataManager.concentrationTimeDistribution[i];
                 command += string.Format(", concentration_time_distribution_{0} = {1}", i, concentrationTimeDistribution);
             }
-            command += string.Format(" WHERE user_id = {0}", userID);
+            command += string.Format(" WHERE user_id = {0}", dataManager.userId);
             ServerWrite(command);
             return true;
         }
@@ -163,7 +167,7 @@ public class SQLSaver : MonoBehaviour
     {
         try
         {
-            string command = "SELECT user_name, email, color, default_tag_index, default_deadline,";
+            string command = "SELECT user_name, email ,password , color, default_tag_index, default_deadline";
             for (int i = 0; i < 7; i++)
             {
                 command += string.Format(", task_{0}_name, task_{0}_deadline, task_{0}_estimate_time, task_{0}_tag_id", i);
@@ -187,11 +191,12 @@ public class SQLSaver : MonoBehaviour
             {
                 command += string.Format(", concentration_time_distribution_{0}", i);
             }
-            command += string.Format(" FROM tb_user WHERE user_id = {0}",userID);
+            command += string.Format(" FROM tb_user WHERE user_id = {0}",dataManager.userId);
             MySqlDataReader reader = ServerRead(command);
             int index = 0;
-            dataManager.userName = reader[index++].ToString();
+            dataManager.userName = reader[index].ToString();
             dataManager.email = reader[index++].ToString();
+            dataManager.password= reader[index++].ToString();
             dataManager.color = float.Parse(reader[index++].ToString());
             dataManager.defaultTagIndex = int.Parse(reader[index++].ToString());
             dataManager.defaultDeadline = TimeSpan.FromMinutes(double.Parse(reader[index++].ToString()));
@@ -252,7 +257,7 @@ public class SQLSaver : MonoBehaviour
         TimeSpan st = a - new DateTime(1970, 1, 1, 0, 0, 0);
         return Convert.ToInt64(st.TotalSeconds);
     }
-  private bool ServerWrite(string command)
+    private bool ServerWrite(string command)
     {
         try
         {

@@ -8,28 +8,8 @@ public class SettingManager : MonoBehaviour
 {
     public DataManager dataManager;
     public ErrorWindow errorWindow;
-    public Toggle enableTimerToggle;
-    public void enableTimerUpdate()
-    {
-        dataManager.enableTimer = enableTimerToggle.isOn;
-    }
-    public Toggle analyseOCTToggle;
-    public void analyseOCTUpdate()
-    {
-        dataManager.analyseOCT = analyseOCTToggle.isOn;
-    }
     //don't change or add new function if you "think" that I did implement it.
-    public InputField OCTValue;
-    public Toggle OCTAutoToggle;
-    public void OCTAutoUpdate()
-    {
-        dataManager.OCTAuto = OCTAutoToggle.isOn;
-        OCTValue.interactable = !dataManager.OCTAuto;
-    }
-    public void OCTUpdate()
-    {
-        dataManager.manualOCT = int.Parse(OCTValue.text);
-    }
+
     public InputField H;
     public void ColorUpdate() {
        float h =float.Parse(H.text);
@@ -47,13 +27,6 @@ public class SettingManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enableTimerToggle.isOn = dataManager.enableTimer;
-        analyseOCTToggle.isOn = dataManager.analyseOCT;
-
-        OCTAutoUpdate();
-
-        OCTValue.interactable = !dataManager.OCTAuto;
-        OCTValue.text = dataManager.manualOCT.ToString() ;
         float nh, ns, nv;
         Color.RGBToHSV(dataManager.backgroundColor, out nh, out ns, out nv);
         H.text = (nh*255).ToString();
@@ -74,8 +47,7 @@ public class SettingManager : MonoBehaviour
     }
     //Remember to call this method when get out of setting canvas.
     public void UpdateData() {
-        dataManager.SaveSettings();
-        dataManager.SaveTags();
+        dataManager.SaveData();
     }
     private void OnApplicationQuit()
     {

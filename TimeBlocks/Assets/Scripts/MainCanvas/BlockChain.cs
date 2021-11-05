@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,11 +37,11 @@ public class BlockChain : MonoBehaviour
         // Compares by priority * deadline.
         public override int Compare(TimeBlock x, TimeBlock y)
         {
-            if (x.GetPriority(dataManager.tagDictionary) - y.GetPriority(dataManager.tagDictionary) > 0)
+            if (x.GetPriority(dataManager.tags) - y.GetPriority(dataManager.tags) > 0)
             {
                 return -1;
             }
-            if (x.GetPriority(dataManager.tagDictionary) - y.GetPriority(dataManager.tagDictionary) < 0)
+            if (x.GetPriority(dataManager.tags) - y.GetPriority(dataManager.tags) < 0)
             {
                 return 1;
             }
@@ -65,7 +66,7 @@ public class BlockChain : MonoBehaviour
     }
     public void ShowBlockChain()
     {
-        dataManager.LoadBlocks();
+        dataManager.LoadData();
         //erase all the blocks on the Vertical layout
         for (int i = blockChainUI.transform.childCount - 1; i >= 0; i--)
         {
@@ -74,22 +75,24 @@ public class BlockChain : MonoBehaviour
             //Order by methods
             if (configManager.sortingByTime)
             {
-                dataManager.blocks.Sort(new timeSort());
-                for (int i = 0; i < dataManager.blocks.Count; i++)
+                Array.Sort(dataManager.blocks,new timeSort());
+                for (int i = 0; i < 7; i++)
                 {
+                if (dataManager.blocks[i]._name.CompareTo(dataManager.nullTask._name)!=0) {
                     CreateANewBlock(dataManager.blocks[i]);
-                Debug.Log(string.Format("Ordering by time, task name:{0},dealine:{1}", dataManager.blocks[i]._name, dataManager.blocks[i]._deadline));
+                    Debug.Log(string.Format("Ordering by time, task name:{0},dealine:{1}", dataManager.blocks[i]._name, dataManager.blocks[i]._deadline));
+                }
             }
             }
             else
             {
                 prioritySort ps = new prioritySort();
                 ps.dataManager = dataManager;
-                dataManager.blocks.Sort(ps);
-                for (int i = 0; i < dataManager.blocks.Count; i++)
+            Array.Sort(dataManager.blocks, ps);
+            for (int i = 0; i < 7; i++)
                 {
                     CreateANewBlock(dataManager.blocks[i]);
-                Debug.Log(string.Format("Ordering by priority, task name:{0},priority:{1}", dataManager.blocks[i]._name,  dataManager.blocks[i].GetPriority(dataManager.tagDictionary)));
+                Debug.Log(string.Format("Ordering by priority, task name:{0},priority:{1}", dataManager.blocks[i]._name,  dataManager.blocks[i].GetPriority(dataManager.tags)));
                 }
             }
     }
@@ -100,7 +103,7 @@ public class BlockChain : MonoBehaviour
         {
             Destroy(blockChainUI.transform.GetChild(i).gameObject);
         }
-            for (int i = 0; i < dataManager.blocks.Count; i++)
+            for (int i = 0; i < 7; i++)
             {
             //remember to detect by lower case.
             if (dataManager.blocks[i]._name.ToLower().Contains(keywords.ToLower())) {
@@ -111,8 +114,7 @@ public class BlockChain : MonoBehaviour
     //Add new block to the server
     public bool AddBlock(TimeBlock a)
     {
-        dataManager.blocks.Add(a);
-        dataManager.SaveBlock(a);
+        dataManager.AddBlock(a);
         return true;
     }
    //instatiate block UI
@@ -123,10 +125,10 @@ public class BlockChain : MonoBehaviour
         newBlock.timeBlock = i;
         newBlock.taskName.text = i._name;
         if (newBlock.timeBlock._tagId==-1) {
-            newBlock.timeBlock._tagId = dataManager.defaultTagId;
+            newBlock.timeBlock._tagId = dataManager.defaultTagIndex;
         }
         Debug.Log(string.Format("Calling block image id for {0}, with id {1}",i._name,newBlock.timeBlock._tagId));
-        int imageId = dataManager.tagDictionary[newBlock.timeBlock._tagId]._imageId;
+        int imageId = dataManager.tags[newBlock.timeBlock._tagId]._imageId;
         Debug.Log(string.Format("Image id: {0}",imageId));
         newBlock.icon.sprite = configManager.imageReference[imageId];
         newBlock.taskOperatingContoler = taskOperatingContoler;

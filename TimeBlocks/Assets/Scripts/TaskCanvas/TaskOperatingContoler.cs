@@ -98,18 +98,12 @@ public class TaskOperatingContoler : MonoBehaviour
     }
     //count down origin minus estimate time, always count forward
     private void TimeShow() {
-        if (dataManager.enableTimer)
-        {
             if (isCounting)
             {
                 concentrationTime += Time.deltaTime;
                 TimeSpan toDisplay = DateTime.Now.Subtract(origin);
                 timer.text = Math.Floor(toDisplay.Duration().TotalMinutes).ToString() +":"+toDisplay.Duration().Seconds.ToString();
             }
-        }
-        else {
-            timer.text = "";
-        }
     }
     //Wake up pause window and stop counting time
     public void PauseTask() {
@@ -120,8 +114,8 @@ public class TaskOperatingContoler : MonoBehaviour
     //Stop operating the task and register the original task with a new estimate time, update OCT records
     public void ResetTask(int newEstimateTime) {
         toDo._estimateTime = newEstimateTime;
-        dataManager.blocks.Add(toDo);
-        dataManager.OCTUpDate(OCTCal());
+        dataManager.AddBlock(toDo);
+        dataManager.ConcentrationTimeUpDate(OCTCal());
     }
     //Continue operationg the task with new estimate time
     public void ContinueTask(int newEstimateTime) {
@@ -134,8 +128,8 @@ public class TaskOperatingContoler : MonoBehaviour
     }
     //Mark task as finished, update OCT records
     public void FinishTask() {
-        dataManager.taskSum++;
-        dataManager.OCTUpDate(OCTCal());
+        dataManager.taskFinishedCount++;
+        dataManager.ConcentrationTimeUpDate(OCTCal());
     }
     //If quit then reset the task
     private void OnApplicationQuit()

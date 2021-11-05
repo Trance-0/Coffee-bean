@@ -28,7 +28,7 @@ public class TimeBlock : ScriptableObject
     }
     public TimeBlock()
     {
-          _name="Unkown";
+          _name="Unknown";
         DateTime today = DateTime.Today;
         DateTime tomorrow = today.AddDays(1);
         _deadline=SetTime(today.Year, today.Month,tomorrow.Day,3);
@@ -40,25 +40,28 @@ public class TimeBlock : ScriptableObject
         TimeSpan st = new DateTime(year, month, day, chunk*6+5, 59, 59) - new DateTime(1970, 1, 1, 0, 0, 0);
         return Convert.ToInt64(st.TotalSeconds);
     }
+    public bool IsSame(TimeBlock other) {
+        return _name == other._name && _deadline==other._deadline && _estimateTime==other._estimateTime && _tagId==other._tagId;
+    }
 
-    public long GetPriority(Dictionary<int,Tag> tagPriorityList) {
+    public long GetPriority(Tag[] tagList) {
         TimeSpan st = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0);
-        if (tagPriorityList.ContainsKey(_tagId))
+        try 
         {
-            long priority = (Convert.ToInt64(st.TotalSeconds) - _deadline) * tagPriorityList[_tagId]._power;
+            long priority = (Convert.ToInt64(st.TotalSeconds) - _deadline) * tagList[_tagId]._power;
             return priority;
         }
-        else {
+        catch (Exception e) {
             Debug.Log(string.Format("Tag id not found, the tag id is {0}, but the tag dicitonary don't have the key like this.",_tagId));
-            Debug.Log(tagDicionaryToString(tagPriorityList));
+            Debug.Log(tagDicionaryToString(tagList));
         }
         return -1;
     }
     //testing method, remove if possible.
-    public string tagDicionaryToString(Dictionary<int, Tag> tagDictionary)
+    public string tagDicionaryToString(Tag[] tagDictionary)
     {
         String result = "";
-        foreach (KeyValuePair<int, Tag> a in tagDictionary)
+        foreach (Tag a in tagDictionary)
         {
             result += a.ToString();
             result += "\n";
@@ -70,6 +73,6 @@ public class TimeBlock : ScriptableObject
     }
     public override string ToString()
     {
-        return string.Format("TimeBlock: name={0}, deadline={1}, estimate_time={2}min, tag_id={3}, task_id", _name, ConvertDeadlineToDateTime(), _estimateTime, _tagId,_taskId);
+        return string.Format("TimeBlock: name={0}, deadline={1}, estimate_time={2}min, tag_id={3}", _name, ConvertDeadlineToDateTime(), _estimateTime, _tagId);
     }
 }

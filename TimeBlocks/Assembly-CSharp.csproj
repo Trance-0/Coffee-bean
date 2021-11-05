@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Cheat.cs" />
     <Compile Include="Assets\Scripts\Data\ConfigManager.cs" />
     <Compile Include="Assets\Scripts\Data\DataManager.cs" />
+    <Compile Include="Assets\Scripts\Data\IcalSaver.cs" />
     <Compile Include="Assets\Scripts\Data\JsonSaver.cs" />
     <Compile Include="Assets\Scripts\Data\SQLSample.cs" />
     <Compile Include="Assets\Scripts\Data\SQLSaver.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Assets\Scripts\MainCanvas\NewTaskWindowManager.cs" />
     <Compile Include="Assets\Scripts\MainCanvas\NewTaskWindowWaker.cs" />
     <Compile Include="Assets\Scripts\MainCanvas\RankManager.cs" />
-    <Compile Include="Assets\Scripts\MainCanvas\SearchBoxMananger.cs" />
     <Compile Include="Assets\Scripts\MainCanvas\SortBy.cs" />
     <Compile Include="Assets\Scripts\MainCanvas\TimeBlock.cs" />
     <Compile Include="Assets\Scripts\MainCanvas\TimeBlockUI.cs" />

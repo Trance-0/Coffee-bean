@@ -20,14 +20,7 @@ public class StatsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-         OCTSum.text=dataManager.OCTSum.ToString()+" mins";
-        taskSum.text = dataManager.taskSum.ToString();
-        interruptSum.text = dataManager.interruptSum.ToString()+" times";
-        OCTMax.text = dataManager.OCTMax.ToString()+" mins";
-   AppUseSum.text=dataManager.AppUseSum.ToString()+" times";
-    joinTime.text=GetTime(dataManager.joinTime)+" days";
-
-        LoadOCT(dataManager.OCT);
+        //to be implemented
 }
 
     private void LoadOCT(List<double> OCT)

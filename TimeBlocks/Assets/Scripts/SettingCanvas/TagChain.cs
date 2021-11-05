@@ -36,9 +36,9 @@ public class TagChain : MonoBehaviour
         {
             Destroy(tagChainUI.transform.GetChild(i).gameObject);
         }
-        foreach (KeyValuePair<int,Tag> i in dataManager.tagDictionary)
+        foreach (Tag i in dataManager.tags)
                 {
-                    CreateANewTag(i.Value);
+                    CreateANewTag(i);
                 }
    }
 

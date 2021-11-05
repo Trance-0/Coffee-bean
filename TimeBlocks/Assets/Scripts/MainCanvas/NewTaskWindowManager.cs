@@ -18,7 +18,7 @@ public class NewTaskWindowManager : MonoBehaviour {
     public Dropdown Chunk;
     public Dropdown Tags;
     public InputField EstimateTime;
-    public Dictionary<string, Tag> tempDictionary;
+    public Dictionary<string,int> tempDictionary;
 
     //global configurations
     public DataManager dataManager;
@@ -55,12 +55,12 @@ public class NewTaskWindowManager : MonoBehaviour {
         Chunk.options.Add(new Dropdown.OptionData("Morning"));
         Chunk.options.Add(new Dropdown.OptionData("Afternoon"));
         Chunk.options.Add(new Dropdown.OptionData("Evening"));
-        tempDictionary = new Dictionary<string, Tag>();
+        tempDictionary = new Dictionary<string, int>();
         Tags.options.Clear();
-        foreach (KeyValuePair<int,Tag> i in dataManager.tagDictionary)
+        for (int i= 0;i<7;i++)
         {
-            tempDictionary.Add(i.Value._name, i.Value);
-            Tags.options.Add(new Dropdown.OptionData(i.Value._name));
+            tempDictionary.Add(dataManager.tags[i]._name, i);
+            Tags.options.Add(new Dropdown.OptionData(dataManager.tags[i]._name));
         }
     }
 
@@ -96,7 +96,7 @@ public class NewTaskWindowManager : MonoBehaviour {
             int year = int.Parse(Year.options[Year.value].text);
             int month = int.Parse(Month.options[Month.value].text);
             int day = int.Parse(Day.options[Day.value].text);
-            int tagId = tempDictionary[Tags.options[Tags.value].text]._tagId;
+            int tagId =tempDictionary[Tags.options[Tags.value].text];
             newTimeBlock = new TimeBlock(taskname, year,month,day,chunkid, timeToFinish, tagId);
         }
         else {
