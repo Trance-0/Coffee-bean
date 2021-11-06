@@ -55,7 +55,7 @@ public class BlockChain : MonoBehaviour
         //if the dictionary is not initialized, use the second one.
 
         //ShowBlockChain();
-        Invoke("ShowBlockChain",0.1f);
+       // Invoke("ShowBlockChain",0.1f);
     }
 
     // Update is called once per frame

@@ -25,6 +25,7 @@ public class SQLSample : MonoBehaviour
         Debug.Log("数据库已连接");
         MySqlCommand cmd = new MySqlCommand("select * from user_info", mySqlConnection);
         MySqlDataReader reader = cmd.ExecuteReader();
+        cmd.ExecuteNonQuery();
         while (reader.Read())
         {
             for (int i = 0; i < reader.FieldCount; i++)
@@ -33,6 +34,8 @@ public class SQLSample : MonoBehaviour
             }
         }
         Debug.Log(reader);
+
+        reader.Close();
         mySqlConnection.Close();
         Debug.Log("数据库关闭");
     }

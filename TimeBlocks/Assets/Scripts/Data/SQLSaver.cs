@@ -34,60 +34,62 @@ public class SQLSaver : MonoBehaviour
     public bool Login(string userName, string v)
     {
         //get password
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
+        bool result = false;
         Debug.Log("Function name: Login, connecting to server.");
-        string command=string.Format("SELECT password from tb_user WHERE name = '{0}'",userName);
-        MySqlDataReader reader = ServerRead(command);
+        string command=string.Format("SELECT password from USER_DATA WHERE user_name = '{0}'",userName);
+        MySqlDataReader reader=ServerRead(command);
         while (reader.Read())
         {
-            if (reader[0].ToString().CompareTo(v) == 0)
+            if (reader[0].ToString().CompareTo(v)==0)
             {
-                return true;
+                result = true;
+                break;
             }
         }
+        reader.Close();
         Debug.Log("Success");
-        return false;
+        return result;
     }
     //get user id in server by username
     private string GetID(string userName)
     {
-        mySqlConnection = new MySqlConnection(sql);
-        mySqlConnection.Open();
+        string userId = "";
         Debug.Log("Function name: GetID, connecting to server.");
-        MySqlCommand cmd = new MySqlCommand("SELECT user_id FROM tb_user WHERE name = '" + userName + "'", mySqlConnection);
-        MySqlDataReader reader = cmd.ExecuteReader();
+        string command=string.Format("SELECT user_id FROM USER_DATA WHERE user_name = '{0}'",userName);
+        MySqlDataReader reader = ServerRead(command);
         while (reader.Read())
         {
-            return reader[0].ToString();
+            userId = reader[0].ToString();
         }
         reader.Close();
-        mySqlConnection.Close();
         Debug.Log("Success");
-        return "";
+        return userId;
     }
     //check whether the username have been used
     public bool CheckUserNameRepeated(string userName)
     {
+        bool result = true;
         Debug.Log("Function name: CheckUserNameRepeated, connecting to server.");
-        string command=string.Format("SELECT name FROM tb_user", mySqlConnection);
+        string command="SELECT user_name FROM USER_DATA";
         MySqlDataReader reader = ServerRead(command);
         while (reader.Read())
         {
             for (int i = 0; i < reader.FieldCount; i++)
             {
                 if (reader[i].ToString().CompareTo(userName) == 0)
-                    return false;
+                    result=false;
+                    break;
             }
         }
+        reader.Close();
         Debug.Log("Success");
-        return true;
+        return result;
     }
 
     public bool CreateAccount(string text, string v, string email, DataManager dataManager) {
         try
         {
-            string command = string.Format("INSERT INTO tb_user (user_name) VALUES ( '{0}','{1}','{2}' )",text,v,email);
+            string command = string.Format("INSERT INTO USER_DATA (user_name) VALUES ( '{0}','{1}','{2}' )",text,v,email);
             ServerWrite(command);
             dataManager.userName = text;
             dataManager.password = v;
@@ -106,7 +108,7 @@ public class SQLSaver : MonoBehaviour
     {
         try
         {
-            string command = string.Format("DELETE FROM tb_user WHERE user_id = {0}", dataManager.userId);
+            string command = string.Format("DELETE FROM USER_DATA WHERE user_id = {0}", dataManager.userId);
             ServerWrite(command);
             return true;
         }
@@ -120,7 +122,7 @@ public class SQLSaver : MonoBehaviour
     {
         try
         {
-            string command = string.Format("UPDATE tb_user SET user_name = '{0}',email = '{1}', password = '{2}', color = {3}, default_tag_index  = {4},default_deadline = {5}",
+            string command = string.Format("UPDATE USER_DATA SET user_name = '{0}',email = '{1}', password = '{2}', color = {3}, default_tag_index  = {4},default_deadline = {5}",
                 dataManager.userName, dataManager.email, dataManager.password,dataManager.color, dataManager.defaultTagIndex, dataManager.defaultDeadline.TotalSeconds
            );
             for (int i = 0; i < 7; i++)
@@ -134,7 +136,7 @@ public class SQLSaver : MonoBehaviour
                 command += string.Format(", tag_{0}_name = '{1}', tag_{0}_image_id = {2}, tag_{0}_power = {3}", i, tempTag._name, tempTag._imageId, tempTag._power);
             }
             command += string.Format(", interruptions = '{0}'", dataManager.interruptions);
-            command += string.Format(", concentratino_time_sum = {0} , task_finished_count = {1}, task_failed_count = {2} , join_time = FROM_UNIXTIME({3})",dataManager.concentrationTimeSum,dataManager.taskFinishedCount,dataManager.taskFailedCount , GetTimestamp(dataManager.joinTime));
+            command += string.Format(", concentration_time_sum = {0} , task_finished_count = {1}, task_failed_count = {2} , join_time = FROM_UNIXTIME({3})",dataManager.concentrationTimeSum,dataManager.taskFinishedCount,dataManager.taskFailedCount , GetTimestamp(dataManager.joinTime));
 
             for (int i = 0; i < 7; i++)
             {
@@ -177,7 +179,7 @@ public class SQLSaver : MonoBehaviour
                 command += string.Format(", tag_{0}_name, tag_{0}_image_id, tag_{0}_power", i);
             }
             command += ", interruptions";
-            command += ", concentratino_time_sum, task_finished_count, task_failed_count , join_time";
+            command += ", concentration_time_sum, task_finished_count, task_failed_count , join_time";
             for (int i = 0; i < 7; i++)
             {
                 command += string.Format(", task_failed_reason_{0}", i);
@@ -191,7 +193,7 @@ public class SQLSaver : MonoBehaviour
             {
                 command += string.Format(", concentration_time_distribution_{0}", i);
             }
-            command += string.Format(" FROM tb_user WHERE user_id = {0}",dataManager.userId);
+            command += string.Format(" FROM USER_DATA WHERE user_id = {0}",dataManager.userId);
             MySqlDataReader reader = ServerRead(command);
             int index = 0;
             dataManager.userName = reader[index].ToString();
@@ -235,6 +237,7 @@ public class SQLSaver : MonoBehaviour
             {
                dataManager.concentrationTimeDistribution[i]=double.Parse(reader[index++].ToString());
             }
+            reader.Close();
             return true;
         }
         catch (Exception e)
@@ -283,9 +286,12 @@ public class SQLSaver : MonoBehaviour
             mySqlConnection = new MySqlConnection(sql);
             mySqlConnection.Open();
             Debug.Log("Connecting to server...");
-            MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
-            MySqlDataReader reader = cmd.ExecuteReader();
-            cmd.ExecuteNonQuery();
+            MySqlDataReader reader;
+            using (MySqlCommand cmd = new MySqlCommand(command, mySqlConnection))
+            {
+               reader = cmd.ExecuteReader();
+                cmd.ExecuteNonQuery();
+            }
             mySqlConnection.Close();
             Debug.Log("Success");
             return reader;
