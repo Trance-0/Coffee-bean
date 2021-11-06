@@ -52,6 +52,7 @@ public class TimeBlock : ScriptableObject
             return priority;
         }
         catch (Exception e) {
+            Debug.Log(e);
             Debug.Log(string.Format("Tag id not found, the tag id is {0}, but the tag dicitonary don't have the key like this.",_tagId));
             Debug.Log(tagDicionaryToString(tagList));
         }

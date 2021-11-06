@@ -37,16 +37,11 @@ public class SQLSaver : MonoBehaviour
         bool result = false;
         Debug.Log("Function name: Login, connecting to server.");
         string command=string.Format("SELECT password from USER_DATA WHERE user_name = '{0}'",userName);
-        MySqlDataReader reader=ServerRead(command);
-        while (reader.Read())
-        {
+        List<string> reader=ServerRead(command);
             if (reader[0].ToString().CompareTo(v)==0)
             {
                 result = true;
-                break;
             }
-        }
-        reader.Close();
         Debug.Log("Success");
         return result;
     }
@@ -56,12 +51,8 @@ public class SQLSaver : MonoBehaviour
         string userId = "";
         Debug.Log("Function name: GetID, connecting to server.");
         string command=string.Format("SELECT user_id FROM USER_DATA WHERE user_name = '{0}'",userName);
-        MySqlDataReader reader = ServerRead(command);
-        while (reader.Read())
-        {
-            userId = reader[0].ToString();
-        }
-        reader.Close();
+        List<string> reader = ServerRead(command);
+        userId = reader[0].ToString();
         Debug.Log("Success");
         return userId;
     }
@@ -71,17 +62,14 @@ public class SQLSaver : MonoBehaviour
         bool result = true;
         Debug.Log("Function name: CheckUserNameRepeated, connecting to server.");
         string command="SELECT user_name FROM USER_DATA";
-        MySqlDataReader reader = ServerRead(command);
-        while (reader.Read())
+        List<string>reader = ServerRead(command);
+        foreach (string i in reader)
         {
-            for (int i = 0; i < reader.FieldCount; i++)
+            if (i.CompareTo(userName) == 0)
             {
-                if (reader[i].ToString().CompareTo(userName) == 0)
-                    result=false;
-                    break;
+                result = false;
             }
         }
-        reader.Close();
         Debug.Log("Success");
         return result;
     }
@@ -101,6 +89,7 @@ public class SQLSaver : MonoBehaviour
         }
         catch (Exception e)
         {
+            Debug.Log(e);
             return false;
         }
     }
@@ -114,6 +103,7 @@ public class SQLSaver : MonoBehaviour
         }
         catch (Exception e)
         {
+            Debug.Log(e);
             return false;
         }
     }
@@ -194,7 +184,7 @@ public class SQLSaver : MonoBehaviour
                 command += string.Format(", concentration_time_distribution_{0}", i);
             }
             command += string.Format(" FROM USER_DATA WHERE user_id = {0}",dataManager.userId);
-            MySqlDataReader reader = ServerRead(command);
+            List<string> reader = ServerRead(command);
             int index = 0;
             dataManager.userName = reader[index].ToString();
             dataManager.email = reader[index++].ToString();
@@ -237,7 +227,6 @@ public class SQLSaver : MonoBehaviour
             {
                dataManager.concentrationTimeDistribution[i]=double.Parse(reader[index++].ToString());
             }
-            reader.Close();
             return true;
         }
         catch (Exception e)
@@ -279,22 +268,29 @@ public class SQLSaver : MonoBehaviour
             return false;
         }
     }
-    private MySqlDataReader ServerRead(string command)
+    private List<string> ServerRead(string command)
     {
+        List<string> results = new List<string>();
         try
         {
             mySqlConnection = new MySqlConnection(sql);
             mySqlConnection.Open();
             Debug.Log("Connecting to server...");
             MySqlDataReader reader;
-            using (MySqlCommand cmd = new MySqlCommand(command, mySqlConnection))
+            MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
+            reader = cmd.ExecuteReader();
+            cmd.ExecuteNonQuery();
+            while (reader.Read())
             {
-               reader = cmd.ExecuteReader();
-                cmd.ExecuteNonQuery();
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    results.Add(reader[i].ToString());
+                }
             }
+            reader.Close();
             mySqlConnection.Close();
             Debug.Log("Success");
-            return reader;
+            return results;
         }
         catch (Exception e)
         {
