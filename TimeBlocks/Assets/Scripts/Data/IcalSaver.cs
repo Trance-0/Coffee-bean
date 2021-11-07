@@ -25,9 +25,8 @@ public class IcalSaver : MonoBehaviour
         dir = dir + "/test.ics";
         string[] data = { "Hahhahahhahhahh" };
         LocalWrite(data);
-        StreamReader a = LocalRead();
-        
-        Debug.Log(a.ReadLine());
+        List<string> a = LocalRead();
+        Debug.Log(a);
     }
 
     // Update is called once per frame
@@ -62,17 +61,27 @@ public class IcalSaver : MonoBehaviour
             return false;
         }
     }
-    public StreamReader LocalRead() {
+    public List<string> LocalRead() {
         try
         {
-            StreamReader sr;
+            StreamReader reader;
+            List<string> results = new List<string>();
+            Debug.Log("Connecting to local...");
             if (File.Exists(dir))
             {
                 FileStream fs = new FileStream(dir, FileMode.Open);
-                sr = new StreamReader(fs);
-                return sr;
+                reader = new StreamReader(fs);
+                string line;
+                while ((line = reader.ReadLine()) != null) {
+                    results.Add(line);
+                }
+                reader.Close();
+                reader.Dispose();
+                fs.Close();
+                fs.Dispose();
             }
-            return null;
+            Debug.Log("Success");
+            return results;
         }
         catch (Exception e)
         {

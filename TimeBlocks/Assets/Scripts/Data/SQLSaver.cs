@@ -288,7 +288,9 @@ public class SQLSaver : MonoBehaviour
                 }
             }
             reader.Close();
+            reader.Dispose();
             mySqlConnection.Close();
+            mySqlConnection.Dispose();
             Debug.Log("Success");
             return results;
         }
