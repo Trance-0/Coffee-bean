@@ -37,11 +37,11 @@ public class BlockChain : MonoBehaviour
         // Compares by priority * deadline.
         public override int Compare(TimeBlock x, TimeBlock y)
         {
-            if (x.GetPriority(dataManager.tags) - y.GetPriority(dataManager.tags) > 0)
+            if (x.GetPriority(dataManager.tags,dataManager.defaultTagIndex) - y.GetPriority(dataManager.tags,dataManager.defaultTagIndex) > 0)
             {
                 return -1;
             }
-            if (x.GetPriority(dataManager.tags) - y.GetPriority(dataManager.tags) < 0)
+            if (x.GetPriority(dataManager.tags,dataManager.defaultTagIndex) - y.GetPriority(dataManager.tags,dataManager.defaultTagIndex) < 0)
             {
                 return 1;
             }
@@ -55,7 +55,7 @@ public class BlockChain : MonoBehaviour
         //if the dictionary is not initialized, use the second one.
 
         //ShowBlockChain();
-       // Invoke("ShowBlockChain",0.1f);
+       Invoke("ShowBlockChain",0.1f);
     }
 
     // Update is called once per frame
@@ -90,10 +90,14 @@ public class BlockChain : MonoBehaviour
                 ps.dataManager = dataManager;
             Array.Sort(dataManager.blocks, ps);
             for (int i = 0; i < 7; i++)
+            {
+                if (dataManager.blocks[i]._name.CompareTo(dataManager.nullTask._name) != 0)
                 {
                     CreateANewBlock(dataManager.blocks[i]);
-                Debug.Log(string.Format("Ordering by priority, task name:{0},priority:{1}", dataManager.blocks[i]._name,  dataManager.blocks[i].GetPriority(dataManager.tags)));
+                    Debug.Log(string.Format("Ordering by priority, task name:{0},priority:{1}", dataManager.blocks[i]._name, dataManager.blocks[i].GetPriority(dataManager.tags, dataManager.defaultTagIndex)));
                 }
+            }
+
             }
     }
     //Search task by keywords
@@ -111,12 +115,7 @@ public class BlockChain : MonoBehaviour
             }
             }
     }
-    //Add new block to the server
-    public bool AddBlock(TimeBlock a)
-    {
-        dataManager.AddBlock(a);
-        return true;
-    }
+    
    //instatiate block UI
     public void CreateANewBlock(TimeBlock i)
     {

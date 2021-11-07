@@ -44,11 +44,19 @@ public class TimeBlock : ScriptableObject
         return _name == other._name && _deadline==other._deadline && _estimateTime==other._estimateTime && _tagId==other._tagId;
     }
 
-    public long GetPriority(Tag[] tagList) {
+    public long GetPriority(Tag[] tagList,int defaultTagId) {
         TimeSpan st = DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0);
         try 
         {
-            long priority = (Convert.ToInt64(st.TotalSeconds) - _deadline) * tagList[_tagId]._power;
+            long priority;
+            if (_tagId == -1)
+            {
+               priority = (Convert.ToInt64(st.TotalSeconds) - _deadline) * tagList[defaultTagId]._power;
+            }
+            else
+            {
+                priority = (Convert.ToInt64(st.TotalSeconds) - _deadline) * tagList[_tagId]._power;
+            }
             return priority;
         }
         catch (Exception e) {
@@ -74,6 +82,6 @@ public class TimeBlock : ScriptableObject
     }
     public override string ToString()
     {
-        return string.Format("TimeBlock: name={0}, deadline={1}, estimate_time={2}min, tag_id={3}", _name, ConvertDeadlineToDateTime(), _estimateTime, _tagId);
+        return string.Format("TimeBlock: name={0}, deadline={1}, estimate_time={2}, tag_id={3}", _name, ConvertDeadlineToDateTime(), _estimateTime, _tagId);
     }
 }

@@ -17,7 +17,7 @@ public class DataManager : MonoBehaviour
     public string userName;
     public string email;
     public string password;
-    public string userId;
+    public int userId;
 
     public float color;
     public Color backgroundColor;
@@ -49,9 +49,9 @@ public class DataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nullTask = Instantiate<TimeBlock>(ScriptableObject.CreateInstance<TimeBlock>());
         InitializeData();
-        nullTask = new TimeBlock();
-        Tag defaultTag = new Tag();
+        Tag defaultTag = Instantiate<Tag>(ScriptableObject.CreateInstance<Tag>());
         tags[0]=defaultTag;
         Debug.Log(tagDicionaryToString());
         //    ds.LoadConfig(this, "config_0");
@@ -69,19 +69,20 @@ public class DataManager : MonoBehaviour
         blocks = new TimeBlock[7];
         for (int i = 0; i < 7; i++)
         {
-            TimeBlock tempBlock = new TimeBlock();
-            blocks[i] = tempBlock;
+            blocks[i] = nullTask;
         }
         tags = new Tag[7];
         for (int i = 0; i < 7; i++)
         {
-            Tag tempTag = new Tag();
+            Tag tempTag = Instantiate<Tag>(ScriptableObject.CreateInstance<Tag>());
+            tempTag._name = string.Format("New Tag {0}",i);
             tags[i] = tempTag;
         }
         interruptions = "";
         concentrationTimeSum = 0;
         taskFinishedCount =0;
         taskFailedCount =0;
+        joinTime = DateTime.Now;
         taskFailedReasons = new string[7];
         for (int i = 0; i < 7; i++)
         {
@@ -109,8 +110,8 @@ public class DataManager : MonoBehaviour
                 blocks[i] = a;
                 return true;
             }
-
-            }
+    }
+        Debug.Log("Add block failed.");
         return false;
     }
 

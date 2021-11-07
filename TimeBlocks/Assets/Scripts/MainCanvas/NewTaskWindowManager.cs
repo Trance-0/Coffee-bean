@@ -91,17 +91,20 @@ public class NewTaskWindowManager : MonoBehaviour {
                 timeToFinish = int.Parse(EstimateTime.text);
             }
             catch (Exception e) {
+                Debug.Log(e);
                 timeToFinish = -1;
             }
             int year = int.Parse(Year.options[Year.value].text);
             int month = int.Parse(Month.options[Month.value].text);
             int day = int.Parse(Day.options[Day.value].text);
             int tagId =tempDictionary[Tags.options[Tags.value].text];
+
             newTimeBlock = new TimeBlock(taskname, year,month,day,chunkid, timeToFinish, tagId);
         }
         else {
             string taskname = TaskNameS.text;
-            newTimeBlock = new TimeBlock(taskname);
+            newTimeBlock = Instantiate<TimeBlock>(ScriptableObject.CreateInstance<TimeBlock>());
+            newTimeBlock._name = taskname;
         }
         configManager.lastInput = newTimeBlock;
         Debug.Log(newTimeBlock.name);
@@ -116,8 +119,10 @@ public class NewTaskWindowManager : MonoBehaviour {
         }
     }
     public void Save() {
-       BuildBlock();
-        blockChain.AddBlock(newTimeBlock);
+        BuildBlock();
+        Debug.Log("Adding new block: "+newTimeBlock.ToString());
+        dataManager.AddBlock(newTimeBlock);
+        dataManager.SaveData();
         blockChain.ShowBlockChain();
     }
     public void CloseWindow() {

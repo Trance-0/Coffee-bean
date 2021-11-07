@@ -46,15 +46,21 @@ public class SQLSaver : MonoBehaviour
         return result;
     }
     //get user id in server by username
-    private string GetID(string userName)
+    private int GetID(string userName)
     {
-        string userId = "";
-        Debug.Log("Function name: GetID, connecting to server.");
-        string command=string.Format("SELECT user_id FROM USER_DATA WHERE user_name = '{0}'",userName);
-        List<string> reader = ServerRead(command);
-        userId = reader[0].ToString();
-        Debug.Log("Success");
-        return userId;
+        try
+        {
+            string userId = "-1";
+            Debug.Log("Function name: GetID, connecting to server.");
+            string command = string.Format("SELECT user_id FROM USER_DATA WHERE user_name = '{0}'", userName);
+            List<string> reader = ServerRead(command);
+            userId = reader[0].ToString();
+            Debug.Log("Success");
+            return int.Parse(userId);
+        } catch (Exception e) {
+            Debug.Log(e);
+            return -1;
+        }
     }
     //check whether the username have been used
     public bool CheckUserNameRepeated(string userName)

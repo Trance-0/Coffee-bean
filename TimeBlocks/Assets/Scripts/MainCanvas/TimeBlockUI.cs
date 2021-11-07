@@ -43,7 +43,7 @@ public class TimeBlockUI : MonoBehaviour
     {
         Debug.Log("press");
         taskOperatingContoler.SendTask(timeBlock);
-        canvasManager.ChangeCanvas(2);
+        Invoke("LateChange",0.1f);
     }
 
     void DoubleClick()

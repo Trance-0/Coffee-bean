@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TagUI : MonoBehaviour
 {
-    public Tag tag;
+    public Tag tagData;
     public ConfigManager configManager;
     public DataManager dataManager;
     public ImageChanger imageChange;
@@ -27,15 +27,15 @@ public class TagUI : MonoBehaviour
 
     }
     public void ChangeImage(int imageId) {
-        tag._imageId = imageId;
+        tagData._imageId = imageId;
         image.sprite = configManager.imageReference[imageId];
     }
     public void WakeImageChanger() {
         imageChange.setGoal(self);
     }
     public void Save() {
-        tag._power = int.Parse(weightInput.text);
-        tag._name = tagNameInput.text;
+        tagData._power = int.Parse(weightInput.text);
+        tagData._name = tagNameInput.text;
     }
 
 }
