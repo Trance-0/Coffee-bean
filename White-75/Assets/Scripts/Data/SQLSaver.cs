@@ -28,8 +28,14 @@ public class SQLSaver : MonoBehaviour
     void Update()
     {
     }
+
+    internal string checkSaveTime()
+    {
+        throw new NotImplementedException();
+    }
+
     //Sign up for a new user
-    
+
     //Check password
     public bool Login(string userName, string v)
     {

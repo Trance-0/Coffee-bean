@@ -8,6 +8,7 @@ public class ConfigManager : MonoBehaviour
     public bool rememberPassword;
     public bool isOffline;
     public string[] tips;
+    public float guideFadeTime;
 
     public List<Sprite> imageReference;
     public Color imageColor;
@@ -19,8 +20,6 @@ public class ConfigManager : MonoBehaviour
     //remember to set a quit for everywindow
 
     public bool isOnline;
-
-    public string appName;
 
     // Start is called before the first frame update
     void Start()

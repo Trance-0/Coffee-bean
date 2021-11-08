@@ -11,7 +11,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{984C44A6-C540-22B5-62AB-82DEEC2219CF}</ProjectGuid>
+    <ProjectGuid>{002BDF98-215E-820B-8211-6EBAB2CF002D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>OneSignal.UnityPackage.Editor</AssemblyName>
@@ -290,31 +290,31 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="Google.IOSResolver_v1.2.165">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.165.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Assets/ExternalDependencyManager/Editor/Google.IOSResolver_v1.2.165.dll</HintPath>
     </Reference>
     <Reference Include="Google.JarResolver_v1.2.165">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.165.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Assets/ExternalDependencyManager/Editor/Google.JarResolver_v1.2.165.dll</HintPath>
     </Reference>
     <Reference Include="Google.PackageManagerResolver_v1.2.165">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.165.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Assets/ExternalDependencyManager/Editor/Google.PackageManagerResolver_v1.2.165.dll</HintPath>
     </Reference>
     <Reference Include="Google.VersionHandler">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
     </Reference>
     <Reference Include="Google.VersionHandlerImpl_v1.2.165">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.165.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Assets/ExternalDependencyManager/Editor/Google.VersionHandlerImpl_v1.2.165.dll</HintPath>
     </Reference>
     <Reference Include="LitJSON">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/LitJSON.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Assets/Plugins/LitJSON.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/MySql.Data.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Assets/Plugins/MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="UniWebViewWP">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Assets/Plugins/UniWebViewWP.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Assets/Plugins/UniWebViewWP.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -677,22 +677,22 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.19f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="OneSignal.Core.Editor">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/OneSignal.Core.Editor.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Library/ScriptAssemblies/OneSignal.Core.Editor.dll</HintPath>
     </Reference>
     <Reference Include="OneSignal.Core">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/OneSignal.Core.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Library/ScriptAssemblies/OneSignal.Core.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.TestRunner">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>D:/Documents/Github/TimeBlocks/TimeBlocks/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>D:/Documents/Github/White-75/White-75/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>

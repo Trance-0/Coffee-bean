@@ -103,6 +103,12 @@ public class IcalSaver : MonoBehaviour
             return false;
         }
     }
+
+    internal string checkSaveTime()
+    {
+        throw new NotImplementedException();
+    }
+
     public bool SaveData(DataManager dataManager)
     {
         try

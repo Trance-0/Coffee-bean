@@ -8,29 +8,60 @@ public class SettingManager : MonoBehaviour
 {
     public DataManager dataManager;
     public ErrorWindow errorWindow;
-    //don't change or add new function if you "think" that I did implement it.
 
-    public InputField H;
+    public DataSynchronizeWindow dataSynchronizeWindow;
+
+    public InputField hue;
     public void ColorUpdate() {
-       float h =float.Parse(H.text);
+       float h =float.Parse(hue.text);
         //Debug.Log(r+""+ R.text + ""+g+""+G.text + ""+b+""+ B.text);
         if (h<255&&h>=0)
         {
-            dataManager.backgroundColor = Color.HSVToRGB(h/255,0.5f,1f);
+            dataManager.color = h;
         }
         else
         {
-            errorWindow.Warning("R, G, B value should be integer below 255 and greater than 0");
+            errorWindow.Warning("Hue value should be integer below 255 and greater than 0");
         }
+    }
+
+    public InputField defaultDeadline;
+    public void defaultDeadlineUpdate() {
+        int deadlineOffset = int.Parse(defaultDeadline.text);
+        //Debug.Log(r+""+ R.text + ""+g+""+G.text + ""+b+""+ B.text);
+        if (deadlineOffset>=0)
+        {
+            dataManager.defaultDeadline = new TimeSpan(deadlineOffset,0,0,0);
+        }
+        else
+        {
+            errorWindow.Warning("Default deadline value should be positive integer");
+        }
+    }
+
+    public Dropdown defaultTag;
+    public Dictionary<string, int> tempDictionary;
+    public void defaltTagUpdate() {
+       dataManager.defaultTagIndex= tempDictionary[defaultTag.options[defaultTag.value].text];
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        Invoke("LateInit",0.1f);
+    }
+    public void LateInit() {
         float nh, ns, nv;
         Color.RGBToHSV(dataManager.backgroundColor, out nh, out ns, out nv);
-        H.text = (nh*255).ToString();
-
+        hue.text = (nh * 255).ToString();
+        defaultDeadline.text = dataManager.defaultDeadline.Days.ToString();
+        tempDictionary = new Dictionary<string, int>();
+        defaultTag.options.Clear();
+        for (int i = 0; i < 7; i++)
+        {
+            tempDictionary.Add(dataManager.tags[i]._name, i);
+            defaultTag.options.Add(new Dropdown.OptionData(dataManager.tags[i]._name));
+        }
     }
 
     // Update is called once per frame
@@ -44,13 +75,5 @@ public class SettingManager : MonoBehaviour
     public void ClearData()
     {
         dataManager.InitializeData();
-    }
-    //Remember to call this method when get out of setting canvas.
-    public void UpdateData() {
-        dataManager.SaveData();
-    }
-    private void OnApplicationQuit()
-    {
-        UpdateData();
     }
 }

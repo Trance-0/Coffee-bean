@@ -105,6 +105,8 @@ public class NewTaskWindowManager : MonoBehaviour {
             string taskname = TaskNameS.text;
             newTimeBlock = Instantiate<TimeBlock>(ScriptableObject.CreateInstance<TimeBlock>());
             newTimeBlock._name = taskname;
+            DateTime a = DateTime.Now.Add(dataManager.defaultDeadline);
+            newTimeBlock._deadline = newTimeBlock.SetTime(a);
         }
         configManager.lastInput = newTimeBlock;
         Debug.Log(newTimeBlock.name);

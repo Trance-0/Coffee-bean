@@ -19,6 +19,7 @@ public class DataManager : MonoBehaviour
     public string password;
     public int userId;
 
+    //backgroundColor needs to get value from color in start.
     public float color;
     public Color backgroundColor;
     public int defaultTagIndex;
@@ -132,14 +133,8 @@ public class DataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        backgroundColor = Color.HSVToRGB(color / 255, 0.5f, 1f);
     }
-
-    private void OnApplicationQuit()
-    {
-     SaveData();
-    }
-
     public string tagDicionaryToString() {
         String result = "";
         foreach (Tag a in tags){
@@ -170,14 +165,14 @@ public class DataManager : MonoBehaviour
         concentrationTime[5] = (concentrationTime[3] * 365 + record) / 366;
         //total record
         concentrationTime[6] = (concentrationTime[3] *  GetTime()-1+ record) / GetTime();
-        SaveData();
     }
 
     private double GetTime()
     {
        return Convert.ToDouble(DateTime.Now.Subtract(joinTime).TotalDays);
     }
-
+    // if you want to check where the function is called, you can change the name of the function for a short period time.
+    // Don't forget to change it back again!
     public void LoadData(){
         if (configManager.isOffline||sQLSaver.Pull(this))
         {
@@ -191,5 +186,8 @@ public class DataManager : MonoBehaviour
             icalSaver.SaveData(this);
         }
     }
-    
+    public void OnApplicationQuit()
+    {
+        SaveData();
+    }
 }

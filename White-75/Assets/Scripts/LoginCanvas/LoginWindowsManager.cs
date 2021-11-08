@@ -22,8 +22,8 @@ public class LoginWindowsManager : MonoBehaviour
     {
         if (configManager.isOffline) {
             dataManager.LoadData();
+            canvasManager.ChangeCanvas(0);
         }
-        canvasManager.ChangeCanvas(0);
     }
     public void openRegister() {
         registerWindow.SetActive(true);

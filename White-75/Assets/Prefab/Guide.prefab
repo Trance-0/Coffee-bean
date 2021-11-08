@@ -298,6 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9acdb94c8ee3704bbb9e29016ca9442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  configManager: {fileID: 0}
   infoWaker: {fileID: 4155042153422625511}
   info: {fileID: 4155042152685518921}
   isActive: 0
+  localTimer: 0

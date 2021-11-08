@@ -22,7 +22,7 @@ public class TimeBlock : ScriptableObject
           _name=name;
         DateTime today = DateTime.Today;
         DateTime tomorrow = today.AddDays(1);
-         _deadline=SetTime(today.Year, today.Month,tomorrow.Day,3);
+         _deadline=-1;
         _tagId=-1;
         _estimateTime=0;
     }
@@ -38,6 +38,12 @@ public class TimeBlock : ScriptableObject
     public long SetTime(int year, int month,int day,int chunk){
         //Debug.Log(year+" "+month + " " +day + " " +chunk*6+5);
         TimeSpan st = new DateTime(year, month, day, chunk*6+5, 59, 59) - new DateTime(1970, 1, 1, 0, 0, 0);
+        return Convert.ToInt64(st.TotalSeconds);
+    }
+    public long SetTime(DateTime a)
+    {
+        //Debug.Log(year+" "+month + " " +day + " " +chunk*6+5);
+        TimeSpan st = a - new DateTime(1970, 1, 1, 0, 0, 0);
         return Convert.ToInt64(st.TotalSeconds);
     }
     public bool IsSame(TimeBlock other) {
@@ -62,21 +68,10 @@ public class TimeBlock : ScriptableObject
         catch (Exception e) {
             Debug.Log(e);
             Debug.Log(string.Format("Tag id not found, the tag id is {0}, but the tag dicitonary don't have the key like this.",_tagId));
-            Debug.Log(tagDicionaryToString(tagList));
         }
         return -1;
     }
-    //testing method, remove if possible.
-    public string tagDicionaryToString(Tag[] tagDictionary)
-    {
-        String result = "";
-        foreach (Tag a in tagDictionary)
-        {
-            result += a.ToString();
-            result += "\n";
-        }
-        return result;
-    }
+ 
     public DateTime ConvertDeadlineToDateTime() {
         return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(_deadline);
     }

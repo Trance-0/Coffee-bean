@@ -24,6 +24,7 @@ public class TaskOperatingContoler : MonoBehaviour
     public Image icon;
     public Text taskName;
     public Text timer;
+    public Text concentrationTimeTimer;
     //core data
     public TimeBlock toDo;
     //global configurations
@@ -34,7 +35,6 @@ public class TaskOperatingContoler : MonoBehaviour
     public PauseWindow pauseWindow;
     //local variables
     public float concentrationTime;
-    public int interruptionTime;
     public bool isCounting;
     public DateTime origin;
 
@@ -61,6 +61,10 @@ public class TaskOperatingContoler : MonoBehaviour
          * send notification
          * 
          */
+        if (focusManager.onFocus)
+        {
+            isCounting = true;
+        }
         if (isCounting)
         {
 
@@ -82,10 +86,10 @@ public class TaskOperatingContoler : MonoBehaviour
             //    errorWindow.Warning("Your concentration time have passed your goal, time to have some breaks to maintain high productivity. Of course, you can continue your task if you wish.");
             //}
             TimeShow();
+           
             if (!focusManager.onFocus)
             {
-                NotificationManager.SendNotification(configManager.appName, "Interruption detected, return to app to continue your task.");
-                interruptionTime++;
+                NotificationManager.SendNotification(Application.productName, "Interruption detected, return to app to continue your task.");
                 isCounting = false;
             }
         }
@@ -93,17 +97,17 @@ public class TaskOperatingContoler : MonoBehaviour
     // Set all the local variables
     public void SendTask(TimeBlock task) {
         toDo = task;
+        taskName.text = task._name;
+        icon.sprite = configManager.imageReference[dataManager.tags[task._tagId]._imageId];
         isCounting = true;
-            origin = DateTime.Now.AddMinutes(toDo._estimateTime);
+        origin = DateTime.Now.AddMinutes(toDo._estimateTime);
     }
     //count down origin minus estimate time, always count forward
     private void TimeShow() {
-            if (isCounting)
-            {
-                concentrationTime += Time.deltaTime;
-                TimeSpan toDisplay = DateTime.Now.Subtract(origin);
-                timer.text = Math.Floor(toDisplay.Duration().TotalMinutes).ToString() +":"+toDisplay.Duration().Seconds.ToString();
-            }
+       concentrationTime += Time.deltaTime;
+       TimeSpan toDisplay = DateTime.Now.Subtract(origin);
+        concentrationTimeTimer.text = string.Format("Concentrationtime: {0}", concentrationTime.ToString());
+        timer.text = string.Format("{0}:{1}",Math.Floor(toDisplay.Duration().TotalMinutes).ToString(),toDisplay.Duration().Seconds.ToString());
     }
     //Wake up pause window and stop counting time
     public void PauseTask() {
@@ -116,24 +120,27 @@ public class TaskOperatingContoler : MonoBehaviour
         toDo._estimateTime = newEstimateTime;
         dataManager.AddBlock(toDo);
         dataManager.ConcentrationTimeUpDate(OCTCal());
+        pauseWindow.CloseWindow();
     }
     //Continue operationg the task with new estimate time
     public void ContinueTask(int newEstimateTime) {
         toDo._estimateTime = newEstimateTime;
         SendTask(toDo);
+        pauseWindow.CloseWindow();
     }
     //convert (float)concentration time to (double)
     private double OCTCal() {
-        return Convert.ToDouble(concentrationTime) / 60.0;
+        return Convert.ToDouble(concentrationTime)/60.0;
     }
     //Mark task as finished, update OCT records
     public void FinishTask() {
         dataManager.taskFinishedCount++;
         dataManager.ConcentrationTimeUpDate(OCTCal());
+        pauseWindow.CloseWindow();
     }
     //If quit then reset the task
     private void OnApplicationQuit()
     {
-            ResetTask(toDo._estimateTime-Mathf.FloorToInt(concentrationTime));
+        ResetTask(toDo._estimateTime-Mathf.FloorToInt(concentrationTime));
     }
 }

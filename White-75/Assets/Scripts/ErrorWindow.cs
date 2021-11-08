@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class ErrorWindow : MonoBehaviour
 {
-    public GameObject BG;
+    public GameObject backGround;
+    public GameObject frame;
     public GameObject text;
     public GameObject confirm;
 
@@ -23,13 +24,11 @@ public class ErrorWindow : MonoBehaviour
     }
     public void Warning(string message) {
         text.GetComponent<Text>().text = message;
-        BG.SetActive(true);
-        text.SetActive(true);
-        confirm.SetActive(true);
+        backGround.SetActive(true);
+        frame.SetActive(true);
     }
     public void CloseWindow() {
-        BG.SetActive(false);
-        text.SetActive(false);
-        confirm.SetActive(false);
+        backGround.SetActive(false);
+        frame.SetActive(false);
     }
 }
