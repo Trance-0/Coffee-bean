@@ -13,6 +13,8 @@ public class BlockChain : MonoBehaviour
     public ConfigManager configManager;
     public TaskOperatingContoler taskOperatingContoler;
     public CanvasManager canvasManager;
+    public BufferWindow bufferWindow;
+
     public BlockChain blockChain;
     //local variables
     public class timeSort : Comparer<TimeBlock>
@@ -130,9 +132,19 @@ public class BlockChain : MonoBehaviour
         int imageId = dataManager.tags[newBlock.timeBlock._tagId]._imageId;
         Debug.Log(string.Format("Image id: {0}",imageId));
         newBlock.icon.sprite = configManager.imageReference[imageId];
-        newBlock.taskOperatingContoler = taskOperatingContoler;
-        newBlock.dataManager = dataManager;
-        newBlock.canvasManager = canvasManager;
         newBlock.blockChain = blockChain;
+    }
+
+    public void RemoveBlock(TimeBlock i) {
+        dataManager.RemoveBlock(i);
+    }
+    public void SendTask(TimeBlock i) {
+        bufferWindow.LoadBuffer("Building Cycle", 3f);
+        taskOperatingContoler.SendTask(i);
+        RemoveBlock(i);
+        Invoke("ChangeCanvasAfterButtonReactivate",3f);
+    }
+    public void ChangeCanvasAfterButtonReactivate() {
+        canvasManager.ChangeCanvas(2);
     }
 }

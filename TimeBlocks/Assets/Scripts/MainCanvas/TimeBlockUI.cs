@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class TimeBlockUI : MonoBehaviour
 {
     //global configurations
-    public DataManager dataManager;
-    public TaskOperatingContoler taskOperatingContoler;
-    public CanvasManager canvasManager;
     public BlockChain blockChain;
     //local configurations
     public Image icon;
@@ -42,8 +39,7 @@ public class TimeBlockUI : MonoBehaviour
     void Press()
     {
         Debug.Log("press");
-        taskOperatingContoler.SendTask(timeBlock);
-        Invoke("LateChange",0.1f);
+        blockChain.SendTask(timeBlock);
     }
 
     void DoubleClick()
@@ -57,7 +53,7 @@ public class TimeBlockUI : MonoBehaviour
 
     void DoDelete()
     {
-        dataManager.RemoveBlock(timeBlock);
+        blockChain.RemoveBlock(timeBlock);
         blockChain.ShowBlockChain();
     }
 }
