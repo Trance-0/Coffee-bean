@@ -15,15 +15,16 @@ public class LoginWindowsManager : MonoBehaviour
     {
         registerWindow.SetActive(false);
         loginWindow.SetActive(true);
+        if (configManager.isOffline)
+        {
+            dataManager.LoadData();
+            canvasManager.ChangeCanvas(0);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (configManager.isOffline) {
-            dataManager.LoadData();
-            canvasManager.ChangeCanvas(0);
-        }
     }
     public void openRegister() {
         registerWindow.SetActive(true);

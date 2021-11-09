@@ -28,7 +28,7 @@ public class NewTaskWindowManager : MonoBehaviour {
     void Start()
     {
         CloseWindow();
-        UpdateInfo();
+        Invoke("UpdateInfo",0.1f);
     }
 
    public void UpdateInfo()
@@ -59,6 +59,11 @@ public class NewTaskWindowManager : MonoBehaviour {
         Tags.options.Clear();
         for (int i= 0;i<7;i++)
         {
+            if (tempDictionary.ContainsKey(dataManager.tags[i]._name)) {
+                dataManager.tags[i]._name += "(0)";
+
+            }
+            Debug.Log(string.Format("Adding Tag {0} to dictionary with ID {1}",dataManager.tags[i]._name, i));
             tempDictionary.Add(dataManager.tags[i]._name, i);
             Tags.options.Add(new Dropdown.OptionData(dataManager.tags[i]._name));
         }
@@ -125,7 +130,7 @@ public class NewTaskWindowManager : MonoBehaviour {
         Debug.Log("Adding new block: "+newTimeBlock.ToString());
         dataManager.AddBlock(newTimeBlock);
         dataManager.SaveData();
-        blockChain.ShowBlockChain();
+        blockChain.LateInit();
     }
     public void CloseWindow() {
         configManager.isAddNewTaskWindowAwake = false;

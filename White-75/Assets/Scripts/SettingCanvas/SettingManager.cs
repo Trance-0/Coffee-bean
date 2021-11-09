@@ -11,18 +11,11 @@ public class SettingManager : MonoBehaviour
 
     public DataSynchronizeWindow dataSynchronizeWindow;
 
-    public InputField hue;
+    public Slider hue;
     public void ColorUpdate() {
-       float h =float.Parse(hue.text);
+       dataManager.color =hue.value;
+        dataManager.backgroundColor = Color.HSVToRGB(dataManager.color,0.8f,1f);
         //Debug.Log(r+""+ R.text + ""+g+""+G.text + ""+b+""+ B.text);
-        if (h<255&&h>=0)
-        {
-            dataManager.color = h;
-        }
-        else
-        {
-            errorWindow.Warning("Hue value should be integer below 255 and greater than 0");
-        }
     }
 
     public InputField defaultDeadline;
@@ -53,12 +46,20 @@ public class SettingManager : MonoBehaviour
     public void LateInit() {
         float nh, ns, nv;
         Color.RGBToHSV(dataManager.backgroundColor, out nh, out ns, out nv);
-        hue.text = (nh * 255).ToString();
+        hue.value = dataManager.color;
         defaultDeadline.text = dataManager.defaultDeadline.Days.ToString();
+        LoadDefaultTagValue();
+    }
+    public void LoadDefaultTagValue() {
         tempDictionary = new Dictionary<string, int>();
         defaultTag.options.Clear();
         for (int i = 0; i < 7; i++)
         {
+            if (tempDictionary.ContainsKey(dataManager.tags[i]._name))
+            {
+                dataManager.tags[i]._name += "(0)";
+
+            }
             tempDictionary.Add(dataManager.tags[i]._name, i);
             defaultTag.options.Add(new Dropdown.OptionData(dataManager.tags[i]._name));
         }

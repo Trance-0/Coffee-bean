@@ -62,7 +62,7 @@ public class DataManager : MonoBehaviour
         focusManager.postNotification("test message");
     }
 
-    internal void InitializeData()
+   public void InitializeData()
     {
         color = 0.36f;
         defaultTagIndex = 0;
@@ -111,7 +111,7 @@ public class DataManager : MonoBehaviour
                 blocks[i] = a;
                 return true;
             }
-    }
+        }
         Debug.Log("Add block failed.");
         return false;
     }
@@ -125,15 +125,14 @@ public class DataManager : MonoBehaviour
                 blocks[i] = nullTask;
                 return true;
             }
-
         }
+        Debug.Log("Remove block failed.");
         return false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        backgroundColor = Color.HSVToRGB(color / 255, 0.5f, 1f);
     }
     public string tagDicionaryToString() {
         String result = "";

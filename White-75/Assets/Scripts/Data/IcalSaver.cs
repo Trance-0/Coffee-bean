@@ -64,7 +64,7 @@ public class IcalSaver : MonoBehaviour
                     tempBlock._tagId = int.Parse(reader[index++].Split(':')[1]);
                     dataManager.blocks[i] = tempBlock;
                 }
-                for (int i = 1; i < 7; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     Tag tempTag = Instantiate<Tag>(ScriptableObject.CreateInstance<Tag>());
                     tempTag._name = reader[index++].Split(':')[1];
@@ -123,7 +123,7 @@ public class IcalSaver : MonoBehaviour
             data.Add("X-WR-TIMEZONE:UTC");
             foreach (TimeBlock a in dataManager.blocks)
             {
-                if (a.IsSame(dataManager.nullTask)) {
+                if (a._name.CompareTo("Default")==0) {
                     continue;
                 }
                 data.Add("BEGIN:VEVENT");
@@ -159,7 +159,7 @@ public class IcalSaver : MonoBehaviour
                 data.Add(string.Format("TASK{0}ESTIMATETIME:{1}",i,tempBlock._estimateTime));
                 data.Add(string.Format("TASK{0}TAGID:{1}",i,tempBlock._tagId));
             }
-            for (int i = 1; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 Tag tempTag = dataManager.tags[i];
                 data.Add(string.Format("TAG{0}NAME:{1}",i,tempTag._name));

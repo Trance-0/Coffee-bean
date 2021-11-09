@@ -21,9 +21,9 @@ public class StatsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("LoadStats", 1f); 
+        Invoke("LateInit", 1f); 
     }
-    private void LoadStats() {
+    public void LateInit() {
         LoadConcentrationTime(dataManager.concentrationTime);
         LoadConcentrationTimeDistribution(dataManager.concentrationTimeDistribution);
         concentrationTimeSum.text = dataManager.concentrationTimeSum.ToString() + " min";

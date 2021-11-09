@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class TagUI : MonoBehaviour
 {
+    public TagChain tagChain;
+
     public Tag tagData;
-    public ConfigManager configManager;
-    public DataManager dataManager;
-    public ImageChanger imageChange;
 
     public TagUI self;
     public Image image;
@@ -28,14 +27,22 @@ public class TagUI : MonoBehaviour
     }
     public void ChangeImage(int imageId) {
         tagData._imageId = imageId;
-        image.sprite = configManager.imageReference[imageId];
+        image.sprite = tagChain.GetImageReference(imageId);
     }
     public void WakeImageChanger() {
-        imageChange.setGoal(self);
+        tagChain.setImageChangeGoal(self);
     }
     public void Save() {
         tagData._power = int.Parse(weightInput.text);
-        tagData._name = tagNameInput.text;
+        if (tagChain.CheckNameRepeated(tagData.name))
+        {
+            tagChain.Warning("This tag name is already in use.");
+        }
+        else
+        {
+            tagData._name = tagNameInput.text;
+        }
+        tagChain.UpdateSetting();
     }
 
 }

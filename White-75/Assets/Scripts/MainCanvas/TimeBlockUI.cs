@@ -40,6 +40,7 @@ public class TimeBlockUI : MonoBehaviour
     {
         Debug.Log("press");
         blockChain.SendTask(timeBlock);
+        Invoke("DoDelete", 1);
     }
 
     void DoubleClick()
@@ -54,6 +55,6 @@ public class TimeBlockUI : MonoBehaviour
     void DoDelete()
     {
         blockChain.RemoveBlock(timeBlock);
-        blockChain.ShowBlockChain();
+        blockChain.LateInit();
     }
 }

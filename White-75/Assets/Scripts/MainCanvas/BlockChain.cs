@@ -57,7 +57,7 @@ public class BlockChain : MonoBehaviour
         //if the dictionary is not initialized, use the second one.
 
         //ShowBlockChain();
-       Invoke("ShowBlockChain",0.1f);
+       Invoke("LateInit",0.1f);
     }
 
     // Update is called once per frame
@@ -66,9 +66,8 @@ public class BlockChain : MonoBehaviour
         
 
     }
-    public void ShowBlockChain()
+    public void LateInit()
     {
-        dataManager.LoadData();
         //erase all the blocks on the Vertical layout
         for (int i = blockChainUI.transform.childCount - 1; i >= 0; i--)
         {

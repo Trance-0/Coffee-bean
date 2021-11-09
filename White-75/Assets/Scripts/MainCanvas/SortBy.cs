@@ -29,13 +29,13 @@ public class SortBy : MonoBehaviour
             {
                 controlButton.image.sprite = sortByPriorityIcon;
                 configManager.sortingByTime = false;
-                blockChain.ShowBlockChain();
+                blockChain.LateInit();
             }
             else
             {
                 controlButton.image.sprite = sortByTimeIcon;
                 configManager.sortingByTime = true;
-                blockChain.ShowBlockChain();
+                blockChain.LateInit();
             }
         }
     }
