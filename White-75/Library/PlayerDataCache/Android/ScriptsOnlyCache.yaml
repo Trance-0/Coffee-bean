@@ -3,10 +3,12 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - Background
     - BlockChain
+    - BufferWindow
     - ButtonExtension
     - CanvasManager
     - ConfigManager
     - DataManager
+    - DataSynchronizeWindow
     - DebugWIndow
     - EmailSender
     - ErrorWindow
@@ -21,11 +23,13 @@ ScriptsOnlyBuild:
     - NewTaskWindowManager
     - NewTaskWindowWaker
     - PauseWindow
+    - RankManager
     - Register
     - SQLSaver
     - SettingManager
     - SortBy
     - StatsManager
+    - SubNoteWindowManager
     - TagChain
     - TagUI
     - TaskOperatingContoler
@@ -65,6 +69,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.RectMask2D
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
+    - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
@@ -108,99 +113,109 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11410}
     - Class: 114
-      Script: {instanceID: 11474}
+      Script: {instanceID: 11442}
     - Class: 114
-      Script: {instanceID: 11600}
+      Script: {instanceID: 11564}
     - Class: 114
-      Script: {instanceID: 11846}
+      Script: {instanceID: 11804}
     - Class: 114
-      Script: {instanceID: 11850}
+      Script: {instanceID: 11808}
     - Class: 114
-      Script: {instanceID: 11920}
+      Script: {instanceID: 11876}
     - Class: 114
-      Script: {instanceID: 12110}
+      Script: {instanceID: 12066}
     - Class: 114
-      Script: {instanceID: 12148}
+      Script: {instanceID: 12104}
     - Class: 114
-      Script: {instanceID: 12166}
+      Script: {instanceID: 12122}
     - Class: 114
-      Script: {instanceID: 12334}
+      Script: {instanceID: 12284}
     - Class: 114
-      Script: {instanceID: 12484}
+      Script: {instanceID: 12438}
+    - Class: 114
+      Script: {instanceID: 12446}
+    - Class: 114
+      Script: {instanceID: 12450}
     - Class: 114
       Script: {instanceID: 12496}
     - Class: 114
-      Script: {instanceID: 12542}
+      Script: {instanceID: 12612}
     - Class: 114
-      Script: {instanceID: 12656}
+      Script: {instanceID: 12620}
     - Class: 114
-      Script: {instanceID: 12664}
+      Script: {instanceID: 12634}
     - Class: 114
-      Script: {instanceID: 12678}
+      Script: {instanceID: 12716}
     - Class: 114
-      Script: {instanceID: 12758}
+      Script: {instanceID: 12790}
     - Class: 114
-      Script: {instanceID: 12828}
+      Script: {instanceID: 12814}
     - Class: 114
-      Script: {instanceID: 12852}
+      Script: {instanceID: 12858}
     - Class: 114
-      Script: {instanceID: 12896}
+      Script: {instanceID: 12978}
+    - Class: 114
+      Script: {instanceID: 12996}
     - Class: 114
       Script: {instanceID: 13012}
     - Class: 114
-      Script: {instanceID: 13030}
+      Script: {instanceID: 13186}
     - Class: 114
-      Script: {instanceID: 13216}
+      Script: {instanceID: 13304}
     - Class: 114
-      Script: {instanceID: 13334}
+      Script: {instanceID: 13366}
     - Class: 114
-      Script: {instanceID: 13398}
+      Script: {instanceID: 13386}
     - Class: 114
-      Script: {instanceID: 13418}
+      Script: {instanceID: 13394}
     - Class: 114
-      Script: {instanceID: 13426}
+      Script: {instanceID: 13604}
     - Class: 114
-      Script: {instanceID: 13632}
+      Script: {instanceID: 13644}
     - Class: 114
-      Script: {instanceID: 13670}
+      Script: {instanceID: 13746}
     - Class: 114
-      Script: {instanceID: 13784}
+      Script: {instanceID: 13754}
     - Class: 114
-      Script: {instanceID: 13834}
+      Script: {instanceID: 13802}
     - Class: 114
-      Script: {instanceID: 13840}
+      Script: {instanceID: 13808}
     - Class: 114
-      Script: {instanceID: 13964}
+      Script: {instanceID: 13930}
     - Class: 114
-      Script: {instanceID: 13972}
+      Script: {instanceID: 13944}
     - Class: 114
-      Script: {instanceID: 14014}
+      Script: {instanceID: 13980}
     - Class: 114
-      Script: {instanceID: 14076}
+      Script: {instanceID: 14042}
     - Class: 114
-      Script: {instanceID: 14298}
+      Script: {instanceID: 14264}
     - Class: 114
-      Script: {instanceID: 14452}
+      Script: {instanceID: 14420}
     - Class: 114
-      Script: {instanceID: 14506}
+      Script: {instanceID: 14480}
     - Class: 114
-      Script: {instanceID: 14578}
+      Script: {instanceID: 14554}
     - Class: 114
-      Script: {instanceID: 15276}
+      Script: {instanceID: 14794}
     - Class: 114
-      Script: {instanceID: 15300}
+      Script: {instanceID: 15258}
     - Class: 114
-      Script: {instanceID: 15338}
+      Script: {instanceID: 15282}
+    - Class: 114
+      Script: {instanceID: 15320}
+    - Class: 114
+      Script: {instanceID: 15346}
     - Class: 114
       Script: {instanceID: 15364}
     - Class: 114
-      Script: {instanceID: 15388}
+      Script: {instanceID: 15376}
     - Class: 114
-      Script: {instanceID: 15420}
+      Script: {instanceID: 15378}
     - Class: 114
-      Script: {instanceID: 15480}
+      Script: {instanceID: 15396}
     - Class: 114
-      Script: {instanceID: 19762}
+      Script: {instanceID: 15456}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -352,7 +367,7 @@ ScriptsOnlyBuild:
     className: Example_LargeData
   - hash:
       serializedVersion: 2
-      Hash: 65c7be27f219a325985a44cde65eab91
+      Hash: afea09bb4123378d9f26a3b9bee8d97b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CanvasManager
@@ -394,7 +409,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeGeometryCache
   - hash:
       serializedVersion: 2
-      Hash: 871bed537ac453f83c104fde3f923b1b
+      Hash: 4cdbdcbc64e4214e398acfca85e6e0e9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SettingManager
@@ -538,7 +553,7 @@ ScriptsOnlyBuild:
     className: Painter
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: fddc0cc7b356800f38c4bbad3e44c04d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RankManager
@@ -568,7 +583,7 @@ ScriptsOnlyBuild:
     className: SQLSample
   - hash:
       serializedVersion: 2
-      Hash: a0084b39cd50a98b94d4d64a18affa8e
+      Hash: dfcccd1adddc24dfb9d637d2c0fa0248
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TaskOperatingContoler
@@ -580,7 +595,7 @@ ScriptsOnlyBuild:
     className: XChartsMgr
   - hash:
       serializedVersion: 2
-      Hash: 09cbd45a2cc341a2276c91d46674ba43
+      Hash: f88b88532772aca3d29edd3c2d45aa2b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GuideWindow
@@ -628,7 +643,7 @@ ScriptsOnlyBuild:
     className: BaseGraph
   - hash:
       serializedVersion: 2
-      Hash: 8220b972f923a23189ce1277e13fd804
+      Hash: 046facdbcaa33474c458526de4ae7636
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ConfigManager
@@ -664,7 +679,7 @@ ScriptsOnlyBuild:
     className: OneSignalSettings
   - hash:
       serializedVersion: 2
-      Hash: 099007083661cc121e3844384125877d
+      Hash: 44cf045a86ce3e4df45778e012d4686d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LoginWindowsManager
@@ -676,7 +691,7 @@ ScriptsOnlyBuild:
     className: UGLExample
   - hash:
       serializedVersion: 2
-      Hash: af0ea8065717e2c0ecd072b5248719bb
+      Hash: d16a392a0e9b0ae89210f43a7039a0bf
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BlockChain
@@ -692,6 +707,12 @@ ScriptsOnlyBuild:
     assemblyName: XCharts.Examples.Runtime.dll
     namespaceName: XCharts.Examples
     className: Example_Test
+  - hash:
+      serializedVersion: 2
+      Hash: 22794792332fc07044d4548885707a32
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SubNoteWindowManager
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -772,7 +793,7 @@ ScriptsOnlyBuild:
     className: Register
   - hash:
       serializedVersion: 2
-      Hash: 1bb036e6d950b2408fbbea6da385bccd
+      Hash: 59282b348fb3729dcb13eba5ab9442f7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TagUI
@@ -790,7 +811,13 @@ ScriptsOnlyBuild:
     className: LiquidChart
   - hash:
       serializedVersion: 2
-      Hash: d6048bd0b2fc3fdaf6e2b09300f46644
+      Hash: 5a74b9736de43373579d5b73b1c4655d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BufferWindow
+  - hash:
+      serializedVersion: 2
+      Hash: 481a4f5759e7926558ba8342bd15c6ff
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TagChain
@@ -934,7 +961,7 @@ ScriptsOnlyBuild:
     className: Example01_UpdateData
   - hash:
       serializedVersion: 2
-      Hash: 5c15795a6d955143f28d8f63e552ae16
+      Hash: 73887a47991b8852c60b10a994cfd07f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StatsManager
@@ -1010,6 +1037,12 @@ ScriptsOnlyBuild:
     assemblyName: XCharts.Examples.Runtime.dll
     namespaceName: XCharts.Examples
     className: Example80_Polar
+  - hash:
+      serializedVersion: 2
+      Hash: 36e76c561b6a6d4425a7df26fba41c93
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: IcalSaver
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -1090,7 +1123,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMesh
   - hash:
       serializedVersion: 2
-      Hash: 16db6bba6fd28ce568efd86c0603bf0c
+      Hash: decf3e3a4392c7afd68b049b07d4d7d4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ErrorWindow
@@ -1138,7 +1171,7 @@ ScriptsOnlyBuild:
     className: OneSignal
   - hash:
       serializedVersion: 2
-      Hash: 5b3c134e4b0387e11c46025a1e16aec4
+      Hash: b6f41783e7de5d2d524dd87c74ccc929
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TimeBlockUI
@@ -1148,6 +1181,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Slider
+  - hash:
+      serializedVersion: 2
+      Hash: 45c068e878995a1f0ebc1c07a34a0af4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DataSynchronizeWindow
   - hash:
       serializedVersion: 2
       Hash: f6d282c3266d0d3d681e84b2375f1c0d
@@ -1174,7 +1213,7 @@ ScriptsOnlyBuild:
     className: ToggleGroup
   - hash:
       serializedVersion: 2
-      Hash: d9f0dd48290538793f2a648183ce27c9
+      Hash: 6905441dd28f76f62400e3ecacd06484
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DataManager
@@ -1184,13 +1223,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 36e76c561b6a6d4425a7df26fba41c93
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: IcalSaver
   platform: 13
   scenePathNames:
   - Assets/Scenes/TimeBlocks.unity
-  playerPath: D:/Downloads/base_19.apk
+  playerPath: D:/Downloads/White-75_v0.0.20.apk
