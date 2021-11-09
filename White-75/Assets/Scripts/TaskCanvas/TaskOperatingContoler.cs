@@ -20,21 +20,27 @@ using UnityEngine.UI;
 
 public class TaskOperatingContoler : MonoBehaviour
 {
-    //local configuations
-    public Image icon;
-    public Text taskName;
-    public Text timer;
-    public Text concentrationTimeTimer;
-    //core data
-    public TimeBlock toDo;
     //global configurations
     public ConfigManager configManager;
     public DataManager dataManager;
     public FocusManager focusManager;
     public ErrorWindow errorWindow;
     public PauseWindow pauseWindow;
+    //local configuations
+    public Image icon;
+    public Text taskName;
+    public Text timer;
+    public Text concentrationTimeTimer;
+    public InputField subToDoList;
+
+    public void SubToDoListUpdate() {
+        dataManager.interruptions = subToDoList.text;
+    }
+    //core data
+    public TimeBlock toDo;
+    
     //local variables
-    public float concentrationTime;
+    public float rawConcentrationTime;
     public bool isCounting;
     public DateTime origin;
 
@@ -104,10 +110,10 @@ public class TaskOperatingContoler : MonoBehaviour
     }
     //count down origin minus estimate time, always count forward
     private void TimeShow() {
-       concentrationTime += Time.deltaTime;
+       rawConcentrationTime += Time.deltaTime;
        TimeSpan toDisplay = DateTime.Now.Subtract(origin);
-        concentrationTimeTimer.text = string.Format("Concentrationtime: {0}", concentrationTime.ToString());
-        timer.text = string.Format("{0}:{1}",Math.Floor(toDisplay.Duration().TotalMinutes).ToString(),toDisplay.Duration().Seconds.ToString());
+        concentrationTimeTimer.text = string.Format("Concentrationtime: {0}", rawConcentrationTime.ToString());
+        timer.text = string.Format("{0}:{1}",Math.Floor(toDisplay.Duration().TotalMinutes).ToString(),toDisplay.Duration().Seconds.ToString("00"));
     }
     //Wake up pause window and stop counting time
     public void PauseTask() {
@@ -119,7 +125,11 @@ public class TaskOperatingContoler : MonoBehaviour
     public void ResetTask(int newEstimateTime) {
         toDo._estimateTime = newEstimateTime;
         dataManager.AddBlock(toDo);
-        dataManager.ConcentrationTimeUpDate(OCTCal());
+        double concentrationTime = GetConcentrationTime();
+        dataManager.longestConcentrationTime = Math.Max(dataManager.longestConcentrationTime, concentrationTime);
+        dataManager.concentrationTimeDistribution[DateTime.Now.Hour / 2]++;
+        dataManager.concentrationTimeSum += concentrationTime;
+        dataManager.ConcentrationTimeUpDate(concentrationTime);
         pauseWindow.CloseWindow();
     }
     //Continue operationg the task with new estimate time
@@ -129,18 +139,22 @@ public class TaskOperatingContoler : MonoBehaviour
         pauseWindow.CloseWindow();
     }
     //convert (float)concentration time to (double)
-    private double OCTCal() {
-        return Convert.ToDouble(concentrationTime)/60.0;
+    private double GetConcentrationTime() {
+        return Convert.ToDouble(rawConcentrationTime)/60.0;
     }
     //Mark task as finished, update OCT records
     public void FinishTask() {
+        double concentrationTime= GetConcentrationTime();
         dataManager.taskFinishedCount++;
-        dataManager.ConcentrationTimeUpDate(OCTCal());
+        dataManager.longestConcentrationTime = Math.Max(dataManager.longestConcentrationTime,concentrationTime);
+        dataManager.concentrationTimeDistribution[DateTime.Now.Hour / 2]++;
+        dataManager.concentrationTimeSum += concentrationTime;
+        dataManager.ConcentrationTimeUpDate(concentrationTime);
         pauseWindow.CloseWindow();
     }
     //If quit then reset the task
     private void OnApplicationQuit()
     {
-        ResetTask(toDo._estimateTime-Mathf.FloorToInt(concentrationTime));
+        ResetTask(toDo._estimateTime-Mathf.FloorToInt(rawConcentrationTime));
     }
 }

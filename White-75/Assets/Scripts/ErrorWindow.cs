@@ -8,7 +8,6 @@ public class ErrorWindow : MonoBehaviour
     public GameObject backGround;
     public GameObject frame;
     public GameObject text;
-    public GameObject confirm;
 
 
     // Start is called before the first frame update

@@ -65,6 +65,7 @@ public class DataManager : MonoBehaviour
    public void InitializeData()
     {
         color = 0.36f;
+        backgroundColor = Color.HSVToRGB(color,0.5f,1f);
         defaultTagIndex = 0;
         defaultDeadline = TimeSpan.FromDays(1);
         blocks = new TimeBlock[7];
@@ -123,6 +124,7 @@ public class DataManager : MonoBehaviour
             if (blocks[i].IsSame(a))
             {
                 blocks[i] = nullTask;
+                taskFailedCount++;
                 return true;
             }
         }
@@ -159,11 +161,11 @@ public class DataManager : MonoBehaviour
         //month record
         concentrationTime[3] = (concentrationTime[3]*30 + record) / 31;
         //season record
-        concentrationTime[4] = (concentrationTime[3] * 90 + record) / 91;
+        concentrationTime[4] = (concentrationTime[4] * 90 + record) / 91;
         //annual record
-        concentrationTime[5] = (concentrationTime[3] * 365 + record) / 366;
+        concentrationTime[5] = (concentrationTime[5] * 365 + record) / 366;
         //total record
-        concentrationTime[6] = (concentrationTime[3] *  GetTime()-1+ record) / GetTime();
+        concentrationTime[6] = (concentrationTime[3] *  GetTime()+ record) / GetTime();
     }
 
     private double GetTime()
