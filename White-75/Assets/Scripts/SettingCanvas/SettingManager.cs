@@ -63,6 +63,7 @@ public class SettingManager : MonoBehaviour
             tempDictionary.Add(dataManager.tags[i]._name, i);
             defaultTag.options.Add(new Dropdown.OptionData(dataManager.tags[i]._name));
         }
+        defaultTag.value = dataManager.defaultTagIndex;
     }
 
     // Update is called once per frame

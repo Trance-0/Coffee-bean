@@ -45,7 +45,7 @@ public class DataManager : MonoBehaviour
     public double[] concentrationTime;
     public double longestConcentrationTime;
     public double[] concentrationTimeDistribution;
-
+    public DateTime lastSaveTime;
 
     // Start is called before the first frame update
     void Start()
@@ -107,7 +107,7 @@ public class DataManager : MonoBehaviour
     public bool AddBlock(TimeBlock a)
     {
         for (int i =0;i<7;i++) {
-            if (blocks[i].IsSame(nullTask))
+            if (blocks[i]._name=="Unknown")
             {
                 blocks[i] = a;
                 return true;
@@ -150,10 +150,14 @@ public class DataManager : MonoBehaviour
         if (record>longestConcentrationTime) {
             longestConcentrationTime= record;
         }
-  
-        concentrationTimeSum += record;
         //daily record
-        concentrationTime[0] = record;
+        if (DateTime.Now.Subtract(lastSaveTime).TotalSeconds<new TimeSpan(1,0,0,0).TotalSeconds) {
+            concentrationTime[0] += record;
+        }
+        else {
+            Debug.Log("Daily record reset.");
+            concentrationTime[0] = record;
+        }
         //two day record
         concentrationTime[1] = (concentrationTime[1]*2+ record) /3;
         //week record
@@ -165,7 +169,7 @@ public class DataManager : MonoBehaviour
         //annual record
         concentrationTime[5] = (concentrationTime[5] * 365 + record) / 366;
         //total record
-        concentrationTime[6] = (concentrationTime[3] *  GetTime()+ record) / GetTime();
+        concentrationTime[6] = concentrationTimeSum/taskFinishedCount;
     }
 
     private double GetTime()

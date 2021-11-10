@@ -41,47 +41,47 @@ public class StatsManager : MonoBehaviour
     {
         ConcentrationTime.ClearData();
         ConcentrationTime.AddXAxisData("Total");
-        ConcentrationTime.AddData("OCT", OCT[6]);
+        ConcentrationTime.AddData("Average", OCT[6]);
         ConcentrationTime.AddXAxisData("Year");
-        ConcentrationTime.AddData("OCT", OCT[5]);
-        ConcentrationTime.AddXAxisData("Season");
-        ConcentrationTime.AddData("OCT", OCT[4]);
+        ConcentrationTime.AddData("Average", OCT[5]);
+        ConcentrationTime.AddXAxisData("Quarter");
+        ConcentrationTime.AddData("Average", OCT[4]);
         ConcentrationTime.AddXAxisData("Month");
-        ConcentrationTime.AddData("OCT", OCT[3]);
+        ConcentrationTime.AddData("Average", OCT[3]);
         ConcentrationTime.AddXAxisData("Week");
-        ConcentrationTime.AddData("OCT", OCT[2]);
+        ConcentrationTime.AddData("Average", OCT[2]);
         ConcentrationTime.AddXAxisData("3days");
-        ConcentrationTime.AddData("OCT", OCT[1]);
+        ConcentrationTime.AddData("Average", OCT[1]);
         ConcentrationTime.AddXAxisData("Today");
-        ConcentrationTime.AddData("OCT", OCT[0]);
+        ConcentrationTime.AddData("Average", OCT[0]);
     }
     private void LoadConcentrationTimeDistribution(double[] OCT)
     {
         ConcentrationTimeDistribution.ClearData();
-        ConcentrationTimeDistribution.AddXAxisData("0-2");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[11]);
-        ConcentrationTimeDistribution.AddXAxisData("2-4");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[10]);
-        ConcentrationTimeDistribution.AddXAxisData("4-6");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[9]);
-        ConcentrationTimeDistribution.AddXAxisData("6-8");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[8]);
-        ConcentrationTimeDistribution.AddXAxisData("8-10");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[7]);
-        ConcentrationTimeDistribution.AddXAxisData("10-12");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[6]);
-        ConcentrationTimeDistribution.AddXAxisData("12-14");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[5]);
-        ConcentrationTimeDistribution.AddXAxisData("14-16");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[4]);
-        ConcentrationTimeDistribution.AddXAxisData("16-18");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[3]);
-        ConcentrationTimeDistribution.AddXAxisData("18-20");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[2]);
-        ConcentrationTimeDistribution.AddXAxisData("20-22");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[1]);
-        ConcentrationTimeDistribution.AddXAxisData("22-24");
-        ConcentrationTimeDistribution.AddData("OCT", OCT[0]);
+        ConcentrationTimeDistribution.AddXAxisData("0");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[0]);
+        ConcentrationTimeDistribution.AddXAxisData("2");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[1]);
+        ConcentrationTimeDistribution.AddXAxisData("4");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[2]);
+        ConcentrationTimeDistribution.AddXAxisData("6");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[3]);
+        ConcentrationTimeDistribution.AddXAxisData("8");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[4]);
+        ConcentrationTimeDistribution.AddXAxisData("10");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[5]);
+        ConcentrationTimeDistribution.AddXAxisData("12");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[6]);
+        ConcentrationTimeDistribution.AddXAxisData("14");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[7]);
+        ConcentrationTimeDistribution.AddXAxisData("16");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[8]);
+        ConcentrationTimeDistribution.AddXAxisData("18");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[9]);
+        ConcentrationTimeDistribution.AddXAxisData("20");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[10]);
+        ConcentrationTimeDistribution.AddXAxisData("22");
+        ConcentrationTimeDistribution.AddData("Task count", OCT[11]);
     }
 
     private string GetTime(long joinTime)

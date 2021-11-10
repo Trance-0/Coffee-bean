@@ -103,6 +103,7 @@ public class TaskOperatingContoler : MonoBehaviour
     // Set all the local variables
     public void SendTask(TimeBlock task) {
         toDo = task;
+        rawConcentrationTime = 0;
         taskName.text = task._name;
         icon.sprite = configManager.imageReference[dataManager.tags[task._tagId]._imageId];
         isCounting = true;
@@ -126,9 +127,8 @@ public class TaskOperatingContoler : MonoBehaviour
         toDo._estimateTime = newEstimateTime;
         dataManager.AddBlock(toDo);
         double concentrationTime = GetConcentrationTime();
-        dataManager.longestConcentrationTime = Math.Max(dataManager.longestConcentrationTime, concentrationTime);
-        dataManager.concentrationTimeDistribution[DateTime.Now.Hour / 2]++;
-        dataManager.concentrationTimeSum += concentrationTime;
+        TimeSpan timeOfday = DateTime.Now.TimeOfDay;
+        dataManager.concentrationTimeDistribution[timeOfday.Hours / 2]++;
         dataManager.ConcentrationTimeUpDate(concentrationTime);
         pauseWindow.CloseWindow();
     }
@@ -146,9 +146,9 @@ public class TaskOperatingContoler : MonoBehaviour
     public void FinishTask() {
         double concentrationTime= GetConcentrationTime();
         dataManager.taskFinishedCount++;
-        dataManager.longestConcentrationTime = Math.Max(dataManager.longestConcentrationTime,concentrationTime);
-        dataManager.concentrationTimeDistribution[DateTime.Now.Hour / 2]++;
-        dataManager.concentrationTimeSum += concentrationTime;
+        TimeSpan timeOfday = DateTime.Now.TimeOfDay;
+        Debug.Log(timeOfday.Hours / 2);
+        dataManager.concentrationTimeDistribution[timeOfday.Hours / 2]++;
         dataManager.ConcentrationTimeUpDate(concentrationTime);
         pauseWindow.CloseWindow();
     }

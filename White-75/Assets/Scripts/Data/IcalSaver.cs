@@ -187,6 +187,8 @@ public class IcalSaver : MonoBehaviour
                 double concentrationTimeDistribution = dataManager.concentrationTimeDistribution[i];
                 data.Add(string.Format("CONCENTRATIONTIMEDISTRIBUTION{0}:{1}", i, concentrationTimeDistribution));
             }
+            dataManager.lastSaveTime = DateTime.Now;
+            data.Add(string.Format("LASTSAVETIME:{0}", ConvertDateTimeToTimeStamp(dataManager.lastSaveTime)));
             data.Add("END:SAVE");
             LocalWrite(data);
             return true;

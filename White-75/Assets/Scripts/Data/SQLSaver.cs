@@ -156,6 +156,7 @@ public class SQLSaver : MonoBehaviour
                 double concentrationTimeDistribution = dataManager.concentrationTimeDistribution[i];
                 command += string.Format(", concentration_time_distribution_{0} = {1}", i, concentrationTimeDistribution);
             }
+            command += string.Format(", last_save_time = FROM_UNIXTIME({0})", dataManager.lastSaveTime);
             command += string.Format(" WHERE user_id = {0}", dataManager.userId);
             ServerWrite(command);
             return true;
@@ -195,6 +196,7 @@ public class SQLSaver : MonoBehaviour
             {
                 command += string.Format(", concentration_time_distribution_{0}", i);
             }
+            command += ", last_save_time";
             command += string.Format(" FROM USER_DATA WHERE user_id = {0}",dataManager.userId);
             List<string> reader = ServerRead(command);
             int index = 0;
@@ -239,6 +241,7 @@ public class SQLSaver : MonoBehaviour
             {
                dataManager.concentrationTimeDistribution[i]=double.Parse(reader[index++].ToString());
             }
+            dataManager.lastSaveTime= new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(int.Parse(reader[index++].ToString())).ToLocalTime();
             return true;
         }
         catch (Exception e)
@@ -247,7 +250,6 @@ public class SQLSaver : MonoBehaviour
             return false;
         }
     }
-
     //Get timestamp
     public long GetTimestamp()
     {

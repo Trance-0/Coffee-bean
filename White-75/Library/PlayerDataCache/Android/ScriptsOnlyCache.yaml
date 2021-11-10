@@ -1226,4 +1226,4 @@ ScriptsOnlyBuild:
   platform: 13
   scenePathNames:
   - Assets/Scenes/TimeBlocks.unity
-  playerPath: D:/Downloads/White-75_v0.0.20.apk
+  playerPath: D:/Downloads/White-75_v0.0.21.apk

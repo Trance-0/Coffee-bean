@@ -57,11 +57,11 @@ public class TimeBlock : ScriptableObject
             long priority;
             if (_tagId == -1)
             {
-               priority = (Convert.ToInt64(st.TotalSeconds) - _deadline) * tagList[defaultTagId]._power;
+               priority = _deadline * tagList[defaultTagId]._power;
             }
             else
             {
-                priority = (Convert.ToInt64(st.TotalSeconds) - _deadline) * tagList[_tagId]._power;
+                priority = _deadline * tagList[_tagId]._power;
             }
             return priority;
         }
@@ -73,7 +73,7 @@ public class TimeBlock : ScriptableObject
     }
  
     public DateTime ConvertDeadlineToDateTime() {
-        return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(_deadline);
+        return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(_deadline).ToLocalTime();
     }
     public override string ToString()
     {

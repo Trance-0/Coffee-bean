@@ -22,7 +22,7 @@ public class NewTaskWindowWaker : MonoBehaviour
         
     }
     public void OnClick() {
-            newTaskWindowManager.UpdateInfo();
+            newTaskWindowManager.LateInit();
             if (configManager.isAddNewTaskWindowAwake)
             {
                 newTaskWindowManager.CloseWindow();

@@ -28,12 +28,12 @@ public class NewTaskWindowManager : MonoBehaviour {
     void Start()
     {
         CloseWindow();
-        Invoke("UpdateInfo",0.1f);
+        Invoke("LateInit",0.1f);
     }
 
-   public void UpdateInfo()
+   public void LateInit()
     {
-
+        blockChain.LateInit();
         DateTime today = DateTime.Today;
         Year.options.Clear();
         for (int i = 0; i < 10; i++)
@@ -112,6 +112,7 @@ public class NewTaskWindowManager : MonoBehaviour {
             newTimeBlock._name = taskname;
             DateTime a = DateTime.Now.Add(dataManager.defaultDeadline);
             newTimeBlock._deadline = newTimeBlock.SetTime(a);
+            newTimeBlock._tagId = dataManager.defaultTagIndex;
         }
         configManager.lastInput = newTimeBlock;
         Debug.Log(newTimeBlock.name);
@@ -134,14 +135,8 @@ public class NewTaskWindowManager : MonoBehaviour {
     }
     public void CloseWindow() {
         configManager.isAddNewTaskWindowAwake = false;
-        if (configManager.isAdvanced)
-        {
             AdvancedWindow.SetActive(false);
-        }
-        else
-        {
             SimpleWindow.SetActive(false);
-        }
     }
     public void OpenWindow() {
         configManager.isAddNewTaskWindowAwake = true;
