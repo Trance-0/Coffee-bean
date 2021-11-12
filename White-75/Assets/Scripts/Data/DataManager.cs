@@ -183,6 +183,7 @@ public class DataManager : MonoBehaviour
         {
             icalSaver.LoadData(this);
         }
+        backgroundColor = Color.HSVToRGB(color, 0.5f, 1f);
     }
 
     public void SaveData() {
