@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class SQLSaver : MonoBehaviour
@@ -22,14 +23,14 @@ public class SQLSaver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+      
     }
     // Update is called once per frame
     void Update()
     {
     }
 
-    internal string checkSaveTime()
+    public DateTime checkSaveTime()
     {
         throw new NotImplementedException();
     }
@@ -60,7 +61,10 @@ public class SQLSaver : MonoBehaviour
             Debug.Log("Function name: GetID, connecting to server.");
             string command = string.Format("SELECT user_id FROM USER_DATA WHERE user_name = '{0}'", userName);
             List<string> reader = ServerRead(command);
-            userId = reader[0].ToString();
+            if (reader.Count == 1)
+            {
+                userId = reader[0].ToString();
+            }
             Debug.Log("Success");
             return int.Parse(userId);
         } catch (Exception e) {
@@ -89,7 +93,7 @@ public class SQLSaver : MonoBehaviour
     public bool CreateAccount(string text, string v, string email, DataManager dataManager) {
         try
         {
-            string command = string.Format("INSERT INTO USER_DATA (user_name) VALUES ( '{0}','{1}','{2}' )",text,v,email);
+            string command = string.Format("INSERT INTO USER_DATA (user_name,password,email) VALUES ( '{0}','{1}','{2}' )",text,v,email);
             ServerWrite(command);
             dataManager.userName = text;
             dataManager.password = v;
@@ -156,7 +160,8 @@ public class SQLSaver : MonoBehaviour
                 double concentrationTimeDistribution = dataManager.concentrationTimeDistribution[i];
                 command += string.Format(", concentration_time_distribution_{0} = {1}", i, concentrationTimeDistribution);
             }
-            command += string.Format(", last_save_time = FROM_UNIXTIME({0})", dataManager.lastSaveTime);
+            dataManager.lastSaveTime = DateTime.Now;
+            command += string.Format(", last_save_time = FROM_UNIXTIME({0})",GetTimestamp(dataManager.lastSaveTime));
             command += string.Format(" WHERE user_id = {0}", dataManager.userId);
             ServerWrite(command);
             return true;
@@ -267,12 +272,25 @@ public class SQLSaver : MonoBehaviour
     {
         try
         {
-            mySqlConnection = new MySqlConnection(sql);
-            mySqlConnection.Open();
+            if (mySqlConnection == null)
+            {
+                mySqlConnection = new MySqlConnection(sql);
+            }
+            if (mySqlConnection.State == ConnectionState.Closed)
+            {
+                mySqlConnection.Open();
+            }
+            Debug.LogWarning("[ServerWrite]my sql state2: " + mySqlConnection.State);
             Debug.Log("Connecting to server...");
             MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
+            Debug.LogWarning("[ServerWrite]my sql state3: " + mySqlConnection.State);
             cmd.ExecuteNonQuery();
-            mySqlConnection.Close();
+            Debug.LogWarning("[ServerWrite]my sql state4: " + mySqlConnection.State);
+            if (mySqlConnection != null || mySqlConnection.State == ConnectionState.Open)
+            {
+                mySqlConnection.Close();
+            }
+            Debug.LogWarning("[ServerWrite]my sql state5: " + mySqlConnection.State);
             Debug.Log("Success");
             return true;
         }
@@ -287,13 +305,22 @@ public class SQLSaver : MonoBehaviour
         List<string> results = new List<string>();
         try
         {
-            mySqlConnection = new MySqlConnection(sql);
-            mySqlConnection.Open();
+            if (mySqlConnection == null)
+            {
+                mySqlConnection = new MySqlConnection(sql);
+            }
+            if (mySqlConnection.State == ConnectionState.Closed)
+            {
+                mySqlConnection.Open();
+            }
+            Debug.LogWarning("[ServerRead] my sql state2: " + mySqlConnection.State);
             Debug.Log("Connecting to server...");
             MySqlDataReader reader;
+            Debug.LogWarning("[ServerRead] my sql state3: " + mySqlConnection.State);
             MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
+            Debug.LogWarning("[ServerRead] my sql state4: " + mySqlConnection.State);
             reader = cmd.ExecuteReader();
-            cmd.ExecuteNonQuery();
+            Debug.LogWarning("[ServerRead] my sql state6: " + mySqlConnection.State);
             while (reader.Read())
             {
                 for (int i = 0; i < reader.FieldCount; i++)
@@ -302,9 +329,16 @@ public class SQLSaver : MonoBehaviour
                 }
             }
             reader.Close();
+            Debug.LogWarning("[ServerRead] my sql state8: " + mySqlConnection.State);
             reader.Dispose();
-            mySqlConnection.Close();
+            Debug.LogWarning("[ServerRead] my sql state9: " + mySqlConnection.State);
+            if (mySqlConnection!=null ||mySqlConnection.State == ConnectionState.Open)
+            {
+                mySqlConnection.Close();
+            }
+            Debug.LogWarning("[ServerRead] my sql state10: " + mySqlConnection.State);
             mySqlConnection.Dispose();
+            Debug.LogWarning("[ServerRead] my sql state11: " + mySqlConnection.State);
             Debug.Log("Success");
             return results;
         }

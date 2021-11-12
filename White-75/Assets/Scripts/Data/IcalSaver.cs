@@ -104,7 +104,7 @@ public class IcalSaver : MonoBehaviour
         }
     }
 
-    internal string checkSaveTime()
+    internal DateTime checkSaveTime()
     {
         throw new NotImplementedException();
     }

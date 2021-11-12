@@ -31,8 +31,8 @@ public class DataSynchronizeWindow : MonoBehaviour
     public void WakeWindow() {
         background.SetActive(true);
         frame.SetActive(true);
-        saveDateOnServer.text = sQLSaver.checkSaveTime();
-        saveDateOnLocal.text = icalSaver.checkSaveTime();
+        saveDateOnServer.text = sQLSaver.checkSaveTime().ToString();
+        saveDateOnLocal.text = icalSaver.checkSaveTime().ToString();
     }
     public void ForceUpload() {
         try {
