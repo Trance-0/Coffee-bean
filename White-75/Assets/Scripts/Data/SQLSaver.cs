@@ -30,9 +30,26 @@ public class SQLSaver : MonoBehaviour
     {
     }
 
-    public DateTime checkSaveTime()
+    public bool checkSaveTime(DataManager dataManager)
     {
-        throw new NotImplementedException();
+            try
+            {
+            string command = string.Format("SELECT last_save_time from USER_DATA WHERE user_name = '{0}'", dataManager.userName);
+            List<string> reader = ServerRead(command);
+            if (reader.Count == 0)
+            {
+                dataManager.lastSaveTimeOnServer = DateTime.MinValue;
+            }
+            else {
+                dataManager.lastSaveTimeOnServer = ConvertTimeStampToDateTime(int.Parse(reader[0]));
+            }
+            return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning(e);
+            }
+            return false;
     }
 
     //Sign up for a new user
@@ -42,33 +59,29 @@ public class SQLSaver : MonoBehaviour
     {
         //get password
         bool result = false;
-        Debug.Log("Function name: Login, connecting to server.");
         string command=string.Format("SELECT password from USER_DATA WHERE user_name = '{0}'",userName);
         List<string> reader=ServerRead(command);
-            if (reader[0].ToString().CompareTo(v)==0)
+            if (reader.Count==1 && reader[0].ToString().CompareTo(v)==0)
             {
                 result = true;
             }
-        Debug.Log("Success");
         return result;
     }
     //get user id in server by username
-    private int GetID(string userName)
+    public int GetID(string userName)
     {
         try
         {
             string userId = "-1";
-            Debug.Log("Function name: GetID, connecting to server.");
             string command = string.Format("SELECT user_id FROM USER_DATA WHERE user_name = '{0}'", userName);
             List<string> reader = ServerRead(command);
             if (reader.Count == 1)
             {
                 userId = reader[0].ToString();
             }
-            Debug.Log("Success");
             return int.Parse(userId);
         } catch (Exception e) {
-            Debug.Log(e);
+            Debug.LogWarning(e);
             return -1;
         }
     }
@@ -76,7 +89,6 @@ public class SQLSaver : MonoBehaviour
     public bool CheckUserNameRepeated(string userName)
     {
         bool result = true;
-        Debug.Log("Function name: CheckUserNameRepeated, connecting to server.");
         string command="SELECT user_name FROM USER_DATA";
         List<string>reader = ServerRead(command);
         foreach (string i in reader)
@@ -86,7 +98,6 @@ public class SQLSaver : MonoBehaviour
                 result = false;
             }
         }
-        Debug.Log("Success");
         return result;
     }
 
@@ -105,7 +116,7 @@ public class SQLSaver : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log(e);
+            Debug.LogWarning(e);
             return false;
         }
     }
@@ -119,7 +130,7 @@ public class SQLSaver : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log(e);
+            Debug.LogWarning(e);
             return false;
         }
     }
@@ -142,7 +153,7 @@ public class SQLSaver : MonoBehaviour
                 command += string.Format(", tag_{0}_name = '{1}', tag_{0}_image_id = {2}, tag_{0}_power = {3}", i, tempTag._name, tempTag._imageId, tempTag._power);
             }
             command += string.Format(", interruptions = '{0}'", dataManager.interruptions);
-            command += string.Format(", concentration_time_sum = {0} , task_finished_count = {1}, task_failed_count = {2} , join_time = FROM_UNIXTIME({3})",dataManager.concentrationTimeSum,dataManager.taskFinishedCount,dataManager.taskFailedCount , GetTimestamp(dataManager.joinTime));
+            command += string.Format(", concentration_time_sum = {0} , task_finished_count = {1}, task_failed_count = {2} , join_time = FROM_UNIXTIME({3})",dataManager.concentrationTimeSum,dataManager.taskFinishedCount,dataManager.taskFailedCount ,ConvertDateTimeToTimeStamp(dataManager.joinTime));
 
             for (int i = 0; i < 7; i++)
             {
@@ -160,15 +171,15 @@ public class SQLSaver : MonoBehaviour
                 double concentrationTimeDistribution = dataManager.concentrationTimeDistribution[i];
                 command += string.Format(", concentration_time_distribution_{0} = {1}", i, concentrationTimeDistribution);
             }
-            dataManager.lastSaveTime = DateTime.Now;
-            command += string.Format(", last_save_time = FROM_UNIXTIME({0})",GetTimestamp(dataManager.lastSaveTime));
+            dataManager.lastSaveTimeOnServer = DateTime.Now;
+            command += string.Format(", last_save_time = FROM_UNIXTIME({0})",ConvertDateTimeToTimeStamp(dataManager.lastSaveTimeOnServer));
             command += string.Format(" WHERE user_id = {0}", dataManager.userId);
             ServerWrite(command);
             return true;
         }
         catch (Exception e)
         {
-            Debug.Log(e);
+            Debug.LogWarning(e);
             return false;
         }
     }
@@ -205,7 +216,7 @@ public class SQLSaver : MonoBehaviour
             command += string.Format(" FROM USER_DATA WHERE user_id = {0}",dataManager.userId);
             List<string> reader = ServerRead(command);
             int index = 0;
-            dataManager.userName = reader[index].ToString();
+            dataManager.userName = reader[index++].ToString();
             dataManager.email = reader[index++].ToString();
             dataManager.password= reader[index++].ToString();
             dataManager.color = float.Parse(reader[index++].ToString());
@@ -246,27 +257,14 @@ public class SQLSaver : MonoBehaviour
             {
                dataManager.concentrationTimeDistribution[i]=double.Parse(reader[index++].ToString());
             }
-            dataManager.lastSaveTime= new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(int.Parse(reader[index++].ToString())).ToLocalTime();
+            dataManager.lastSaveTimeOnServer=ConvertTimeStampToDateTime(int.Parse(reader[index++].ToString()));
             return true;
         }
         catch (Exception e)
         {
-            Debug.Log(e);
+            Debug.LogWarning(e);
             return false;
         }
-    }
-    //Get timestamp
-    public long GetTimestamp()
-    {
-        //Debug.Log(year+" "+month + " " +day + " " +chunk*6+5);
-        TimeSpan st = DateTime.Now - new DateTime(1970, 1, 1, 0, 0, 0);
-        return Convert.ToInt64(st.TotalSeconds);
-    }
-    public long GetTimestamp(DateTime a)
-    {
-        //Debug.Log(year+" "+month + " " +day + " " +chunk*6+5);
-        TimeSpan st = a - new DateTime(1970, 1, 1, 0, 0, 0);
-        return Convert.ToInt64(st.TotalSeconds);
     }
     private bool ServerWrite(string command)
     {
@@ -280,23 +278,20 @@ public class SQLSaver : MonoBehaviour
             {
                 mySqlConnection.Open();
             }
-            Debug.LogWarning("[ServerWrite]my sql state2: " + mySqlConnection.State);
             Debug.Log("Connecting to server...");
+            Debug.Log(string.Format("Executing command {0}.",command));
             MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
-            Debug.LogWarning("[ServerWrite]my sql state3: " + mySqlConnection.State);
             cmd.ExecuteNonQuery();
-            Debug.LogWarning("[ServerWrite]my sql state4: " + mySqlConnection.State);
             if (mySqlConnection != null || mySqlConnection.State == ConnectionState.Open)
             {
                 mySqlConnection.Close();
             }
-            Debug.LogWarning("[ServerWrite]my sql state5: " + mySqlConnection.State);
             Debug.Log("Success");
             return true;
         }
         catch (Exception e)
         {
-            Debug.Log(string.Format("Error when executing {0}, error message : {1}", command, e));
+            Debug.LogWarning(string.Format("Error when executing {0}, error message : {1}", command, e));
             return false;
         }
     }
@@ -313,39 +308,43 @@ public class SQLSaver : MonoBehaviour
             {
                 mySqlConnection.Open();
             }
-            Debug.LogWarning("[ServerRead] my sql state2: " + mySqlConnection.State);
             Debug.Log("Connecting to server...");
+            string message = "";
+            Debug.Log(string.Format("Executing command {0}.", command));
             MySqlDataReader reader;
-            Debug.LogWarning("[ServerRead] my sql state3: " + mySqlConnection.State);
             MySqlCommand cmd = new MySqlCommand(command, mySqlConnection);
-            Debug.LogWarning("[ServerRead] my sql state4: " + mySqlConnection.State);
             reader = cmd.ExecuteReader();
-            Debug.LogWarning("[ServerRead] my sql state6: " + mySqlConnection.State);
             while (reader.Read())
             {
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
+                    message += reader[i].ToString() + "\n";
                     results.Add(reader[i].ToString());
                 }
             }
+            Debug.Log(string.Format("Reading message {0} to server file", message));
             reader.Close();
-            Debug.LogWarning("[ServerRead] my sql state8: " + mySqlConnection.State);
             reader.Dispose();
-            Debug.LogWarning("[ServerRead] my sql state9: " + mySqlConnection.State);
             if (mySqlConnection!=null ||mySqlConnection.State == ConnectionState.Open)
             {
                 mySqlConnection.Close();
             }
-            Debug.LogWarning("[ServerRead] my sql state10: " + mySqlConnection.State);
             mySqlConnection.Dispose();
-            Debug.LogWarning("[ServerRead] my sql state11: " + mySqlConnection.State);
             Debug.Log("Success");
             return results;
         }
         catch (Exception e)
         {
-            Debug.Log(string.Format("Error when executing {0}, error message : {1}", command, e));
+            Debug.LogWarning(string.Format("Error when executing {0}, error message : {1}", command, e));
             return null;
         }
+    }
+    private int ConvertDateTimeToTimeStamp(DateTime a)
+    {
+        return (int)Math.Ceiling((a - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
+    }
+    private DateTime ConvertTimeStampToDateTime(int a)
+    {
+        return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(a);
     }
 }

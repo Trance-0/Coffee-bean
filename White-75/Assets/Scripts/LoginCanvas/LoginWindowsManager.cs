@@ -25,6 +25,7 @@ public class LoginWindowsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
     }
     public void openRegister() {
         registerWindow.SetActive(true);
@@ -34,5 +35,10 @@ public class LoginWindowsManager : MonoBehaviour
     {
         registerWindow.SetActive(false);
         loginWindow.SetActive(true);
+    }
+    public void SetOffline() {
+        configManager.isOffline = true;
+            dataManager.LoadData();
+            canvasManager.ChangeCanvas(0);
     }
 }

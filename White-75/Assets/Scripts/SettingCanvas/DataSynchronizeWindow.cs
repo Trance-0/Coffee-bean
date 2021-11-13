@@ -19,20 +19,25 @@ public class DataSynchronizeWindow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        background.SetActive(false);
-        frame.SetActive(false);
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    public void CloseWindow() {
+        background.SetActive(false);
+        frame.SetActive(false);
     }
     public void WakeWindow() {
         background.SetActive(true);
         frame.SetActive(true);
-        saveDateOnServer.text = sQLSaver.checkSaveTime().ToString();
-        saveDateOnLocal.text = icalSaver.checkSaveTime().ToString();
+        sQLSaver.checkSaveTime(dataManager);
+        icalSaver.checkSaveTime(dataManager);
+        saveDateOnServer.text = dataManager.lastSaveTimeOnServer.ToString();
+        saveDateOnLocal.text =dataManager.lastSaveTimeOnLocal.ToString();
     }
     public void ForceUpload() {
         try {

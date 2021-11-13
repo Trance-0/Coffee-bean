@@ -34,23 +34,26 @@ public class NewTaskWindowManager : MonoBehaviour {
    public void LateInit()
     {
         blockChain.LateInit();
-        DateTime today = DateTime.Today;
+        DateTime deadline = DateTime.Now.Add(dataManager.defaultDeadline);
         Year.options.Clear();
         for (int i = 0; i < 10; i++)
         {
-            Year.options.Add(new Dropdown.OptionData((today.Year + i).ToString()));
+            Year.options.Add(new Dropdown.OptionData((deadline.Year + i).ToString()));
         }
+        Year.value = Year.options.IndexOf(new Dropdown.OptionData(deadline.Year.ToString()));
         Month.options.Clear();
         for (int i = 0; i < 12; i++)
         {
-            Month.options.Add(new Dropdown.OptionData(((today.Month + i - 1) % 12 + 1).ToString()));
+            Month.options.Add(new Dropdown.OptionData(((deadline.Month + i - 1) % 12 + 1).ToString()));
         }
+        Month.value = Month.options.IndexOf(new Dropdown.OptionData(deadline.Month.ToString()));
         Day.options.Clear();
         int dayInTime = DateTime.DaysInMonth(int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text));
-        for (int i = 0; i < 31; i++)
+        for (int i = 0; i < dayInTime; i++)
         {
-            Day.options.Add(new Dropdown.OptionData(((today.Day + i) % 31 + 1).ToString()));
+            Day.options.Add(new Dropdown.OptionData(((deadline.Day + i) % dayInTime + 1).ToString()));
         }
+        Day.value = Day.options.IndexOf(new Dropdown.OptionData(deadline.Day.ToString()));
         Chunk.options.Clear();
         Chunk.options.Add(new Dropdown.OptionData("Morning"));
         Chunk.options.Add(new Dropdown.OptionData("Afternoon"));
@@ -117,13 +120,19 @@ public class NewTaskWindowManager : MonoBehaviour {
         configManager.lastInput = newTimeBlock;
         Debug.Log(newTimeBlock.name);
     }
+    //this fuction is used to change day when month or year is modified during creating task.
     public void ChangeDay() {
-        DateTime today = DateTime.Today;
-        Day.options.Clear();
-        int dayInTime = DateTime.DaysInMonth(int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text));
-        for (int i = 0; i < dayInTime; i++)
+        try
         {
-            Day.options.Add(new Dropdown.OptionData(((today.Day + i) % dayInTime + 1).ToString()));
+            Day.options.Clear();
+            int dayInTime = DateTime.DaysInMonth(int.Parse(Year.options[Year.value].text), int.Parse(Month.options[Month.value].text));
+            for (int i = 0; i < dayInTime; i++)
+            {
+                Day.options.Add(new Dropdown.OptionData(((DateTime.Today.Day + i) % dayInTime + 1).ToString()));
+            }
+        }
+        catch (Exception e) {
+            Debug.LogWarning(e);
         }
     }
     public void Save() {

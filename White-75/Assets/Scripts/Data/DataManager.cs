@@ -45,7 +45,8 @@ public class DataManager : MonoBehaviour
     public double[] concentrationTime;
     public double longestConcentrationTime;
     public double[] concentrationTimeDistribution;
-    public DateTime lastSaveTime;
+    public DateTime lastSaveTimeOnServer;
+    public DateTime lastSaveTimeOnLocal;
 
     // Start is called before the first frame update
     void Start()
@@ -151,7 +152,7 @@ public class DataManager : MonoBehaviour
             longestConcentrationTime= record;
         }
         //daily record
-        if (DateTime.Now.Subtract(lastSaveTime).TotalSeconds<new TimeSpan(1,0,0,0).TotalSeconds) {
+        if (DateTime.Now.Subtract(lastSaveTimeOnLocal).TotalSeconds<new TimeSpan(1,0,0,0).TotalSeconds) {
             concentrationTime[0] += record;
         }
         else {
@@ -179,17 +180,19 @@ public class DataManager : MonoBehaviour
     // if you want to check where the function is called, you can change the name of the function for a short period time.
     // Don't forget to change it back again!
     public void LoadData(){
-        if (configManager.isOffline||sQLSaver.Pull(this))
+        icalSaver.LoadData(this);
+        if (!configManager.isOffline)
         {
-            icalSaver.LoadData(this);
+           sQLSaver.Pull(this);
         }
         backgroundColor = Color.HSVToRGB(color, 0.5f, 1f);
     }
 
     public void SaveData() {
-        if (configManager.isOffline || sQLSaver.Push(this))
+        icalSaver.SaveData(this);
+        if (!configManager.isOffline)
         {
-            icalSaver.SaveData(this);
+            sQLSaver.Push(this);
         }
     }
     public void OnApplicationQuit()

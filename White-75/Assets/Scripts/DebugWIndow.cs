@@ -33,7 +33,6 @@ public class DebugWIndow : MonoBehaviour
         {
             builder.Append(st).Append("\n");
         }
-
         output.text= builder.ToString();
     }
 

@@ -51,7 +51,7 @@ public class IcalSaver : MonoBehaviour
                 dataManager.password = reader[index++].Split(':')[1];
                 dataManager.userId= int.Parse(reader[index++].Split(':')[1]);
                 string temp = reader[index++];
-                Debug.Log("Bug with:"+temp);
+                Debug.Log(string.Format("Reading line: {0}, data set to {1}",temp,"color"));
                 dataManager.color = float.Parse(temp.Split(':')[1]);
                 dataManager.defaultTagIndex = int.Parse(reader[index++].Split(':')[1]);
                 dataManager.defaultDeadline = TimeSpan.FromMinutes(double.Parse(reader[index++].Split(':')[1]));
@@ -76,7 +76,7 @@ public class IcalSaver : MonoBehaviour
                 dataManager.concentrationTimeSum = double.Parse(reader[index++].Split(':')[1]);
                 dataManager.taskFinishedCount = int.Parse(reader[index++].Split(':')[1]);
                 dataManager.taskFailedCount = int.Parse(reader[index++].Split(':')[1]);
-                dataManager.joinTime = ConvertTimeStampToDateTime(double.Parse(reader[index++].Split(':')[1]));
+                dataManager.joinTime = ConvertTimeStampToDateTime(int.Parse(reader[index++].Split(':')[1]));
                 for (int i = 0; i < 7; i++)
                 {
                     dataManager.taskFailedReasons[i] = reader[index++].Split(':')[1];
@@ -104,9 +104,22 @@ public class IcalSaver : MonoBehaviour
         }
     }
 
-    internal DateTime checkSaveTime()
+    public bool checkSaveTime(DataManager dataManager)
     {
-        throw new NotImplementedException();
+        try
+        {
+            List<string> reader = LocalRead();
+            foreach(string i in reader) {
+                if (i.Contains("LASTSAVETIME")) {
+                       dataManager.lastSaveTimeOnLocal= ConvertTimeStampToDateTime(int.Parse(i.Split(':')[1]));
+                    return true;
+                }
+            }
+        }
+        catch (Exception e) {
+            Debug.Log(e);
+        }
+        return false;
     }
 
     public bool SaveData(DataManager dataManager)
@@ -123,7 +136,7 @@ public class IcalSaver : MonoBehaviour
             data.Add("X-WR-TIMEZONE:UTC");
             foreach (TimeBlock a in dataManager.blocks)
             {
-                if (a._name.CompareTo("Default")==0) {
+                if (a._name.CompareTo("Unknown")==0) {
                     continue;
                 }
                 data.Add("BEGIN:VEVENT");
@@ -187,8 +200,8 @@ public class IcalSaver : MonoBehaviour
                 double concentrationTimeDistribution = dataManager.concentrationTimeDistribution[i];
                 data.Add(string.Format("CONCENTRATIONTIMEDISTRIBUTION{0}:{1}", i, concentrationTimeDistribution));
             }
-            dataManager.lastSaveTime = DateTime.Now;
-            data.Add(string.Format("LASTSAVETIME:{0}", ConvertDateTimeToTimeStamp(dataManager.lastSaveTime)));
+            dataManager.lastSaveTimeOnLocal = DateTime.Now;
+            data.Add(string.Format("LASTSAVETIME:{0}", ConvertDateTimeToTimeStamp(dataManager.lastSaveTimeOnLocal)));
             data.Add("END:SAVE");
             LocalWrite(data);
             return true;
@@ -207,10 +220,14 @@ public class IcalSaver : MonoBehaviour
             if (File.Exists(dir)) {
                 File.Delete(dir);
             }
+            Debug.Log("Connecting to local...");
+            string message = "";
             sw = File.CreateText(dir);
             foreach (string i in data) {
+                message += i+"\n";
                 sw.WriteLine(i);
             }
+            Debug.Log(string.Format("Writing message {0} to local file",message));
             sw.Close();
             sw.Dispose();
             return true;
@@ -226,6 +243,7 @@ public class IcalSaver : MonoBehaviour
             StreamReader reader;
             List<string> results = new List<string>();
             Debug.Log("Connecting to local...");
+            string message = "";
             if (File.Exists(dir))
             {
                 FileStream fs = new FileStream(dir, FileMode.Open);
@@ -233,12 +251,14 @@ public class IcalSaver : MonoBehaviour
                 string line;
                 while ((line = reader.ReadLine()) != null) {
                     results.Add(line);
+                    message += line + "\n";
                 }
                 reader.Close();
                 reader.Dispose();
                 fs.Close();
                 fs.Dispose();
             }
+            Debug.Log(string.Format("Reading message {0} from local file", message));
             Debug.Log("Success");
             return results;
         }
@@ -267,10 +287,10 @@ public class IcalSaver : MonoBehaviour
         }
         return output;
     }
-    private double ConvertDateTimeToTimeStamp(DateTime a) {
-        return (a - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds;
+    private int ConvertDateTimeToTimeStamp(DateTime a) {
+        return (int)Math.Ceiling((a - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
     }
-    private DateTime ConvertTimeStampToDateTime(double a) {
+    private DateTime ConvertTimeStampToDateTime(int a) {
         return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(a);
     }
 }

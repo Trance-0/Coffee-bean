@@ -40,13 +40,15 @@ public class Login : MonoBehaviour
             //access data base to verify
             if (sqlSaver.Login(userName.text, SHA256Hash(password.text)))
             {
+                dataManager.userId = sqlSaver.GetID(userName.text);
+                sqlSaver.Pull(dataManager);
                 canvasManager.ChangeCanvas(0);
             }
             else {
                 errorWindow.Warning("Password or username is not correct.");
             }
         }catch (Exception e) {
-            Debug.Log(e);
+            Debug.LogWarning(e);
         }
     }
    
