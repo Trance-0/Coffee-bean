@@ -27,8 +27,8 @@ public class ImageChanger : MonoBehaviour
     {
         GameObject newImage = Instantiate(framePF, imageChainUI.transform.position, Quaternion.identity);
         newImage.gameObject.transform.SetParent(imageChainUI.transform);
-        newImage.GetComponent<Image>().sprite = image;
-        newImage.GetComponent<Image>().color = configManager.imageColor;
+        newImage.GetComponent<Icon>().image.sprite = image;
+        newImage.GetComponent<Icon>().image.color = configManager.imageColor;
         newImage.GetComponent<Icon>().iconId =i;
         newImage.GetComponent<Button>().interactable = false;
     }

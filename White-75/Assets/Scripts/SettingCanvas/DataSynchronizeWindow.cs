@@ -19,7 +19,7 @@ public class DataSynchronizeWindow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        CloseWindow();
     }
 
     // Update is called once per frame

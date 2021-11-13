@@ -41,7 +41,7 @@ public class SQLSaver : MonoBehaviour
                 dataManager.lastSaveTimeOnServer = DateTime.MinValue;
             }
             else {
-                dataManager.lastSaveTimeOnServer = ConvertTimeStampToDateTime(int.Parse(reader[0]));
+                dataManager.lastSaveTimeOnServer = ConvertStringToDateTime(reader[0]);
             }
             return true;
             }
@@ -154,7 +154,6 @@ public class SQLSaver : MonoBehaviour
             }
             command += string.Format(", interruptions = '{0}'", dataManager.interruptions);
             command += string.Format(", concentration_time_sum = {0} , task_finished_count = {1}, task_failed_count = {2} , join_time = FROM_UNIXTIME({3})",dataManager.concentrationTimeSum,dataManager.taskFinishedCount,dataManager.taskFailedCount ,ConvertDateTimeToTimeStamp(dataManager.joinTime));
-
             for (int i = 0; i < 7; i++)
             {
                 String reasons = dataManager.taskFailedReasons[i];
@@ -216,48 +215,48 @@ public class SQLSaver : MonoBehaviour
             command += string.Format(" FROM USER_DATA WHERE user_id = {0}",dataManager.userId);
             List<string> reader = ServerRead(command);
             int index = 0;
-            dataManager.userName = reader[index++].ToString();
-            dataManager.email = reader[index++].ToString();
-            dataManager.password= reader[index++].ToString();
-            dataManager.color = float.Parse(reader[index++].ToString());
-            dataManager.defaultTagIndex = int.Parse(reader[index++].ToString());
-            dataManager.defaultDeadline = TimeSpan.FromMinutes(double.Parse(reader[index++].ToString()));
+            dataManager.userName = reader[index++];
+            dataManager.email = reader[index++];
+            dataManager.password= reader[index++];
+            dataManager.color = float.Parse(reader[index++]);
+            dataManager.defaultTagIndex = int.Parse(reader[index++]);
+            dataManager.defaultDeadline = TimeSpan.FromMinutes(double.Parse(reader[index++]));
             for (int i=0;i<7;i++)
             {
                 TimeBlock tempBlock = new TimeBlock();
-               tempBlock._name= reader[index++].ToString();
-                tempBlock._deadline= long.Parse(reader[index++].ToString());
-                tempBlock._estimateTime = int.Parse(reader[index++].ToString());
-              tempBlock._tagId=int.Parse(reader[index++].ToString());
+               tempBlock._name= reader[index++];
+                tempBlock._deadline= long.Parse(reader[index++]);
+                tempBlock._estimateTime = int.Parse(reader[index++]);
+              tempBlock._tagId=int.Parse(reader[index++]);
                 dataManager.blocks[i]=tempBlock;
             }
             for (int i = 1; i < 7; i++)
             {
                 Tag tempTag = new Tag();
-                tempTag._name = reader[index++].ToString();
-                tempTag._imageId=int.Parse( reader[index++].ToString());
-                tempTag._power = int.Parse(reader[index++].ToString());
+                tempTag._name = reader[index++];
+                tempTag._imageId=int.Parse( reader[index++]);
+                tempTag._power = int.Parse(reader[index++]);
                 dataManager.tags[i]=tempTag;
             }
-            dataManager.interruptions = reader[index++].ToString();
-            dataManager.concentrationTimeSum = double.Parse(reader[index++].ToString());
-            dataManager.taskFinishedCount = int.Parse(reader[index++].ToString());
-            dataManager.taskFailedCount =int.Parse(reader[index++].ToString());
-
+            dataManager.interruptions = reader[index++];
+            dataManager.concentrationTimeSum = double.Parse(reader[index++]);
+            dataManager.taskFinishedCount = int.Parse(reader[index++]);
+            dataManager.taskFailedCount =int.Parse(reader[index++]);
+            dataManager.joinTime = ConvertStringToDateTime(reader[index++]); 
             for (int i = 0; i < 7; i++)
             {
-                dataManager.taskFailedReasons[i] = reader[index++].ToString();
+                dataManager.taskFailedReasons[i] = reader[index++];
             }
             for (int i = 0; i < 7; i++)
             {
-                dataManager.concentrationTime[i]= double.Parse(reader[index++].ToString());
+                dataManager.concentrationTime[i]= double.Parse(reader[index++]);
             }
-            dataManager.longestConcentrationTime = double.Parse(reader[index++].ToString());
+            dataManager.longestConcentrationTime = double.Parse(reader[index++]);
             for (int i = 0; i < 12; i++)
             {
-               dataManager.concentrationTimeDistribution[i]=double.Parse(reader[index++].ToString());
+               dataManager.concentrationTimeDistribution[i]=double.Parse(reader[index++]);
             }
-            dataManager.lastSaveTimeOnServer=ConvertTimeStampToDateTime(int.Parse(reader[index++].ToString()));
+            dataManager.lastSaveTimeOnServer= ConvertStringToDateTime(reader[index++]);
             return true;
         }
         catch (Exception e)
@@ -343,8 +342,11 @@ public class SQLSaver : MonoBehaviour
     {
         return (int)Math.Ceiling((a - new DateTime(1970, 1, 1, 0, 0, 0)).TotalSeconds);
     }
-    private DateTime ConvertTimeStampToDateTime(int a)
+    private DateTime ConvertStringToDateTime(string a)
     {
-        return new DateTime(1970, 1, 1, 0, 0, 0).AddSeconds(a);
+        string[] b = a.Split(' ');
+        string[] date = b[0].Split('/');
+        string[] time = b[1].Split(':');
+        return new DateTime(int.Parse(date[0]), int.Parse(date[1]), int.Parse(date[2]), int.Parse(time[0]), int.Parse(time[1]), int.Parse(time[2]));
     }
 }

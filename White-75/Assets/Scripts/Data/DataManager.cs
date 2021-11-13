@@ -170,7 +170,7 @@ public class DataManager : MonoBehaviour
         //annual record
         concentrationTime[5] = (concentrationTime[5] * 365 + record) / 366;
         //total record
-        concentrationTime[6] = concentrationTimeSum/taskFinishedCount;
+        concentrationTime[6] = concentrationTimeSum/(taskFinishedCount+1);
     }
 
     private double GetTime()
