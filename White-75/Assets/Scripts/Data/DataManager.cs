@@ -65,7 +65,7 @@ public class DataManager : MonoBehaviour
 
    public void InitializeData()
     {
-        color = 0.36f;
+        color = UnityEngine.Random.Range(0f,1f); 
         backgroundColor = Color.HSVToRGB(color,0.5f,1f);
         defaultTagIndex = 0;
         defaultDeadline = TimeSpan.FromDays(1);
@@ -194,6 +194,7 @@ public class DataManager : MonoBehaviour
         {
             sQLSaver.Push(this);
         }
+        backgroundColor = Color.HSVToRGB(color, 0.5f, 1f);
     }
     public void OnApplicationQuit()
     {

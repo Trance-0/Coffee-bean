@@ -79,7 +79,7 @@ ScriptsOnlyBuild:
     - XCharts.XChartsMgr
     - XCharts.XChartsSettings
   sceneClasses:
-    Assets/Scenes/TimeBlocks.unity:
+    Assets/Scenes/White-75.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -697,7 +697,7 @@ ScriptsOnlyBuild:
     className: BlockChain
   - hash:
       serializedVersion: 2
-      Hash: fd91132c54cebe705ab34e8b5bb98d6f
+      Hash: da77ac945b1c1d033b90fcd1ad175d7c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Login
@@ -763,7 +763,7 @@ ScriptsOnlyBuild:
     className: TimeBlock
   - hash:
       serializedVersion: 2
-      Hash: 61661f106b6cecb875740ca53c83d20d
+      Hash: 96f36e883114c33eed26bed70e879f8d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ImageChanger
@@ -787,7 +787,7 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: dc6207228ad66b815b6620c76af99dec
+      Hash: 598e1fd6917b307b3fb2a0e0c8361f1a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Register
@@ -931,7 +931,7 @@ ScriptsOnlyBuild:
     className: iOSNotificationsWrapper
   - hash:
       serializedVersion: 2
-      Hash: a93ba280b013aec5a9b5702cf78cac5d
+      Hash: 00a39e332ff1308ceebae46c1233a273
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Icon
@@ -1225,5 +1225,5 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   platform: 13
   scenePathNames:
-  - Assets/Scenes/TimeBlocks.unity
-  playerPath: D:/Downloads/White-75_v0.1.22.apk
+  - Assets/Scenes/White-75.unity
+  playerPath: D:/Downloads/White-75_v0.1.23.apk
