@@ -14,6 +14,7 @@ public class Login : MonoBehaviour
     public ErrorWindow errorWindow;
     public CanvasManager canvasManager;
     public DataManager dataManager;
+    public BufferWindow bufferWindow;
 
     public SQLSaver sqlSaver;
 
@@ -36,7 +37,9 @@ public class Login : MonoBehaviour
         return System.Convert.ToBase64String(OutputBytes);
     }
     public void checkPassword() {
-        try{
+        bufferWindow.LoadBuffer("Checking identity", 5f);
+        try
+        {
             //access data base to verify
             if (sqlSaver.Login(userName.text, SHA256Hash(password.text)))
             {

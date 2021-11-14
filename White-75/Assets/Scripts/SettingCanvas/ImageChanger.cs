@@ -8,7 +8,7 @@ public class ImageChanger : MonoBehaviour
 {
     public ConfigManager configManager;
     public GameObject imageChainUI;
-    public GameObject framePF;
+    public Icon framePF;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +25,13 @@ public class ImageChanger : MonoBehaviour
 
     private void CreateANewTag(int i,Sprite image)
     {
-        GameObject newImage = Instantiate(framePF, imageChainUI.transform.position, Quaternion.identity);
+        Icon newImage = Instantiate(framePF, imageChainUI.transform.position, Quaternion.identity);
         newImage.gameObject.transform.SetParent(imageChainUI.transform);
-        newImage.GetComponent<Icon>().image.sprite = image;
-        newImage.GetComponent<Icon>().image.color = configManager.imageColor;
-        newImage.GetComponent<Icon>().iconId =i;
-        newImage.GetComponent<Button>().interactable = false;
+        newImage.gameObject.transform.localScale = new Vector3(1f,1f,1f);
+        newImage.image.sprite = image;
+        newImage.image.color = configManager.imageColor;
+        newImage.iconId =i;
+        newImage.button.interactable = false;
     }
     //remember, the tag cannot change icon by themselves, so I use TagUI, don't change it if you don't know what you are doing.
     public void setGoal(TagUI k) {

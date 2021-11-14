@@ -12,6 +12,7 @@ public class Register : MonoBehaviour
     public SQLSaver sqlSaver;
     public DataManager dataManager;
     public EmailSender emailSender;
+    public BufferWindow bufferWindow;
     public ErrorWindow errorWindow;
 
     public InputField userName;
@@ -65,6 +66,7 @@ public class Register : MonoBehaviour
     public void Signup() {
         try
         {
+            bufferWindow.LoadBuffer("Building profile",5f);
             Debug.Log(string.Format("Sending message to server: username={0},email={1},verificaiton code={2},password hash={3} ",userName.text,email.text , verify.text,password1.text , SHA256Hash(password1.text)));
             if (userName.text != null && email.text != null && finalmail == email.text && verify.text == code && password1.text == password2.text) {
                 if (sqlSaver.CheckUserNameRepeated(userName.text)) {
