@@ -95,7 +95,7 @@ public class TaskOperatingContoler : MonoBehaviour
            
             if (!focusManager.onFocus)
             {
-                NotificationManager.SendNotification(Application.productName, "Interruption detected, return to app to continue your task.");
+                //NotificationManager.SendNotification(Application.productName, "Interruption detected, return to app to continue your task.");
                 isCounting = false;
             }
         }

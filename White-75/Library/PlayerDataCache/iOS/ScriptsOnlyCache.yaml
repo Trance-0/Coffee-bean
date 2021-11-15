@@ -1,16 +1,38 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - Background
     - BlockChain
+    - BufferWindow
+    - ButtonExtension
+    - CanvasManager
+    - ConfigManager
     - DataManager
+    - DataSynchronizeWindow
+    - DebugWIndow
     - EmailSender
+    - ErrorWindow
+    - FocusManager
+    - GuideWindow
+    - IcalSaver
+    - Icon
+    - ImageChanger
     - JsonSaver
     - Login
     - LoginWindowsManager
     - NewTaskWindowManager
     - NewTaskWindowWaker
+    - PauseWindow
+    - RankManager
     - Register
+    - SQLSaver
+    - SettingManager
     - SortBy
+    - StatsManager
+    - SubNoteWindowManager
+    - TagChain
+    - TagUI
+    - TaskOperatingContoler
     - TimeBlock
     - TimeBlockUI
     Unity.2D.Animation.Editor.dll:
@@ -23,6 +45,12 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -41,11 +69,17 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.RectMask2D
     - UnityEngine.UI.ScrollRect
     - UnityEngine.UI.Scrollbar
+    - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
     - UnityEngine.UI.Toggle
     - UnityEngine.UI.VerticalLayoutGroup
+    XCharts.Runtime.dll:
+    - XCharts.BarChart
+    - XCharts.Painter
+    - XCharts.XChartsMgr
+    - XCharts.XChartsSettings
   sceneClasses:
-    Assets/Scenes/SampleScene.unity:
+    Assets/Scenes/White-75.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -62,66 +96,126 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 61
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11258}
+      Script: {instanceID: 11406}
     - Class: 114
-      Script: {instanceID: 11282}
+      Script: {instanceID: 11408}
     - Class: 114
-      Script: {instanceID: 11570}
+      Script: {instanceID: 11528}
     - Class: 114
-      Script: {instanceID: 11574}
+      Script: {instanceID: 11650}
     - Class: 114
-      Script: {instanceID: 11626}
+      Script: {instanceID: 11890}
     - Class: 114
-      Script: {instanceID: 11962}
+      Script: {instanceID: 11894}
     - Class: 114
-      Script: {instanceID: 12088}
+      Script: {instanceID: 11960}
     - Class: 114
-      Script: {instanceID: 12128}
+      Script: {instanceID: 11964}
     - Class: 114
-      Script: {instanceID: 12308}
+      Script: {instanceID: 12154}
     - Class: 114
-      Script: {instanceID: 12378}
+      Script: {instanceID: 12192}
     - Class: 114
-      Script: {instanceID: 12410}
+      Script: {instanceID: 12210}
     - Class: 114
-      Script: {instanceID: 12502}
+      Script: {instanceID: 12372}
     - Class: 114
-      Script: {instanceID: 12516}
+      Script: {instanceID: 12526}
     - Class: 114
-      Script: {instanceID: 12666}
+      Script: {instanceID: 12534}
     - Class: 114
-      Script: {instanceID: 12764}
+      Script: {instanceID: 12538}
     - Class: 114
-      Script: {instanceID: 12830}
+      Script: {instanceID: 12584}
     - Class: 114
-      Script: {instanceID: 13002}
+      Script: {instanceID: 12700}
     - Class: 114
-      Script: {instanceID: 13170}
+      Script: {instanceID: 12708}
     - Class: 114
-      Script: {instanceID: 13316}
+      Script: {instanceID: 12722}
     - Class: 114
-      Script: {instanceID: 13368}
+      Script: {instanceID: 12804}
     - Class: 114
-      Script: {instanceID: 13720}
+      Script: {instanceID: 12878}
     - Class: 114
-      Script: {instanceID: 13792}
+      Script: {instanceID: 12902}
     - Class: 114
-      Script: {instanceID: 14374}
+      Script: {instanceID: 12946}
     - Class: 114
-      Script: {instanceID: 14406}
+      Script: {instanceID: 13066}
     - Class: 114
-      Script: {instanceID: 14426}
+      Script: {instanceID: 13084}
     - Class: 114
-      Script: {instanceID: 14440}
+      Script: {instanceID: 13100}
     - Class: 114
-      Script: {instanceID: 14466}
+      Script: {instanceID: 13274}
     - Class: 114
-      Script: {instanceID: 14508}
+      Script: {instanceID: 13392}
+    - Class: 114
+      Script: {instanceID: 13454}
+    - Class: 114
+      Script: {instanceID: 13474}
+    - Class: 114
+      Script: {instanceID: 13482}
+    - Class: 114
+      Script: {instanceID: 13692}
+    - Class: 114
+      Script: {instanceID: 13732}
+    - Class: 114
+      Script: {instanceID: 13834}
+    - Class: 114
+      Script: {instanceID: 13842}
+    - Class: 114
+      Script: {instanceID: 13890}
+    - Class: 114
+      Script: {instanceID: 13896}
+    - Class: 114
+      Script: {instanceID: 14018}
+    - Class: 114
+      Script: {instanceID: 14032}
+    - Class: 114
+      Script: {instanceID: 14068}
+    - Class: 114
+      Script: {instanceID: 14130}
+    - Class: 114
+      Script: {instanceID: 14352}
+    - Class: 114
+      Script: {instanceID: 14506}
+    - Class: 114
+      Script: {instanceID: 14566}
+    - Class: 114
+      Script: {instanceID: 14640}
+    - Class: 114
+      Script: {instanceID: 14880}
+    - Class: 114
+      Script: {instanceID: 15344}
+    - Class: 114
+      Script: {instanceID: 15368}
+    - Class: 114
+      Script: {instanceID: 15406}
+    - Class: 114
+      Script: {instanceID: 15432}
+    - Class: 114
+      Script: {instanceID: 15450}
+    - Class: 114
+      Script: {instanceID: 15462}
+    - Class: 114
+      Script: {instanceID: 15464}
+    - Class: 114
+      Script: {instanceID: 15482}
+    - Class: 114
+      Script: {instanceID: 15542}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -145,6 +239,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Button
+  - hash:
+      serializedVersion: 2
+      Hash: aeb62f729c52c814dec86c47dcac1471
+    assemblyName: UnityEngine.UI.dll
+    namespaceName: UnityEngine.UI
+    className: Text
   - hash:
       serializedVersion: 2
       Hash: 4bc4346a71a8df53a6b106f68ef3a190
@@ -171,10 +271,46 @@ ScriptsOnlyBuild:
     className: TMP_Dropdown
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example41_RadarUpdate
+  - hash:
+      serializedVersion: 2
+      Hash: a56b827c7c6a42fe9afd76e0f4cc62f4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PauseWindow
+  - hash:
+      serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: ScatterChart
+  - hash:
+      serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: LineChart
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example10_LineChart
+  - hash:
+      serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_ScrollbarEventHandler
+  - hash:
+      serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: PolarChart
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -193,12 +329,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: ActivationTrack
-  - hash:
-      serializedVersion: 2
-      Hash: aeb62f729c52c814dec86c47dcac1471
-    assemblyName: UnityEngine.UI.dll
-    namespaceName: UnityEngine.UI
-    className: Text
   - hash:
       serializedVersion: 2
       Hash: 499fd23433e68e265d153aa6b95d0047
@@ -225,13 +355,19 @@ ScriptsOnlyBuild:
     className: TouchInputModule
   - hash:
       serializedVersion: 2
+      Hash: f1295f85ffa2fb9e766b543f21484c0c
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example_LargeData
+  - hash:
+      serializedVersion: 2
       Hash: 89f9a1b4c64db9559e39f4a2e3bfaadd
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Image
   - hash:
       serializedVersion: 2
-      Hash: 2e7f9e3937388ad3470c6fe150383ece
+      Hash: afea09bb4123378d9f26a3b9bee8d97b
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CanvasManager
@@ -261,7 +397,7 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: 2e535ac4fd224b21a2b8b909235abc02
+      Hash: bd4f0e2fe58971e1876514232b5d6ab7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Tag
@@ -271,6 +407,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.SpriteShape.Runtime.dll
     namespaceName: 
     className: SpriteShapeGeometryCache
+  - hash:
+      serializedVersion: 2
+      Hash: 4cdbdcbc64e4214e398acfca85e6e0e9
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SettingManager
   - hash:
       serializedVersion: 2
       Hash: 8aa3d6ccbcb54ee8db6c1229854adaaa
@@ -285,6 +427,12 @@ ScriptsOnlyBuild:
     className: SignalAsset
   - hash:
       serializedVersion: 2
+      Hash: 63bf426b53c1eaa3410576b7ad8cd71c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ButtonExtension
+  - hash:
+      serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -295,6 +443,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: PhysicsRaycaster
+  - hash:
+      serializedVersion: 2
+      Hash: c001bdce85dc8b5c66bdc0bf8934afac
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Background
   - hash:
       serializedVersion: 2
       Hash: bd3cf68c8964d3c66d1c43f4f98508c9
@@ -321,10 +475,40 @@ ScriptsOnlyBuild:
     className: CinemachinePixelPerfect
   - hash:
       serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: BaseChart
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example00_CheatSheet
+  - hash:
+      serializedVersion: 2
       Hash: ef5c43f921427d03730f6ea4c848f07d
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: RectMask2D
+  - hash:
+      serializedVersion: 2
+      Hash: eff0451fbdbf08f30af3d99341e47268
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Cheat
+  - hash:
+      serializedVersion: 2
+      Hash: 66ae9edc6751ac50cc859fa628dd45ce
+    assemblyName: OneSignal.UnityPackage.Example.dll
+    namespaceName: 
+    className: OneSignalExampleBehaviour
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Unity.Notifications.Android.dll
+    namespaceName: Unity.Notifications.Android
+    className: AndroidReceivedNotificationMainThreadDispatcher
   - hash:
       serializedVersion: 2
       Hash: 1103fb0758976355cdf9b7d5ce9cb7e0
@@ -339,13 +523,43 @@ ScriptsOnlyBuild:
     className: PixelPerfectCamera
   - hash:
       serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: CoordinateChart
+  - hash:
+      serializedVersion: 2
       Hash: 5ab533713adae59372fb3e10a585c186
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AnimationPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: 88cc0a08cc8d1bf1c5df1925988102ce
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example30_PieChart
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example12_CustomDrawing
+  - hash:
+      serializedVersion: 2
+      Hash: c42672c997f8be6b1aa86a927ebea785
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: Painter
+  - hash:
+      serializedVersion: 2
+      Hash: fddc0cc7b356800f38c4bbad3e44c04d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: RankManager
+  - hash:
+      serializedVersion: 2
+      Hash: e01fa8d0e749bfd13d37d5420931b726
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SortBy
@@ -369,10 +583,28 @@ ScriptsOnlyBuild:
     className: SQLSample
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: dfcccd1adddc24dfb9d637d2c0fa0248
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TaskOperatingContoler
+  - hash:
+      serializedVersion: 2
+      Hash: 5d84ae03dd08594d935e6694647f4b3f
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: XChartsMgr
+  - hash:
+      serializedVersion: 2
+      Hash: f88b88532772aca3d29edd3c2d45aa2b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GuideWindow
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp-firstpass.dll
+    namespaceName: 
+    className: UniWebViewEventProcessor
   - hash:
       serializedVersion: 2
       Hash: 5f170942ee57c7a568f5bcfc7521adea
@@ -405,6 +637,18 @@ ScriptsOnlyBuild:
     className: SpriteShape
   - hash:
       serializedVersion: 2
+      Hash: 74d65df32e1970c7480011d3db23cbce
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: BaseGraph
+  - hash:
+      serializedVersion: 2
+      Hash: 046facdbcaa33474c458526de4ae7636
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ConfigManager
+  - hash:
+      serializedVersion: 2
       Hash: 5cc439bf63c0539d39588e69465ac2ab
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -429,22 +673,52 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: c538d6acacc6c9c59a6b41fea090c463
+      Hash: 37fa339cb6bc8961e0adc0da983e9b84
+    assemblyName: OneSignal.Core.dll
+    namespaceName: 
+    className: OneSignalSettings
+  - hash:
+      serializedVersion: 2
+      Hash: 44cf045a86ce3e4df45778e012d4686d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: LoginWindowsManager
   - hash:
       serializedVersion: 2
-      Hash: 3914189f1407d4883d8eaed932508bdc
+      Hash: c42672c997f8be6b1aa86a927ebea785
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XUGL
+    className: UGLExample
+  - hash:
+      serializedVersion: 2
+      Hash: d16a392a0e9b0ae89210f43a7039a0bf
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BlockChain
   - hash:
       serializedVersion: 2
-      Hash: fe6ec921be7c1ac13eaf6a0560fd89bc
+      Hash: da77ac945b1c1d033b90fcd1ad175d7c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Login
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example_Test
+  - hash:
+      serializedVersion: 2
+      Hash: 22794792332fc07044d4548885707a32
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: SubNoteWindowManager
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example50_Scatter
   - hash:
       serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
@@ -471,16 +745,34 @@ ScriptsOnlyBuild:
     className: EmailSender
   - hash:
       serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: BarChart
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 6ed8ea35eb0ae334670511022f36a072
+      Hash: 9b555ccc18748fce055db06380907224
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TimeBlock
+  - hash:
+      serializedVersion: 2
+      Hash: 96f36e883114c33eed26bed70e879f8d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ImageChanger
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example31_PieUpdateName
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -495,13 +787,13 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 212c527714ec1dbe1246a88821a8cc98
+      Hash: 598e1fd6917b307b3fb2a0e0c8361f1a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Register
   - hash:
       serializedVersion: 2
-      Hash: fbda7d24876a77e3ea735225110637c7
+      Hash: 59282b348fb3729dcb13eba5ab9442f7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TagUI
@@ -513,16 +805,52 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: LiquidChart
+  - hash:
+      serializedVersion: 2
+      Hash: 5a74b9736de43373579d5b73b1c4655d
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BufferWindow
+  - hash:
+      serializedVersion: 2
+      Hash: 481a4f5759e7926558ba8342bd15c6ff
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TagChain
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example02_ChartEvent
   - hash:
       serializedVersion: 2
       Hash: 5ad4aa237d47ac2bab17bacb672edf7a
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: VerticalLayoutGroup
+  - hash:
+      serializedVersion: 2
+      Hash: b1a5dbd5b150999f93ea937eca6763b7
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: XChartsSettings
+  - hash:
+      serializedVersion: 2
+      Hash: 540fe8be8e88c82a28b91cd945761379
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DebugWIndow
+  - hash:
+      serializedVersion: 2
+      Hash: bf47fdf9dc942e6ad47cac6f69258f6b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FocusManager
   - hash:
       serializedVersion: 2
       Hash: 71b711096c6c32621c1d4c02310898b7
@@ -579,10 +907,64 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: PieChart
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: NotificationManager
+  - hash:
+      serializedVersion: 2
       Hash: c1933cc0a2f4ff6eb13333347497beb3
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: TimelineAsset
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Unity.Notifications.iOS.dll
+    namespaceName: Unity.Notifications.iOS
+    className: iOSNotificationsWrapper
+  - hash:
+      serializedVersion: 2
+      Hash: 00a39e332ff1308ceebae46c1233a273
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Icon
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example03_ChartAnimation
+  - hash:
+      serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: GaugeChart
+  - hash:
+      serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: CandlestickChart
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example01_UpdateData
+  - hash:
+      serializedVersion: 2
+      Hash: 73887a47991b8852c60b10a994cfd07f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: StatsManager
   - hash:
       serializedVersion: 2
       Hash: 6939772cb3ce775a8e8d99f332534491
@@ -591,7 +973,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 5e6e1771325bd90ccc6f8529b992001a
+      Hash: b69ba5733eb9e9b0f89c44271fe1108f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NewTaskWindowManager
@@ -615,6 +997,54 @@ ScriptsOnlyBuild:
     className: BeforeAfterTestCommandState
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example20_BarChart
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example60_Heatmap
+  - hash:
+      serializedVersion: 2
+      Hash: 483d36a5f81861968b8164906f1e1e64
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example_Dynamic
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example70_Gauge
+  - hash:
+      serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: RadarChart
+  - hash:
+      serializedVersion: 2
+      Hash: 38fbde00cf5e04e4e3bb478ba2662b01
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example11_AddSinCurve
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example80_Polar
+  - hash:
+      serializedVersion: 2
+      Hash: 36e76c561b6a6d4425a7df26fba41c93
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: IcalSaver
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -627,16 +1057,40 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: HeatmapChart
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example13_LineSimple
+  - hash:
+      serializedVersion: 2
       Hash: 8cd1cbba27f3cb1717254f668e9e0d5a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TextMeshPro
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example_PieChart
+  - hash:
+      serializedVersion: 2
       Hash: 3165968ba45c74472d279ba04455fccb
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_ColorGradient
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example40_Radar
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -667,6 +1121,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_SubMesh
+  - hash:
+      serializedVersion: 2
+      Hash: decf3e3a4392c7afd68b049b07d4d7d4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ErrorWindow
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
@@ -705,7 +1165,13 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
-      Hash: 7bebe20d39650425c01aeeece74af38b
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: OneSignal.Core.dll
+    namespaceName: 
+    className: OneSignal
+  - hash:
+      serializedVersion: 2
+      Hash: b6f41783e7de5d2d524dd87c74ccc929
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TimeBlockUI
@@ -717,10 +1183,28 @@ ScriptsOnlyBuild:
     className: Slider
   - hash:
       serializedVersion: 2
-      Hash: 3ea0a94a82503ab231094ebad00fe86c
+      Hash: 45c068e878995a1f0ebc1c07a34a0af4
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: DataSynchronizeWindow
+  - hash:
+      serializedVersion: 2
+      Hash: f6d282c3266d0d3d681e84b2375f1c0d
+    assemblyName: XCharts.Runtime.dll
+    namespaceName: XCharts
+    className: RingChart
+  - hash:
+      serializedVersion: 2
+      Hash: 7981daf666382385949eb21d84c17d9d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: NewTaskWindowWaker
+  - hash:
+      serializedVersion: 2
+      Hash: 3862116067702cbb24328b0e89710dc2
+    assemblyName: XCharts.Examples.Runtime.dll
+    namespaceName: XCharts.Examples
+    className: Example90_Candlestick
   - hash:
       serializedVersion: 2
       Hash: 0fd6822f6177297bd0eb4d83cc7a9030
@@ -729,7 +1213,7 @@ ScriptsOnlyBuild:
     className: ToggleGroup
   - hash:
       serializedVersion: 2
-      Hash: 0f39b7009b7a3d51136bbfbd2cd5fae6
+      Hash: 6905441dd28f76f62400e3ecacd06484
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DataManager
@@ -739,277 +1223,7 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 704dcd31abc789439bc3f3cd10b58c2b
-    assemblyName: DOTween.dll
-    namespaceName: DG.Tweening.Core
-    className: DOTweenComponent
-  - hash:
-      serializedVersion: 2
-      Hash: 54235252bf4cb65f08d69f0c0a449c69
-    assemblyName: DOTween.dll
-    namespaceName: DG.Tweening.Core
-    className: DOTweenSettings
-  - hash:
-      serializedVersion: 2
-      Hash: 38f4dc0e4a61d0eb81f5f309347d7e8c
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Bezier_Band
-  - hash:
-      serializedVersion: 2
-      Hash: 79c2331659da58b5b75fe277acd9c61d
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Link
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Raycatcher
-  - hash:
-      serializedVersion: 2
-      Hash: 56a34e8eb7b580323cbf4225394e7749
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Random_Graph
-  - hash:
-      serializedVersion: 2
-      Hash: 85b7695f8d126837d2f531f4bd34bcfa
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Series
-  - hash:
-      serializedVersion: 2
-      Hash: 9d2f91fc00e4c674b5bcc220a3afdba5
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Legend
-  - hash:
-      serializedVersion: 2
-      Hash: de5d19c9641b0bbafee6a586f3f41cc0
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Ring_Graph
-  - hash:
-      serializedVersion: 2
-      Hash: 5d788c72eb5cdbcac912343d74148b5e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Grid
-  - hash:
-      serializedVersion: 2
-      Hash: cfcf35b4ac59316e79234c90fe3e8dc4
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Data_Source
-  - hash:
-      serializedVersion: 2
-      Hash: 66cf9a150e8d2e7caac26eb2c1c0ec78
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_X_Dynamic
-  - hash:
-      serializedVersion: 2
-      Hash: f631d0dd0f8f820820468f516ae8385e
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Radar_Graph
-  - hash:
-      serializedVersion: 2
-      Hash: aeed0cc185b79a5ee596e026fd38dc21
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_X_Data_Provider
-  - hash:
-      serializedVersion: 2
-      Hash: fc1a0130d9351950442674b72c48a7ad
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Ring
-  - hash:
-      serializedVersion: 2
-      Hash: 8254695e5700bcb5ff3669a460d8b54b
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_X_Interactive_Pie
-  - hash:
-      serializedVersion: 2
-      Hash: d8a23bcf60f5fad2d454dd6c5e9b2d41
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_X_Tutorial_1
-  - hash:
-      serializedVersion: 2
-      Hash: 64228ef71a64dea33a90d822e88528f5
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_X_Simple_Pie
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Graph_Manager
-  - hash:
-      serializedVersion: 2
-      Hash: 0a5a9737e25664ad60ebbd8866659fde
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Compute_Shader
-  - hash:
-      serializedVersion: 2
-      Hash: 8e368d450c78c84782ec697ea4817579
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_X_Ring_Graph
-  - hash:
-      serializedVersion: 2
-      Hash: 507436cc30c4ea1510cce78f83fa7e00
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Pie_Graph
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Events
-  - hash:
-      serializedVersion: 2
-      Hash: 4b4e2025898c3ab91eb6ad378283d2bc
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Bezier_Band_Graph
-  - hash:
-      serializedVersion: 2
-      Hash: f400297c09f91756ce4a6aa672a756ea
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Legend_Entry
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Text_Functions
-  - hash:
-      serializedVersion: 2
-      Hash: 445840d27fd94f64bb2cff657140ff41
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_X_Plot_Overtime
-  - hash:
-      serializedVersion: 2
-      Hash: 1a5e19ceb5939cf5cb94a1d5f6613e88
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Hierarchical_Tree
-  - hash:
-      serializedVersion: 2
-      Hash: fcf7dd694a80c6145b08ed9d2274839d
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Graph_Auto_Anim
-  - hash:
-      serializedVersion: 2
-      Hash: db66f66d06ace982dd4a00f943eac6e9
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Axis
-  - hash:
-      serializedVersion: 2
-      Hash: fcf7dd694a80c6145b08ed9d2274839d
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Graph_Tooltip
-  - hash:
-      serializedVersion: 2
-      Hash: 03f59f96ab0e59bbc2e8313af6c5ea3f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Axis_Graph
-  - hash:
-      serializedVersion: 2
-      Hash: 4f421b41c7c0a81117055d8f4463c527
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Pie_Graph_Slice
-  - hash:
-      serializedVersion: 2
-      Hash: 39cf7a49eeb4b6e3401b00053a57cf92
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Node
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_GUI_Functions
-  - hash:
-      serializedVersion: 2
-      Hash: 514ecc859b2ace68bc969edd4b06c697
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: WMG_Raycaster
-  - hash:
-      serializedVersion: 2
-      Hash: f371a6cc5c43f7b7ab285ba16154ed76
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: UniWebView
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp-firstpass.dll
-    namespaceName: 
-    className: UniWebViewEventProcessor
-  - hash:
-      serializedVersion: 2
-      Hash: 8b4758d528dc963ac12b82aec2606b72
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: LocalHTMLSceneManager
-  - hash:
-      serializedVersion: 2
-      Hash: c112959678dee0417cd071d2e63594c8
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: CallbackFromWebSceneManager
-  - hash:
-      serializedVersion: 2
-      Hash: 9d59017559d7174c9341b98757befa85
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: SizeAndTransitionSceneManager
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Navigator
-  - hash:
-      serializedVersion: 2
-      Hash: c112959678dee0417cd071d2e63594c8
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: RunJavaScriptInWebSceneManager
-  - hash:
-      serializedVersion: 2
-      Hash: 126dde9a8752dfb19d2bde291ce5cf3c
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TopSceneManager
-  - hash:
-      serializedVersion: 2
-      Hash: 3f3191b1d534e6ead763ecc136bf11b3
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: UseWithCodeSceneManager
   platform: 9
   scenePathNames:
-  - Assets/Scenes/SampleScene.unity
-  playerPath: Z:/TimeBlocks Test
+  - Assets/Scenes/White-75.unity
+  playerPath: /Users/the-starry/Downloads/White

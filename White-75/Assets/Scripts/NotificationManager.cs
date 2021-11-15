@@ -135,7 +135,7 @@ public class iOSNotificationSender:MonoBehaviour
             return;
         _notificationInfos = new List<NotificationInfo>();
         ResetNotificationChannel();
-        var notificationGo= new GameObject("NotificationBehaviour").AddComponent<NotificationSender>();
+        var notificationGo= new GameObject("NotificationBehaviour").AddComponent<NotificationManager>();
         DontDestroyOnLoad(notificationGo);
         _isInitialized = true;
     }
@@ -185,7 +185,7 @@ public class iOSNotificationSender:MonoBehaviour
     private static void SendNotification(NotificationInfo notificationInfo)//string title, string text,TimeSpan timeInterval)
     {
         
-        var time = NotificationSender.GetNotificationTime(notificationInfo);
+        var time = NotificationManager.GetNotificationTime(notificationInfo);
         var timeInterval =time.Subtract(DateTime.Now);
         
         var timeTrigger = new iOSNotificationTimeIntervalTrigger()
