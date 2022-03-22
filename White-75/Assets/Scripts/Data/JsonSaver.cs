@@ -8,9 +8,13 @@ using System;
 public class JsonSaver : MonoBehaviour
 {
     // Start is called before the first frame update
+    public string workingDir;
+    public bool autoSearchForDirectory=true;
     void Start()
     {
-        
+        if (autoSearchForDirectory) {
+            workingDir=Directory.GetCurrentDirectory();
+        }   
     }
 
     // Update is called once per frame
