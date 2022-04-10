@@ -9,11 +9,11 @@ public class SQLSample : MonoBehaviour
     //数据库名称
     public static string database = "timeblocks";
     //数据库IP
-    private static string host = "45.77.71.189";
+    private static string host = "";
     //用户名
-    private static string username = "TimeBlocks";
+    private static string username = "";
     //用户密码
-    private static string password = "ih54J2K28PwrGfEx";
+    private static string password = "";
 
     public static string sql = string.Format("database={0};server={1};user={2};password={3};port={4}",
     database, host, username, password, "3306");
